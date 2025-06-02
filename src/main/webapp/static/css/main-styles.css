@@ -1,9 +1,9 @@
 :root {
-    --azul-profundo: #01203a;    /* 50% - Mar profundo */
-    --azul-escuro: #014f86;      /* 20% - Azul escuro */
-    --azul-agua: #2ec4f1;        /* 20% - Água cristalina */
-    --azul-espuma: #b3e6ff;      /* 5% - Espuma */
-    --areia: #f8f6f0;            /* 5% - Areia */
+    --azul-profundo: #01203a;
+    --azul-escuro: #014f86;
+    --azul-agua: #2ec4f1;
+    --azul-espuma: #b3e6ff;
+    --areia: #f8f6f0;
     --branco: #fff;
 }
 
@@ -12,9 +12,10 @@ body {
     font-family: 'Segoe UI', Arial, sans-serif;
     background: linear-gradient(135deg, 
         var(--azul-profundo) 0%, 
-        var(--azul-escuro) 50%, 
-        var(--azul-agua) 80%, 
-        var(--azul-espuma) 100%);
+        var(--azul-escuro) 40%, 
+        var(--azul-agua) 75%, 
+        var(--azul-espuma) 90%, 
+        var(--areia) 100%);
     color: var(--branco);
     min-height: 100vh;
 }
@@ -54,25 +55,38 @@ nav a:hover {
     color: var(--azul-profundo);
 }
 
-.hero {
-    background: linear-gradient(120deg, 
-        var(--azul-profundo) 0%, 
-        var(--azul-escuro) 60%, 
-        var(--azul-agua) 100%);
-    padding: 5rem 2rem 4rem 2rem;
-    text-align: center;
+/* HERO COM IMAGEM E OVERLAY */
+.hero-image-wrapper {
     position: relative;
+    width: 100%;
+    max-height: 480px;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hero::after {
-    content: "";
+.hero-image {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    filter: brightness(0.7) saturate(1.1);
+    display: block;
+}
+
+.hero-overlay {
     position: absolute;
-    left: 0; right: 0; bottom: 0;
-    height: 80px;
-    background: linear-gradient(180deg, transparent 0%, var(--azul-espuma) 100%);
-    opacity: 0.25;
-    pointer-events: none;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(120deg, rgba(1,32,58,0.7) 60%, rgba(46,196,241,0.3) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content {
+    text-align: center;
+    color: var(--azul-espuma);
+    z-index: 2;
 }
 
 .hero-content h1 {
@@ -90,8 +104,8 @@ nav a:hover {
 }
 
 .cta-btn {
-    background: linear-gradient(90deg, var(--azul-espuma) 60%, var(--azul-agua) 100%);
-    color: var(--azul-profundo);
+    background: linear-gradient(90deg, var(--azul-escuro) 60%, var(--azul-agua) 100%);
+    color: var(--branco);
     padding: 1rem 2.2rem;
     border: none;
     border-radius: 30px;
@@ -100,12 +114,14 @@ nav a:hover {
     cursor: pointer;
     text-decoration: none;
     box-shadow: 0 2px 12px rgba(46,196,241,0.13);
-    transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+    position: relative;
 }
 
 .cta-btn:hover {
-    background: linear-gradient(90deg, var(--azul-agua) 60%, var(--azul-espuma) 100%);
-    color: var(--azul-profundo);
+    background: linear-gradient(90deg, var(--azul-agua) 60%, var(--azul-escuro) 100%);
+    color: var(--azul-espuma);
+    transform: scale(1.05);
 }
 
 .valores {
@@ -156,6 +172,14 @@ nav a:hover {
 
 .card p {
     font-size: 1.05rem;
+}
+
+.valores.reveal-info {
+    animation: revealFade 1.2s;
+}
+@keyframes revealFade {
+    0% { opacity: 0; transform: translateY(60px);}
+    100% { opacity: 1; transform: translateY(0);}
 }
 
 .parceiros {
