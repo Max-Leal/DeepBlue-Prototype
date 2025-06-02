@@ -1,0 +1,200 @@
+:root {
+    --azul-profundo: #01203a;    /* 50% - Mar profundo */
+    --azul-escuro: #014f86;      /* 20% - Azul escuro */
+    --azul-agua: #2ec4f1;        /* 20% - Água cristalina */
+    --azul-espuma: #b3e6ff;      /* 5% - Espuma */
+    --areia: #f8f6f0;            /* 5% - Areia */
+    --branco: #fff;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, 
+        var(--azul-profundo) 0%, 
+        var(--azul-escuro) 50%, 
+        var(--azul-agua) 80%, 
+        var(--azul-espuma) 100%);
+    color: var(--branco);
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, 
+        var(--azul-profundo) 0%, 
+        var(--azul-escuro) 70%, 
+        var(--azul-agua) 100%);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 12px rgba(1,32,58,0.08);
+}
+
+.logo {
+    font-size: 2.2rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--azul-espuma);
+    text-shadow: 1px 2px 8px rgba(46,196,241,0.18);
+}
+
+nav a {
+    color: var(--branco);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-weight: 500;
+    transition: color 0.2s, background 0.2s;
+    padding: 0.3rem 0.7rem;
+    border-radius: 8px;
+}
+
+nav a:hover {
+    background: linear-gradient(90deg, var(--azul-agua) 60%, var(--azul-espuma) 100%);
+    color: var(--azul-profundo);
+}
+
+.hero {
+    background: linear-gradient(120deg, 
+        var(--azul-profundo) 0%, 
+        var(--azul-escuro) 60%, 
+        var(--azul-agua) 100%);
+    padding: 5rem 2rem 4rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 80px;
+    background: linear-gradient(180deg, transparent 0%, var(--azul-espuma) 100%);
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+.hero-content h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1.2rem;
+    color: var(--azul-espuma);
+    text-shadow: 1px 2px 12px rgba(1,32,58,0.18);
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    margin-bottom: 2.2rem;
+    color: var(--azul-espuma);
+    text-shadow: 0 1px 8px rgba(1,32,58,0.10);
+}
+
+.cta-btn {
+    background: linear-gradient(90deg, var(--azul-espuma) 60%, var(--azul-agua) 100%);
+    color: var(--azul-profundo);
+    padding: 1rem 2.2rem;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.15rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 2px 12px rgba(46,196,241,0.13);
+    transition: background 0.2s, color 0.2s;
+}
+
+.cta-btn:hover {
+    background: linear-gradient(90deg, var(--azul-agua) 60%, var(--azul-espuma) 100%);
+    color: var(--azul-profundo);
+}
+
+.valores {
+    background: linear-gradient(120deg, var(--areia) 80%, var(--azul-espuma) 100%);
+    color: var(--azul-profundo);
+    padding: 3.5rem 2rem;
+    text-align: center;
+}
+
+.valores h2 {
+    margin-bottom: 2.2rem;
+    color: var(--azul-escuro);
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.2rem;
+}
+
+.card {
+    background: linear-gradient(135deg, 
+        var(--azul-agua) 60%, 
+        var(--azul-espuma) 90%, 
+        var(--areia) 100%);
+    color: var(--azul-profundo);
+    border-radius: 18px;
+    box-shadow: 0 4px 18px rgba(1,32,58,0.09);
+    padding: 2.2rem 1.7rem;
+    width: 270px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.18s;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(46,196,241,0.16);
+}
+
+.card h3 {
+    margin-bottom: 1rem;
+    color: var(--azul-escuro);
+}
+
+.card p {
+    font-size: 1.05rem;
+}
+
+.parceiros {
+    background: linear-gradient(90deg, 
+        var(--azul-profundo) 0%, 
+        var(--azul-escuro) 70%, 
+        var(--azul-agua) 100%);
+    padding: 2.8rem 2rem;
+    text-align: center;
+}
+
+.parceiros h2 {
+    color: var(--azul-espuma);
+    margin-bottom: 1.5rem;
+}
+
+.parceiros-logos {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.parceiros-logos img {
+    width: 120px;
+    height: auto;
+    filter: drop-shadow(0 2px 8px rgba(46,196,241,0.15));
+    background: var(--branco);
+    border-radius: 10px;
+    padding: 0.7rem;
+}
+
+.footer {
+    background: linear-gradient(90deg, 
+        var(--azul-profundo) 0%, 
+        var(--azul-escuro) 70%, 
+        var(--azul-agua) 100%);
+    color: var(--branco);
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.97rem;
+}
