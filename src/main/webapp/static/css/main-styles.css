@@ -10,12 +10,12 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: linear-gradient(135deg, 
-        var(--azul-profundo) 0%, 
-        var(--azul-escuro) 40%, 
-        var(--azul-agua) 75%, 
-        var(--azul-espuma) 90%, 
-        var(--areia) 100%);
+    background: linear-gradient(135deg,
+            var(--azul-profundo) 0%,
+            var(--azul-escuro) 40%,
+            var(--azul-agua) 75%,
+            var(--azul-espuma) 90%,
+            var(--areia) 100%);
     color: var(--branco);
     min-height: 100vh;
 }
@@ -24,12 +24,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(90deg, 
-        var(--azul-profundo) 0%, 
-        var(--azul-escuro) 70%, 
-        var(--azul-agua) 100%);
+    background: linear-gradient(90deg,
+            var(--azul-profundo) 0%,
+            var(--azul-escuro) 70%,
+            var(--azul-agua) 100%);
     padding: 1rem 2rem;
-    box-shadow: 0 2px 12px rgba(1,32,58,0.08);
+    box-shadow: 0 2px 12px rgba(1, 32, 58, 0.08);
 }
 
 .logo {
@@ -37,7 +37,7 @@ body {
     font-weight: bold;
     letter-spacing: 2px;
     color: var(--azul-espuma);
-    text-shadow: 1px 2px 8px rgba(46,196,241,0.18);
+    text-shadow: 1px 2px 8px rgba(46, 196, 241, 0.18);
 }
 
 nav a {
@@ -68,7 +68,7 @@ nav a:hover {
 
 .hero-image {
     width: 100%;
-    height: 480px;
+    height: 1000px;
     object-fit: cover;
     filter: brightness(0.7) saturate(1.1);
     display: block;
@@ -76,11 +76,15 @@ nav a:hover {
 
 .hero-overlay {
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(120deg, rgba(1,32,58,0.7) 60%, rgba(46,196,241,0.3) 100%);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(120deg, rgba(1, 32, 58, 0.7) 60%, rgba(46, 196, 241, 0.3) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%;
 }
 
 .hero-content {
@@ -93,14 +97,14 @@ nav a:hover {
     font-size: 2.8rem;
     margin-bottom: 1.2rem;
     color: var(--azul-espuma);
-    text-shadow: 1px 2px 12px rgba(1,32,58,0.18);
+    text-shadow: 1px 2px 12px rgba(1, 32, 58, 0.18);
 }
 
 .hero-content p {
     font-size: 1.25rem;
     margin-bottom: 2.2rem;
     color: var(--azul-espuma);
-    text-shadow: 0 1px 8px rgba(1,32,58,0.10);
+    text-shadow: 0 1px 8px rgba(1, 32, 58, 0.10);
 }
 
 .cta-btn {
@@ -113,7 +117,7 @@ nav a:hover {
     font-weight: bold;
     cursor: pointer;
     text-decoration: none;
-    box-shadow: 0 2px 12px rgba(46,196,241,0.13);
+    box-shadow: 0 2px 12px rgba(46, 196, 241, 0.13);
     transition: background 0.2s, color 0.2s, transform 0.2s;
     position: relative;
 }
@@ -144,13 +148,13 @@ nav a:hover {
 }
 
 .card {
-    background: linear-gradient(135deg, 
-        var(--azul-agua) 60%, 
-        var(--azul-espuma) 90%, 
-        var(--areia) 100%);
+    background: linear-gradient(135deg,
+            var(--azul-agua) 60%,
+            var(--azul-espuma) 90%,
+            var(--areia) 100%);
     color: var(--azul-profundo);
     border-radius: 18px;
-    box-shadow: 0 4px 18px rgba(1,32,58,0.09);
+    box-shadow: 0 4px 18px rgba(1, 32, 58, 0.09);
     padding: 2.2rem 1.7rem;
     width: 270px;
     min-height: 180px;
@@ -162,7 +166,7 @@ nav a:hover {
 
 .card:hover {
     transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 8px 24px rgba(46,196,241,0.16);
+    box-shadow: 0 8px 24px rgba(46, 196, 241, 0.16);
 }
 
 .card h3 {
@@ -177,16 +181,24 @@ nav a:hover {
 .valores.reveal-info {
     animation: revealFade 1.2s;
 }
+
 @keyframes revealFade {
-    0% { opacity: 0; transform: translateY(60px);}
-    100% { opacity: 1; transform: translateY(0);}
+    0% {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .parceiros {
-    background: linear-gradient(90deg, 
-        var(--azul-profundo) 0%, 
-        var(--azul-escuro) 70%, 
-        var(--azul-agua) 100%);
+    background: linear-gradient(90deg,
+            var(--azul-profundo) 0%,
+            var(--azul-escuro) 70%,
+            var(--azul-agua) 100%);
     padding: 2.8rem 2rem;
     text-align: center;
 }
@@ -206,17 +218,17 @@ nav a:hover {
 .parceiros-logos img {
     width: 120px;
     height: auto;
-    filter: drop-shadow(0 2px 8px rgba(46,196,241,0.15));
+    filter: drop-shadow(0 2px 8px rgba(46, 196, 241, 0.15));
     background: var(--branco);
     border-radius: 10px;
     padding: 0.7rem;
 }
 
 .footer {
-    background: linear-gradient(90deg, 
-        var(--azul-profundo) 0%, 
-        var(--azul-escuro) 70%, 
-        var(--azul-agua) 100%);
+    background: linear-gradient(90deg,
+            var(--azul-profundo) 0%,
+            var(--azul-escuro) 70%,
+            var(--azul-agua) 100%);
     color: var(--branco);
     text-align: center;
     padding: 1rem 0;
