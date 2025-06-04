@@ -1,20 +1,21 @@
 :root {
-    --azul-profundo: #01203a;    /* 50% - Mar profundo */
-    --azul-escuro: #014f86;      /* 20% - Azul escuro */
-    --azul-agua: #2ec4f1;        /* 20% - Água cristalina */
-    --azul-espuma: #b3e6ff;      /* 5% - Espuma */
-    --areia: #f8f6f0;            /* 5% - Areia */
+    --azul-profundo: #01203a;
+    --azul-escuro: #014f86;
+    --azul-agua: #2ec4f1;
+    --azul-espuma: #b3e6ff;
+    --areia: #f8f6f0;
     --branco: #fff;
 }
 
 body {
     margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: linear-gradient(135deg, 
-        var(--azul-profundo) 0%, 
-        var(--azul-escuro) 50%, 
-        var(--azul-agua) 80%, 
-        var(--azul-espuma) 100%);
+    background: linear-gradient(135deg,
+            var(--azul-profundo) 0%,
+            var(--azul-escuro) 40%,
+            var(--azul-agua) 75%,
+            var(--azul-espuma) 90%,
+            var(--areia) 100%);
     color: var(--branco);
     min-height: 100vh;
 }
@@ -23,12 +24,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(90deg, 
-        var(--azul-profundo) 0%, 
-        var(--azul-escuro) 70%, 
-        var(--azul-agua) 100%);
+    background: linear-gradient(90deg,
+            var(--azul-profundo) 0%,
+            var(--azul-escuro) 70%,
+            var(--azul-agua) 100%);
     padding: 1rem 2rem;
-    box-shadow: 0 2px 12px rgba(1,32,58,0.08);
+    box-shadow: 0 2px 12px rgba(1, 32, 58, 0.08);
 }
 
 .logo {
@@ -36,7 +37,7 @@ body {
     font-weight: bold;
     letter-spacing: 2px;
     color: var(--azul-espuma);
-    text-shadow: 1px 2px 8px rgba(46,196,241,0.18);
+    text-shadow: 1px 2px 8px rgba(46, 196, 241, 0.18);
 }
 
 nav a {
@@ -54,44 +55,60 @@ nav a:hover {
     color: var(--azul-profundo);
 }
 
-.hero {
-    background: linear-gradient(120deg, 
-        var(--azul-profundo) 0%, 
-        var(--azul-escuro) 60%, 
-        var(--azul-agua) 100%);
-    padding: 5rem 2rem 4rem 2rem;
-    text-align: center;
+/* HERO COM IMAGEM E OVERLAY */
+.hero-image-wrapper {
     position: relative;
+    width: 100%;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hero::after {
-    content: "";
+.hero-image {
+    width: 100%;
+    height: 1000px;
+    object-fit: cover;
+    filter: brightness(0.8) saturate(1.1);
+    display: block;
+}
+
+.hero-overlay {
     position: absolute;
-    left: 0; right: 0; bottom: 0;
-    height: 80px;
-    background: linear-gradient(180deg, transparent 0%, var(--azul-espuma) 100%);
-    opacity: 0.25;
-    pointer-events: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(120deg, rgba(1, 32, 58, 0.7) 60%, rgba(46, 196, 241, 0.3) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.hero-content {
+    text-align: center;
+    color: var(--azul-espuma);
+    z-index: 2;
 }
 
 .hero-content h1 {
     font-size: 2.8rem;
     margin-bottom: 1.2rem;
     color: var(--azul-espuma);
-    text-shadow: 1px 2px 12px rgba(1,32,58,0.18);
+    text-shadow: 1px 2px 12px rgba(1, 32, 58, 0.18);
 }
 
 .hero-content p {
     font-size: 1.25rem;
     margin-bottom: 2.2rem;
     color: var(--azul-espuma);
-    text-shadow: 0 1px 8px rgba(1,32,58,0.10);
+    text-shadow: 0 1px 8px rgba(1, 32, 58, 0.10);
 }
 
 .cta-btn {
-    background: linear-gradient(90deg, var(--azul-espuma) 60%, var(--azul-agua) 100%);
-    color: var(--azul-profundo);
+    background: linear-gradient(90deg, var(--azul-escuro) 60%, var(--azul-agua) 100%);
+    color: var(--branco);
     padding: 1rem 2.2rem;
     border: none;
     border-radius: 30px;
@@ -99,13 +116,15 @@ nav a:hover {
     font-weight: bold;
     cursor: pointer;
     text-decoration: none;
-    box-shadow: 0 2px 12px rgba(46,196,241,0.13);
-    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 12px rgba(46, 196, 241, 0.13);
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+    position: relative;
 }
 
 .cta-btn:hover {
-    background: linear-gradient(90deg, var(--azul-agua) 60%, var(--azul-espuma) 100%);
-    color: var(--azul-profundo);
+    background: linear-gradient(90deg, var(--azul-agua) 60%, var(--azul-escuro) 100%);
+    color: var(--azul-espuma);
+    transform: scale(1.05);
 }
 
 .valores {
@@ -128,13 +147,13 @@ nav a:hover {
 }
 
 .card {
-    background: linear-gradient(135deg, 
-        var(--azul-agua) 60%, 
-        var(--azul-espuma) 90%, 
-        var(--areia) 100%);
+    background: linear-gradient(135deg,
+            var(--azul-agua) 60%,
+            var(--azul-espuma) 90%,
+            var(--areia) 100%);
     color: var(--azul-profundo);
     border-radius: 18px;
-    box-shadow: 0 4px 18px rgba(1,32,58,0.09);
+    box-shadow: 0 4px 18px rgba(1, 32, 58, 0.09);
     padding: 2.2rem 1.7rem;
     width: 270px;
     min-height: 180px;
@@ -146,7 +165,7 @@ nav a:hover {
 
 .card:hover {
     transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 8px 24px rgba(46,196,241,0.16);
+    box-shadow: 0 8px 24px rgba(46, 196, 241, 0.16);
 }
 
 .card h3 {
@@ -158,11 +177,27 @@ nav a:hover {
     font-size: 1.05rem;
 }
 
+.valores.reveal-info {
+    animation: revealFade 1.2s;
+}
+
+@keyframes revealFade {
+    0% {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .parceiros {
-    background: linear-gradient(90deg, 
-        var(--azul-profundo) 0%, 
-        var(--azul-escuro) 70%, 
-        var(--azul-agua) 100%);
+    background: linear-gradient(90deg,
+            var(--azul-profundo) 0%,
+            var(--azul-escuro) 70%,
+            var(--azul-agua) 100%);
     padding: 2.8rem 2rem;
     text-align: center;
 }
@@ -182,17 +217,17 @@ nav a:hover {
 .parceiros-logos img {
     width: 120px;
     height: auto;
-    filter: drop-shadow(0 2px 8px rgba(46,196,241,0.15));
+    filter: drop-shadow(0 2px 8px rgba(46, 196, 241, 0.15));
     background: var(--branco);
     border-radius: 10px;
     padding: 0.7rem;
 }
 
 .footer {
-    background: linear-gradient(90deg, 
-        var(--azul-profundo) 0%, 
-        var(--azul-escuro) 70%, 
-        var(--azul-agua) 100%);
+    background: linear-gradient(90deg,
+            var(--azul-profundo) 0%,
+            var(--azul-escuro) 70%,
+            var(--azul-agua) 100%);
     color: var(--branco);
     text-align: center;
     padding: 1rem 0;
