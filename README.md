@@ -140,3 +140,68 @@ CREATE TABLE IF NOT EXISTS `tb_usuario_passeio` (
   FOREIGN KEY (`tb_passeio_id`, `tb_passeio_tb_agencia_id`) REFERENCES `tb_passeio` (`id`, `tb_agencia_id`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET=armscii8;
 ```
+## Inserts para o banco
+
+### tb_usuario
+
+```sql
+INSERT INTO tb_usuario (id, nome, data_nascimento, cpf, email, senha, tipo) VALUES
+(1, 'Ana Souza', '1990-05-12', '123.456.789-00', 'ana@email.com', 'senha123', 'cliente'),
+(2, 'Carlos Lima', '1985-08-22', '987.654.321-00', 'carlos@email.com', 'abc12345', 'adm');
+```
+
+### tb_agencia
+
+```sql
+INSERT INTO tb_agencia (nome_empresarial, cnpj, email, senha, situacao) VALUES
+('Agência ViagensSol', '12.345.678/0001-99', 'contato@viagenssol.com', 'sol123', 'disponível'),
+('Mundo Aventuras', '98.765.432/0001-11', 'aventura@mundo.com', 'aventura@2024', 'disponível');
+```
+
+### tb_passeio
+
+```sql
+INSERT INTO tb_passeio (local, data, duracao, valor, tb_agencia_id, tipo, situacao) VALUES
+('Paraty - RJ', '2025-07-10', '04:00:00', 150.00, 1, 'normal', 'disponível'),
+('Chapada Diamantina', '2025-09-15', '08:00:00', 300.00, 2, 'especial', 'disponível');
+```
+
+### tb_atividade
+
+```sql
+INSERT INTO tb_atividade (localidade, situacao, nome, descricao) VALUES
+('Trilha Ecológica', 'disponível', 'Caminhada', 'Trilha com guia local'),
+('Rio Paraíba', 'disponível', 'Rafting', 'Descida de rio com botes');
+```
+
+### tb_reserva
+
+```sql
+INSERT INTO tb_reserva (data_inicio, data_fim, valor_total, tb_usuario_id, tb_passeio_id) VALUES
+('2025-07-10', '2025-07-10', 150.00, 1, 1),
+('2025-09-15', '2025-09-15', 300.00, 1, 2);
+```
+
+### tb_avaliacao
+
+```sql
+INSERT INTO tb_avaliacao (escala, sugestao, tb_usuario_id, tb_agencia_id, tb_passeio_id) VALUES
+('5', 'Passeio incrível e bem organizado!', 1, 1, 1),
+('4', 'Muito bom, mas poderia incluir lanche.', 1, 2, 2);
+```
+
+### tb_passeio_has_tb_atividade
+
+```sql
+INSERT INTO tb_passeio_has_tb_atividade (tb_passeio_id, tb_passeio_tb_agencia_id, tb_atividade_id) VALUES
+(1, 1, 1),
+(2, 2, 2);
+```
+
+### tb_usuario_has_tb_passeio
+
+```sql
+INSERT INTO tb_usuario_has_tb_passeio (tb_usuario_id, tb_passeio_id, tb_passeio_tb_agencia_id) VALUES
+(1, 1, 1),
+(1, 2, 2);
+```
