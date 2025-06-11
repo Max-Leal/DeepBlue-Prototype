@@ -17,9 +17,17 @@ public class UsuarioController {
 
 	// Example method for user login
 	public boolean loginUser(String email, String senha) {
-		// Here you would check the credentials against the database.
+		Usuario user = userDao.getUsuarioByEmail(email);
+		if (user != null && user.getSenha().equals(senha)) {
+			// User authenticated successfully
+			return true;
+		}
 		return false; // Placeholder return value
 	}
 
-	// Additional methods for user management can be added here.
+	// Método para buscar um usuário pelo ID
+	public Usuario getUsuarioById(int id) {
+		return userDao.getUsuarioById(id);
+	}
+	
 }

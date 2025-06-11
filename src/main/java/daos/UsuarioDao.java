@@ -10,6 +10,34 @@ import utils.ConexaoDB;
 
 public class UsuarioDao {
 
+	public static Usuario getUsuarioByEmail(String email) {
+		try {
+			Connection con = ConexaoDB.getConexao();
+			String sql = "select * from tb_usuario where email = ?";
+			PreparedStatement stm = con.prepareStatement(sql);
+			stm.setString(1, email);
+			ResultSet rs = stm.executeQuery();
+			Usuario usuario = null;
+			if (rs.next()) {
+				usuario = new Usuario();
+				usuario.setId(rs.getInt("id"));
+				usuario.setNome(rs.getString("nome"));
+				usuario.setData_nascimento(rs.getDate("data_nascimento").toLocalDate());
+				usuario.setCpf(rs.getString("cpf"));
+				usuario.setEmail(rs.getString("email"));
+				usuario.setSenha(rs.getString("senha"));
+				usuario.setTipo(TipoUsuario.valueOf(rs.getString("tipo")));
+			}
+			rs.close();
+			stm.close();
+			con.close();
+			return usuario;
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+
+
 	public static void insert(Usuario usuario) {
 		try {
 			Connection con = ConexaoDB.getConexao();
