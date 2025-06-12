@@ -7,57 +7,396 @@
     <link rel="stylesheet" href="static/css/main-styles.css">
     <link rel="stylesheet" href="static/css/login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
+        :root {
+            --azul-profundo: #01203a;
+            --azul-escuro: #1e3a8a;
+            --azul-agua: #60a5fa;
+            --azul-espuma: #eff6ff;
+            --branco: #ffffff;
+            --cinza-claro: #f8fafc;
+            --cinza-medio: #64748b;
+            --verde-sucesso: #10b981;
+            --vermelho-erro: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Animação de ondas no fundo */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") bottom repeat-x;
+            animation: wave 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateX(0px); }
+            50% { transform: translateX(-50px); }
+        }
+
+        .header {
+            background: rgba(1, 32, 58, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            background: rgba(96, 165, 250, 0.2);
+            transform: translateY(-2px);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--azul-agua);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        .hero {
+            min-height: calc(100vh - 140px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
         .hero-login-container {
-            background: var(--azul-espuma);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: var(--azul-profundo);
-            padding: 2.5rem 2rem;
-            border-radius: 18px;
-            box-shadow: 0 4px 18px rgba(1, 32, 58, 0.09);
-            min-width: 320px;
-            max-width: 350px;
+            padding: 3rem 2.5rem;
+            border-radius: 24px;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.1),
+                0 10px 20px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            min-width: 380px;
+            max-width: 420px;
             width: 100%;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .hero-login-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.15),
+                0 15px 30px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .hero-login-container:hover::before {
+            left: 100%;
         }
 
         .hero-login-title {
             text-align: center;
             color: var(--azul-escuro);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .hero-login-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--azul-agua), var(--azul-escuro));
+            border-radius: 2px;
+            transform: translateX(-50%);
         }
 
         .hero-login-form {
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            position: relative;
         }
 
         .hero-login-form label {
-            font-weight: 500;
+            font-weight: 600;
+            color: var(--azul-escuro);
+            margin-bottom: 0.5rem;
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .input-wrapper {
+            position: relative;
         }
 
         .hero-login-form input {
             width: 100%;
-            padding: 0.7rem;
-            border-radius: 8px;
-            border: 1px solid var(--azul-agua);
-            margin-top: 0.3rem;
+            padding: 1rem 1rem 1rem 3rem;
+            border-radius: 12px;
+            border: 2px solid rgba(96, 165, 250, 0.2);
+            background: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .hero-login-form input:focus {
+            border-color: var(--azul-agua);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--azul-agua);
+            font-size: 1.1rem;
+            z-index: 1;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--cinza-medio);
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 0.2rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .password-toggle:hover {
+            color: var(--azul-escuro);
+            background: rgba(96, 165, 250, 0.1);
         }
 
         .hero-login-btn {
-            margin-top: 0.5rem;
+            margin-top: 1rem;
+            background: linear-gradient(135deg, var(--azul-escuro), var(--azul-agua));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--azul-agua), var(--azul-escuro));
+            transition: left 0.3s ease;
+            z-index: 1;
+        }
+
+        .hero-login-btn:hover::before {
+            left: 0;
+        }
+
+        .hero-login-btn span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
+        }
+
+        .hero-login-btn:active {
+            transform: translateY(-1px);
         }
 
         .hero-login-register {
             text-align: center;
-            margin-top: 1.2rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(96, 165, 250, 0.2);
+        }
+
+        .hero-login-register span {
+            color: var(--cinza-medio);
+            margin-right: 0.5rem;
         }
 
         .hero-login-register a {
             color: var(--azul-escuro);
-            font-weight: bold;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .hero-login-register a:hover {
+            background: rgba(96, 165, 250, 0.1);
+            transform: translateY(-2px);
             text-decoration: underline;
         }
+
+        .footer {
+            background: rgba(1, 32, 58, 0.95);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .hero-login-container {
+                min-width: 320px;
+                max-width: 350px;
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .hero-login-title {
+                font-size: 1.5rem;
+            }
+
+            .hero-login-form input {
+                padding: 0.9rem 0.9rem 0.9rem 2.8rem;
+            }
+
+            .input-icon {
+                left: 0.9rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Animações de entrada */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-login-container {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .form-group {
+            animation: fadeInUp 0.6s ease;
+            animation-fill-mode: both;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .hero-login-btn { animation: fadeInUp 0.6s ease 0.3s both; }
+        .hero-login-register { animation: fadeInUp 0.6s ease 0.4s both; }
     </style>
 </head>
 
@@ -66,36 +405,106 @@
         <div class="logo">DeepBlue SC</div>
         <nav>
             <a href="index.html">Início</a>
-            <a href="#">Mapa Interativo</a>
+            <a href="mapaInterativo.html">Mapa Interativo</a>
             <a href="#">Locais</a>
             <a href="#">Buscar Passeios</a>
             <a href="#">Eventos</a>
             <a href="login.html">Login/Cadastro</a>
         </nav>
     </header>
-    <section class="hero" style="min-height: 60vh; display: flex; align-items: center; justify-content: center;">
+    
+    <section class="hero">
         <div class="hero-login-container">
             <h2 class="hero-login-title">Entrar na sua conta</h2>
             <form action="login.jsp" method="post" class="hero-login-form">
-                <div>
+                <div class="form-group">
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" required>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                    </div>
                 </div>
-                <div>
+                
+                <div class="form-group">
                     <label for="senha">Senha</label>
-                    <input type="password" id="senha" name="senha" required>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="senha" name="senha" placeholder="Sua senha" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye" id="toggleIcon"></i>
+                        </button>
+                    </div>
                 </div>
-                <button type="submit" class="cta-btn hero-login-btn">Entrar</button>
+                
+                <button type="submit" class="hero-login-btn">
+                    <span>Entrar</span>
+                </button>
             </form>
+            
             <div class="hero-login-register">
                 <span>Não tem uma conta?</span>
                 <a href="registrar.html">Registrar-se</a>
             </div>
         </div>
     </section>
+    
     <footer class="footer">
         <p>&copy; 2025 DeepBlue SC. Todos os direitos reservados.</p>
     </footer>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('senha');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Adicionar efeitos de foco suaves
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+
+        // Validação visual em tempo real
+        document.getElementById('email').addEventListener('input', function() {
+            const email = this.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (emailRegex.test(email)) {
+                this.style.borderColor = 'var(--verde-sucesso)';
+            } else if (email.length > 0) {
+                this.style.borderColor = 'var(--vermelho-erro)';
+            } else {
+                this.style.borderColor = 'rgba(96, 165, 250, 0.2)';
+            }
+        });
+
+        document.getElementById('senha').addEventListener('input', function() {
+            const senha = this.value;
+            
+            if (senha.length >= 6) {
+                this.style.borderColor = 'var(--verde-sucesso)';
+            } else if (senha.length > 0) {
+                this.style.borderColor = 'var(--vermelho-erro)';
+            } else {
+                this.style.borderColor = 'rgba(96, 165, 250, 0.2)';
+            }
+        });
+    </script>
 </body>
 
 </html>
