@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login Usuário - DeepBlue SC</title>
+    <title>Registrar Agência - DeepBlue SC</title>
     <link rel="stylesheet" href="static/css/main-styles.css">
     <link rel="stylesheet" href="static/css/login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
     <style>
+        /* Copiado de loginAgencia.html para manter o mesmo visual */
         :root {
             --azul-profundo: #01203a;
             --azul-escuro: #1e3a8a;
@@ -21,38 +21,22 @@
             --verde-sucesso: #10b981;
             --vermelho-erro: #ef4444;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #01203a 0%, #60a5fa 100%);
             min-height: 100vh;
             position: relative;
         }
-
-        /* Animação de ondas no fundo */
         body::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") bottom repeat-x;
             animation: wave 20s ease-in-out infinite;
             pointer-events: none;
         }
-
-        @keyframes wave {
-            0%, 100% { transform: translateX(0px); }
-            50% { transform: translateX(-50px); }
-        }
-
+        @keyframes wave { 0%, 100% { transform: translateX(0px); } 50% { transform: translateX(-50px); } }
         .header {
             background: rgba(1, 32, 58, 0.95);
             backdrop-filter: blur(10px);
@@ -66,7 +50,6 @@
             z-index: 100;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
         }
-
         .logo {
             font-size: 1.8rem;
             font-weight: bold;
@@ -75,12 +58,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
+        nav { display: flex; gap: 2rem; }
         nav a {
             color: white;
             text-decoration: none;
@@ -90,12 +68,7 @@
             transition: all 0.3s ease;
             position: relative;
         }
-
-        nav a:hover {
-            background: white;
-            transform: translateY(-2px);
-        }
-
+        nav a:hover { background: white; transform: translateY(-2px); }
         nav a::after {
             content: '';
             position: absolute;
@@ -107,11 +80,7 @@
             transition: all 0.3s ease;
             transform: translateX(-50%);
         }
-
-        nav a:hover::after {
-            width: 80%;
-        }
-
+        nav a:hover::after { width: 80%; }
         .hero {
             min-height: calc(100vh - 140px);
             display: flex;
@@ -120,7 +89,6 @@
             padding: 2rem;
             position: relative;
         }
-
         .hero-login-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
@@ -128,10 +96,7 @@
             color: var(--azul-profundo);
             padding: 3rem 2.5rem;
             border-radius: 24px;
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.1),
-                0 10px 20px rgba(0, 0, 0, 0.05),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.3);
             min-width: 380px;
             max-width: 420px;
             width: 100%;
@@ -139,16 +104,12 @@
             overflow: hidden;
             transform: translateY(0);
             transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease;
         }
-
         .hero-login-container:hover {
             transform: translateY(-5px);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.15),
-                0 15px 30px rgba(0, 0, 0, 0.08),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 15px 30px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
-
         .hero-login-container::before {
             content: '';
             position: absolute;
@@ -159,11 +120,7 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.5s ease;
         }
-
-        .hero-login-container:hover::before {
-            left: 100%;
-        }
-
+        .hero-login-container:hover::before { left: 100%; }
         .hero-login-title {
             text-align: center;
             color: var(--azul-escuro);
@@ -172,7 +129,6 @@
             font-weight: 700;
             position: relative;
         }
-
         .hero-login-title::after {
             content: '';
             position: absolute;
@@ -184,17 +140,17 @@
             border-radius: 2px;
             transform: translateX(-50%);
         }
-
         .hero-login-form {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
-
-        .form-group {
-            position: relative;
-        }
-
+        .form-group { position: relative; animation: fadeInUp 0.6s ease; animation-fill-mode: both; }
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
         .hero-login-form label {
             font-weight: 600;
             color: var(--azul-escuro);
@@ -202,11 +158,7 @@
             display: block;
             font-size: 0.95rem;
         }
-
-        .input-wrapper {
-            position: relative;
-        }
-
+        .input-wrapper { position: relative; }
         .hero-login-form input {
             width: 100%;
             padding: 1rem 1rem 1rem 3rem;
@@ -217,14 +169,12 @@
             transition: all 0.3s ease;
             outline: none;
         }
-
         .hero-login-form input:focus {
             border-color: var(--azul-agua);
             background: white;
             box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
             transform: translateY(-2px);
         }
-
         .input-icon {
             position: absolute;
             left: 1rem;
@@ -234,7 +184,6 @@
             font-size: 1.1rem;
             z-index: 1;
         }
-
         .password-toggle {
             position: absolute;
             right: 1rem;
@@ -249,12 +198,10 @@
             border-radius: 4px;
             transition: all 0.2s ease;
         }
-
         .password-toggle:hover {
             color: var(--azul-escuro);
             background: rgba(96, 165, 250, 0.1);
         }
-
         .hero-login-btn {
             margin-top: 1rem;
             background: linear-gradient(135deg, var(--azul-escuro), var(--azul-agua));
@@ -268,8 +215,8 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            animation: fadeInUp 0.6s ease 0.6s both;
         }
-
         .hero-login-btn::before {
             content: '';
             position: absolute;
@@ -281,36 +228,21 @@
             transition: left 0.3s ease;
             z-index: 1;
         }
-
-        .hero-login-btn:hover::before {
-            left: 0;
-        }
-
-        .hero-login-btn span {
-            position: relative;
-            z-index: 2;
-        }
-
+        .hero-login-btn:hover::before { left: 0; }
+        .hero-login-btn span { position: relative; z-index: 2; }
         .hero-login-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
         }
-
-        .hero-login-btn:active {
-            transform: translateY(-1px);
-        }
-
+        .hero-login-btn:active { transform: translateY(-1px); }
         .hero-login-register {
             text-align: center;
             margin-top: 2rem;
             padding-top: 1.5rem;
             border-top: 1px solid rgba(96, 165, 250, 0.2);
+            animation: fadeInUp 0.6s ease 0.7s both;
         }
-
-        .hero-login-register span {
-            color: var(--cinza-medio);
-            margin-right: 0.5rem;
-        }
+        .hero-login-register span { color: var(--cinza-medio); margin-right: 0.5rem; }
         .hero-login-register a {
             color: var(--azul-escuro);
             font-weight: 600;
@@ -320,32 +252,7 @@
             transition: all 0.3s ease;
             display: inline-block;
         }
-
-        .hero-login-register a:hover {
-            transform: translateY(-2px);
-            text-decoration: underline;
-        }
-        .hero-login-password-reset {
-            animation: fadeInUp 0.6s ease 0.5s both;
-            text-align: center;
-        }
-        .hero-login-password-reset span {
-            color: var(--cinza-medio);
-            margin-right: 0.5rem;
-        }   
-        .hero-login-password-reset a {
-            color: var(--azul-escuro);
-            font-weight: 600;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-        .hero-login-password-reset a:hover {
-            transform: translateY(-2px);
-            text-decoration: underline;
-        }   
+        .hero-login-register a:hover { transform: translateY(-2px); text-decoration: underline; }
         .footer {
             background: rgba(1, 32, 58, 0.95);
             color: white;
@@ -354,98 +261,18 @@
             margin-top: auto;
             backdrop-filter: blur(10px);
         }
-
-        /* Responsividade */
         @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
-
-            nav {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 1rem;
-            }
-
-            .hero-login-container {
-                min-width: 320px;
-                max-width: 350px;
-                padding: 2rem 1.5rem;
-                margin: 1rem;
-            }
-
-            .hero-login-title {
-                font-size: 1.5rem;
-            }
-
-            .hero-login-form input {
-                padding: 0.9rem 0.9rem 0.9rem 2.8rem;
-            }
-
-            .input-icon {
-                left: 0.9rem;
-                font-size: 1rem;
-            }
+            .header { flex-direction: column; gap: 1rem; padding: 1rem; }
+            nav { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+            .hero-login-container { min-width: 320px; max-width: 350px; padding: 2rem 1.5rem; margin: 1rem; }
+            .hero-login-title { font-size: 1.5rem; }
+            .hero-login-form input { padding: 0.9rem 0.9rem 0.9rem 2.8rem; }
+            .input-icon { left: 0.9rem; font-size: 1rem; }
         }
-
-        /* Animações de entrada */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .hero-login-container {
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .form-group {
-            animation: fadeInUp 0.6s ease;
-            animation-fill-mode: both;
-        }
-
-        .form-group:nth-child(1) { animation-delay: 0.1s; }
-        .form-group:nth-child(2) { animation-delay: 0.2s; }
-        .hero-login-btn { animation: fadeInUp 0.6s ease 0.3s both; }
-        .hero-login-register { animation: fadeInUp 0.6s ease 0.4s both; }
-
-        .btns { 
-            display: flex;
-            justify-content: center;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;       
-        }
-
-        .btns button {
-            background: var(--azul-escuro);
-            color: white;
-            border: none;
-            padding: 0.8rem 2.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .btns button:hover {
-            background: var(--azul-agua);
-            transform: translateY(-2px);
-          
-        }
-        .btns button:active {
-            transform: translateY(-1px);
-            background: var(--azul-escuro);
-            border: var(--branco);
-        }   
-
-
     </style>
 </head>
 
@@ -461,60 +288,68 @@
             <a href="login.html">Login/Cadastro</a>
         </nav>
     </header>
-    
     <section class="hero">
         <div class="hero-login-container">
-             
-            <h2 class="hero-login-title">Entrar na sua conta</h2>
-           <div class ="btns">
-                <button id="usuario" class="active" style="background: var(--azul-espuma); color: var(--azul-escuro); box-shadow: 0 2px 8px rgba(96,165,250,0.15); border: #3b82f6 1px solid;">Usuário</button>
-                <button id="agencia">Agência</button>
-            </div>
-            <form action="login.jsp" method="post" class="hero-login-form">
+            <h2 class="hero-login-title">Registrar Agência</h2>
+            <form action="registrar-agencia.jsp" method="post" class="hero-login-form" autocomplete="off">
+                <div class="form-group">
+                    <label for="nomeAgencia">Nome da Agência</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-building input-icon"></i>
+                        <input type="text" id="nomeAgencia" name="nomeAgencia" placeholder="Nome da Agência" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cnpj">CNPJ</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-id-card input-icon"></i>
+                        <input type="text" id="cnpj" name="cnpj" placeholder="XX.XXX.XXX/0001-XX" required>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="email">E-mail</label>
                     <div class="input-wrapper">
                         <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                        <input type="email" id="email" name="email" placeholder="email@agencia.com" required>
                     </div>
                 </div>
-                
                 <div class="form-group">
                     <label for="senha">Senha</label>
                     <div class="input-wrapper">
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" id="senha" name="senha" placeholder="Sua senha" required>
-                        <button type="button" class="password-toggle" onclick="togglePassword()">
-                            <i class="fas fa-eye" id="toggleIcon"></i>
+                        <input type="password" id="senha" name="senha" placeholder="Crie uma senha" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('senha', 'toggleIcon1')">
+                            <i class="fas fa-eye" id="toggleIcon1"></i>
                         </button>
                     </div>
                 </div>
-                
+                <div class="form-group">
+                    <label for="confirmarSenha">Confirmar Senha</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="confirmarSenha" name="confirmarSenha" placeholder="Repita a senha" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('confirmarSenha', 'toggleIcon2')">
+                            <i class="fas fa-eye" id="toggleIcon2"></i>
+                        </button>
+                    </div>
+                </div>
                 <button type="submit" class="hero-login-btn">
-                    <span>Entrar</span>
+                    <span>Registrar</span>
                 </button>
             </form>
-            
             <div class="hero-login-register">
-                <span>Não tem uma conta?</span>
-                <a href="registrar.html">Registrar-se</a>
-            </div>
-             <div class="hero-login-password-reset">
-                <span>Esqueceu sua senha?</span>
-                <a href="recuperarSenha.html">Recuperar Senha</a>
+                <span>Já tem uma conta?</span>
+                <a href="loginAgencia.html">Entrar</a>
             </div>
         </div>
     </section>
-    
     <footer class="footer">
         <p>&copy; 2025 DeepBlue SC. Todos os direitos reservados.</p>
     </footer>
-
     <script>
-        function togglePassword() {
-            const passwordInput = document.getElementById('senha');
-            const toggleIcon = document.getElementById('toggleIcon');
-            
+        function togglePassword(inputId, iconId) {
+            const passwordInput = document.getElementById(inputId);
+            const toggleIcon = document.getElementById(iconId);
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 toggleIcon.classList.remove('fa-eye');
@@ -525,35 +360,47 @@
                 toggleIcon.classList.add('fa-eye');
             }
         }
-
-        // Adicionar efeitos de foco suaves
+        // Efeitos de foco suaves
         document.querySelectorAll('input').forEach(input => {
             input.addEventListener('focus', function() {
                 this.parentElement.style.transform = 'scale(1.02)';
             });
-            
             input.addEventListener('blur', function() {
                 this.parentElement.style.transform = 'scale(1)';
             });
         });
-
-        // Validação visual em tempo real
-        document.getElementById('email').addEventListener('input', function() {
-            const email = this.value;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
-            if (emailRegex.test(email)) {
-                this.style.borderColor = 'var(--verde-sucesso)';
-            } else if (email.length > 0) {
+        // Validação visual em tempo real para CNPJ
+        document.getElementById('cnpj').addEventListener('input', function() {
+            const cnpj = this.value.replace(/[^\d]+/g, '');
+            function validaCNPJ(cnpj) {
+                if (cnpj.length !== 14) return false;
+                if (/^(\d)\1+$/.test(cnpj)) return false;
+                let t = cnpj.length - 2, d = cnpj.substring(t), d1 = parseInt(d.charAt(0)), d2 = parseInt(d.charAt(1));
+                let calc = x => {
+                    let n = 0, y = x - 7, i = 0;
+                    for (; x >= 1; x--, i++) n += cnpj.charAt(i) * x;
+                    for (x = 9; i < 12 + y; x--, i++) n += cnpj.charAt(i) * x;
+                    return n;
+                };
+                let dg1 = calc(5) % 11 < 2 ? 0 : 11 - calc(5) % 11;
+                let dg2 = calc(6) % 11 < 2 ? 0 : 11 - calc(6) % 11;
+                return dg1 === d1 && dg2 === d2;
+            }
+            if (cnpj.length === 14) {
+                if (validaCNPJ(cnpj)) {
+                    this.style.borderColor = 'var(--verde-sucesso)';
+                } else {
+                    this.style.borderColor = 'var(--vermelho-erro)';
+                }
+            } else if (cnpj.length > 0) {
                 this.style.borderColor = 'var(--vermelho-erro)';
             } else {
                 this.style.borderColor = 'rgba(96, 165, 250, 0.2)';
             }
         });
-
+        // Validação visual para senha e confirmação
         document.getElementById('senha').addEventListener('input', function() {
             const senha = this.value;
-            
             if (senha.length >= 6) {
                 this.style.borderColor = 'var(--verde-sucesso)';
             } else if (senha.length > 0) {
@@ -562,11 +409,16 @@
                 this.style.borderColor = 'rgba(96, 165, 250, 0.2)';
             }
         });
-         // Alternar entre usuário e agência
-        document.getElementById('agencia').addEventListener('click', function() {
-            window.location.href = 'loginAgencia.html';    
+        document.getElementById('confirmarSenha').addEventListener('input', function() {
+            const senha = document.getElementById('senha').value;
+            if (this.value === senha && this.value.length >= 6) {
+                this.style.borderColor = 'var(--verde-sucesso)';
+            } else if (this.value.length > 0) {
+                this.style.borderColor = 'var(--vermelho-erro)';
+            } else {
+                this.style.borderColor = 'rgba(96, 165, 250, 0.2)';
+            }
         });
     </script>
 </body>
-
 </html>
