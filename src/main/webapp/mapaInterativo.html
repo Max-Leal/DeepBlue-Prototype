@@ -32,13 +32,24 @@
         }
 
         .mapa-container {
+            position: relative;
             width: 100%;
             max-width: 900px;
-            margin: 2.5rem auto 2rem auto;
+            margin: 6rem auto 2rem auto;
             border-radius: 18px;
             overflow: hidden;
             box-shadow: 0 4px 18px rgba(1, 32, 58, 0.09);
             background: var(--azul-espuma, #f5f8fa);
+        }
+
+        .faixa-superior {
+            position: absolute;
+            top: -32px;
+            left: 0;
+            width: 100%;
+            height: 96px;
+            background: white;
+            z-index: 2;
         }
 
         .passeios-section {
@@ -72,7 +83,7 @@
     <header class="header" id="header">
         <div class="logo">DeepBlue SC</div>
         <nav>
-            <a href="#"><i class="fas fa-home"></i> Início</a>
+            <a href="index.html"><i class="fas fa-home"></i> Início</a>
             <a href="mapaInterativo.html"><i class="fas fa-map"></i> Mapa Interativo</a>
             <a href="#"><i class="fas fa-map-marker-alt"></i> Locais</a>
             <a href="#"><i class="fas fa-search"></i> Buscar Passeios</a>
@@ -81,12 +92,15 @@
         </nav>
     </header>
     <main>
-        <section class="mapa-container">
-            <!-- Substitua o src abaixo pelo seu link do Google Maps quando desejar -->
-            <iframe id="google-mapa" src="" width="100%" height="420" style="border:0; display:block;"
-                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                title="Mapa Interativo Google"></iframe>
-        </section>
+        <div style="position: relative;">
+            <div class="faixa-superior"></div>
+            <section class="mapa-container">
+                <iframe src="https://www.google.com/maps/d/embed?mid=1pAEo6ynTJesX33jRAmTFr_NioVdMEvU&ehbc=2E312F"
+                    width="100%" height="480" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade" title="Mapa Interativo Google">
+                </iframe>
+            </section>
+        </div>
         <section class="passeios-section">
             <h2 class="passeios-title">Passeios</h2>
             <div class="passeios" id="passeios">
