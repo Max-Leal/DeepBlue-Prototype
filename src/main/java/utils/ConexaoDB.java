@@ -8,7 +8,7 @@ public class ConexaoDB {
 	public static Connection getConexao() throws SQLException {
 		String url = "jdbc:mysql://localhost:3306/deepblue";
 		String usuario = "root";
-		String senha = "1234567";
+		String senha = "";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
