@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login Usuário - DeepBlue SC</title>
+    <title>Login Agência - DeepBlue SC</title>
     <link rel="stylesheet" href="static/css/main-styles.css">
     <link rel="stylesheet" href="static/css/login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -311,6 +311,7 @@
             color: var(--cinza-medio);
             margin-right: 0.5rem;
         }
+
         .hero-login-register a {
             color: var(--azul-escuro);
             font-weight: 600;
@@ -325,7 +326,7 @@
             transform: translateY(-2px);
             text-decoration: underline;
         }
-        .hero-login-password-reset {
+       .hero-login-password-reset {
             animation: fadeInUp 0.6s ease 0.5s both;
             text-align: center;
         }
@@ -346,6 +347,7 @@
             transform: translateY(-2px);
             text-decoration: underline;
         }   
+
         .footer {
             background: rgba(1, 32, 58, 0.95);
             color: white;
@@ -444,6 +446,7 @@
             background: var(--azul-escuro);
             border: var(--branco);
         }   
+          
 
 
     </style>
@@ -467,15 +470,15 @@
              
             <h2 class="hero-login-title">Entrar na sua conta</h2>
            <div class ="btns">
-                <button id="usuario" class="active" style="background: var(--azul-espuma); color: var(--azul-escuro); box-shadow: 0 2px 8px rgba(96,165,250,0.15); border: #3b82f6 1px solid;">Usuário</button>
-                <button id="agencia">Agência</button>
+                <button id="usuario">Usuário</button>
+                <button id="agencia"class="active" style="background: var(--azul-espuma); color: var(--azul-escuro); box-shadow: 0 2px 8px rgba(96,165,250,0.15); border: #3b82f6 1px solid;">Agência</button>
             </div>
-            <form action="login.jsp" method="post" class="hero-login-form">
+            <form action="login-agencia.jsp" method="post" class="hero-login-form">
                 <div class="form-group">
-                    <label for="email">E-mail</label>
+                    <label for="cnpj">CNPJ</label>
                     <div class="input-wrapper">
-                        <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                        <i class="fas fa-building input-icon"></i>
+                        <input type="text" id="cnpj" name="cnpj" placeholder="XX.XXX.XXX/0001-XX" required>
                     </div>
                 </div>
                 
@@ -499,9 +502,9 @@
                 <span>Não tem uma conta?</span>
                 <a href="registrar.html">Registrar-se</a>
             </div>
-             <div class="hero-login-password-reset">
+            <div class="hero-login-password-reset">
                 <span>Esqueceu sua senha?</span>
-                <a href="recuperarSenha.html">Recuperar Senha</a>
+                <a href="recuperarSenha.html">Recuperar Senha</a>   
             </div>
         </div>
     </section>
@@ -538,13 +541,29 @@
         });
 
         // Validação visual em tempo real
-        document.getElementById('email').addEventListener('input', function() {
-            const email = this.value;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
-            if (emailRegex.test(email)) {
-                this.style.borderColor = 'var(--verde-sucesso)';
-            } else if (email.length > 0) {
+        document.getElementById('cnpj').addEventListener('input', function() {
+            const cnpj = this.value.replace(/[^\d]+/g, '');
+            function validaCNPJ(cnpj) {
+                if (cnpj.length !== 14) return false;
+                if (/^(\d)\1+$/.test(cnpj)) return false;
+                let t = cnpj.length - 2, d = cnpj.substring(t), d1 = parseInt(d.charAt(0)), d2 = parseInt(d.charAt(1));
+                let calc = x => {
+                    let n = 0, y = x - 7, i = 0;
+                    for (; x >= 1; x--, i++) n += cnpj.charAt(i) * x;
+                    for (x = 9; i < 12 + y; x--, i++) n += cnpj.charAt(i) * x;
+                    return n;
+                };
+                let dg1 = calc(5) % 11 < 2 ? 0 : 11 - calc(5) % 11;
+                let dg2 = calc(6) % 11 < 2 ? 0 : 11 - calc(6) % 11;
+                return dg1 === d1 && dg2 === d2;
+            }
+            if (cnpj.length === 14) {
+                if (validaCNPJ(cnpj)) {
+                    this.style.borderColor = 'var(--verde-sucesso)';
+                } else {
+                    this.style.borderColor = 'var(--vermelho-erro)';
+                }
+            } else if (cnpj.length > 0) {
                 this.style.borderColor = 'var(--vermelho-erro)';
             } else {
                 this.style.borderColor = 'rgba(96, 165, 250, 0.2)';
@@ -562,9 +581,9 @@
                 this.style.borderColor = 'rgba(96, 165, 250, 0.2)';
             }
         });
-         // Alternar entre usuário e agência
-        document.getElementById('agencia').addEventListener('click', function() {
-            window.location.href = 'loginAgencia.html';    
+        // Alternar entre usuário e agência
+        document.getElementById('usuario').addEventListener('click', function() {
+            window.location.href = 'login.html';    
         });
     </script>
 </body>
