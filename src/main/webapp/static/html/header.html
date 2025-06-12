@@ -1,0 +1,73 @@
+<header class="header">
+    <style>
+        :root {
+            --azul-profundo: #01203a;
+            --azul-escuro: #014f86;
+            --azul-agua: #2ec4f1;
+            --azul-espuma: #b3e6ff;
+            /*--areia: #f8f6f0;*/
+            --branco: #fff;
+        }
+ 
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+ 
+        body {
+            display: flex;
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+ 
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg,
+                    var(--azul-profundo) 0%,
+                    var(--azul-escuro) 70%,
+                    var(--azul-agua) 100%);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 12px rgba(1, 32, 58, 0.08);
+        }
+ 
+        .logo {
+            font-size: 2.2rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: var(--azul-espuma);
+            text-shadow: 1px 2px 8px rgba(46, 196, 241, 0.18);
+        }
+ 
+        nav a {
+            color: var(--branco);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.2s, background 0.2s;
+            padding: 0.3rem 0.7rem;
+            border-radius: 8px;
+        }
+ 
+        nav a:hover {
+            background: linear-gradient(90deg, var(--azul-agua) 60%, var(--azul-espuma) 100%);
+            color: var(--azul-profundo);
+        }
+       
+    </style>
+ 
+    <div class="logo">DeepBlue SC</div>
+    <nav>
+        <a href="index.html">Início</a>
+        <a href="WEB-INF/mapaInterativo.html">Mapa Interativo</a>
+        <a href="#">Locais</a>
+        <a href="#">Buscar Passeios</a>
+        <a href="#">Eventos</a>
+        <a href="#">Login/Cadastro</a>
+    </nav>
+</header>
