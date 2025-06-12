@@ -8,14 +8,14 @@
     String email = request.getParameter("email");
     String senha = request.getParameter("senha");
     String mensagem = "";
-    Usuario usuario = null;
+    Usuario usuario = new Usuario();
 
     if (email != null && senha != null) {
         UsuarioController userControl = new UsuarioController();
         boolean loginValido = userControl.loginUser(email, senha);
 
         if (loginValido) {
-            usuario = userControl.userDao.getUsuarioByEmail(email);
+            usuario = userControl.getUsuarioByEmail(email);
             mensagem = "Login realizado com sucesso!";
             // Você pode redirecionar ou exibir mensagem
         } else {

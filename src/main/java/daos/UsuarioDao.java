@@ -11,13 +11,14 @@ import utils.ConexaoDB;
 public class UsuarioDao {
 
 	public static Usuario getUsuarioByEmail(String email) {
+		Usuario usuario = new Usuario();
 		try {
 			Connection con = ConexaoDB.getConexao();
 			String sql = "select * from tb_usuario where email = ?";
 			PreparedStatement stm = con.prepareStatement(sql);
 			stm.setString(1, email);
 			ResultSet rs = stm.executeQuery();
-			Usuario usuario = null;
+			
 			if (rs.next()) {
 				usuario = new Usuario();
 				usuario.setId(rs.getInt("id"));
@@ -26,7 +27,7 @@ public class UsuarioDao {
 				usuario.setCpf(rs.getString("cpf"));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setSenha(rs.getString("senha"));
-				usuario.setTipo(TipoUsuario.valueOf(rs.getString("tipo")));
+				usuario.setTipo(TipoUsuario.valueOf(rs.getString("tipo").toUpperCase()));
 			}
 			rs.close();
 			stm.close();
