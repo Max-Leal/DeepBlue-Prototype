@@ -32,38 +32,52 @@
         }
 
         .mapa-container {
+            position: relative;
             width: 100%;
             max-width: 900px;
-            margin: 2.5rem auto 2rem auto;
-            border-radius: 18px;
+            margin: 6rem auto 2rem auto;
             overflow: hidden;
             box-shadow: 0 4px 18px rgba(1, 32, 58, 0.09);
             background: var(--azul-espuma, #f5f8fa);
         }
 
+        .faixa-superior {
+            position: absolute;
+            top: -32px;
+            left: 0;
+            width: 100%;
+            height: 94px;
+            background: white;
+            z-index: 2;
+        }
+
         .passeios-section {
             max-width: 900px;
             margin: 0 auto 2.5rem auto;
-            background: var(--areia, #f8f6f0);
+            background: linear-gradient(135deg, var(--azul-espuma) 60%, var(--azul-claro) 100%);
             border-radius: 18px;
             box-shadow: 0 2px 12px rgba(1, 32, 58, 0.08);
             padding: 2rem 1.5rem;
+            background: #f9fafb;
+            border: 1px solid #e0e7ef;
         }
 
         .passeios-title {
-            color: var(--azul-escuro, #014f86);
+            color: var(--azul-escuro);
             font-size: 1.6rem;
             margin-bottom: 1.2rem;
             text-align: center;
+            letter-spacing: 1px;
         }
 
         .passeios {
             min-height: 80px;
-            background: var(--azul-espuma, #b3e6ff);
+            background: var(--azul-claro, #b3e6ff);
             border-radius: 12px;
             padding: 1.2rem;
-            color: var(--azul-profundo, #01203a);
+            color: var(--azul-profundo);
             font-size: 1.1rem;
+            box-shadow: 0 1px 6px rgba(59, 130, 246, 0.07);
         }
     </style>
 </head>
@@ -72,7 +86,7 @@
     <header class="header" id="header">
         <div class="logo">DeepBlue SC</div>
         <nav>
-            <a href="#"><i class="fas fa-home"></i> Início</a>
+            <a href="index.html"><i class="fas fa-home"></i> Início</a>
             <a href="mapaInterativo.html"><i class="fas fa-map"></i> Mapa Interativo</a>
             <a href="#"><i class="fas fa-map-marker-alt"></i> Locais</a>
             <a href="#"><i class="fas fa-search"></i> Buscar Passeios</a>
@@ -81,18 +95,35 @@
         </nav>
     </header>
     <main>
-        <section class="mapa-container">
-            <!-- Substitua o src abaixo pelo seu link do Google Maps quando desejar -->
-            <iframe id="google-mapa" src="" width="100%" height="420" style="border:0; display:block;"
-                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                title="Mapa Interativo Google"></iframe>
-        </section>
-        <section class="passeios-section">
-            <h2 class="passeios-title">Passeios</h2>
-            <div class="passeios" id="passeios">
-                <!-- Passeios serão exibidos aqui futuramente -->
-            </div>
-        </section>
+        <div style="position: relative;">
+            <div class="faixa-superior"></div>
+            <section class="mapa-container">
+                <iframe src="https://www.google.com/maps/d/embed?mid=1pAEo6ynTJesX33jRAmTFr_NioVdMEvU&ehbc=2E312F"
+                    width="100%" height="480" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade" title="Mapa Interativo Google">
+                </iframe>
+            </section>
+        </div>
+        <div>
+            <section class="passeios-section">
+                <h2 class="passeios-title">Passeios</h2>
+                <div class="passeios" id="passeios">
+                    <!-- Passeios serão exibidos aqui futuramente -->
+                </div>
+            </section>
+            <section class="passeios-section">
+                <h2 class="passeios-title">Passeios</h2>
+                <div class="passeios" id="passeios">
+                    <!-- Passeios serão exibidos aqui futuramente -->
+                </div>
+            </section>
+            <section class="passeios-section">
+                <h2 class="passeios-title">Passeios</h2>
+                <div class="passeios" id="passeios">
+                    <!-- Passeios serão exibidos aqui futuramente -->
+                </div>
+            </section>
+        </div>
     </main>
     <footer class="footer">
         <p>&copy; 2025 DeepBlue SC. Todos os direitos reservados.</p>
