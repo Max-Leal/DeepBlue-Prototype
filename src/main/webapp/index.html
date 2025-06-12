@@ -5,59 +5,658 @@
     <title>DeepBlue SC - Turismo Náutico em Santa Catarina</title>
     <link rel="stylesheet" href="static/css/main-styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="static/js/main.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --azul-profundo: #01203a;
+            --azul-escuro: #1e3a8a;
+            --azul-medio: #3b82f6;
+            --azul-agua: #60a5fa;
+            --azul-claro: #93c5fd;
+            --azul-espuma: #eff6ff;
+            --branco: #ffffff;
+            --cinza-claro: #f8fafc;
+            --cinza-medio: #64748b;
+            --dourado: #f59e0b;
+            --dourado-escuro: #d97706;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--azul-profundo);
+            overflow-x: hidden;
+        }
+
+        /* Header aprimorado */
+        .header {
+            background: rgba(1, 32, 58, 0.95);
+            backdrop-filter: blur(15px);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header.scrolled {
+            background: rgba(1, 32, 58, 0.98);
+            padding: 0.7rem 2rem;
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #60a5fa, #93c5fd, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(96, 165, 250, 0.5);
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.7rem 1.2rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--azul-agua), var(--azul-medio));
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        nav a:hover::before {
+            left: 0;
+        }
+
+        nav a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(96, 165, 250, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-image-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7) saturate(1.2);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(1, 32, 58, 0.8) 0%,
+                rgba(30, 58, 138, 0.6) 50%,
+                rgba(59, 130, 246, 0.4) 100%
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--dourado), var(--dourado-escuro));
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--dourado);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--dourado-escuro), var(--dourado));
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .cta-btn:hover::before {
+            left: 0;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Floating particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            10%, 90% { opacity: 1; }
+            50% { transform: translateY(-100px) rotate(180deg); }
+        }
+
+        /* Valores Section */
+        .valores {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--azul-espuma) 0%, white 100%);
+            position: relative;
+        }
+
+        .valores::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='1' d='M0,160L48,144C96,128,192,96,288,96C384,96,480,128,576,149.3C672,171,768,181,864,165.3C960,149,1056,107,1152,112C1248,117,1344,171,1392,197.3L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z'%3E%3C/path%3E%3C/svg%3E") top center/cover no-repeat;
+        }
+
+        .valores h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--azul-escuro);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .valores h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, var(--azul-agua), var(--dourado));
+            border-radius: 2px;
+            transform: translateX(-50%);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(96, 165, 250, 0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(45deg, var(--azul-agua), var(--dourado));
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--azul-escuro);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3::before {
+            content: '';
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--azul-agua), var(--azul-medio));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .card:nth-child(1) h3::before { content: '\f279'; }
+        .card:nth-child(2) h3::before { content: '\f005'; }
+        .card:nth-child(3) h3::before { content: '\f023'; }
+
+        .card p {
+            color: var(--cinza-medio);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Parceiros Section */
+        .parceiros {
+            padding: 4rem 2rem;
+            background: var(--azul-profundo);
+            color: white;
+            text-align: center;
+        }
+
+        .parceiros h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .parceiros-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .parceiros-logos img {
+            height: 60px;
+            filter: brightness(0) invert(1);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .parceiros-logos img:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--azul-escuro);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            font-weight: 300;
+        }
+
+        /* Scroll Indicators */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            z-index: 3;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .header.scrolled {
+                flex-direction: row;
+                padding: 0.5rem 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav a {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .valores {
+                padding: 3rem 1rem;
+            }
+
+            .valores h2 {
+                font-size: 2rem;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .card {
+                padding: 2rem 1.5rem;
+            }
+
+            .parceiros {
+                padding: 3rem 1rem;
+            }
+
+            .parceiros-logos {
+                gap: 2rem;
+            }
+
+            .parceiros-logos img {
+                height: 50px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header class="header">
+    <header class="header" id="header">
         <div class="logo">DeepBlue SC</div>
         <nav>
-            <a href="#">Início</a>
-            <a href="mapaInterativo.html">Mapa Interativo</a>
-            <a href="#">Locais</a>
-            <a href="#">Buscar Passeios</a>
-            <a href="#">Eventos</a>
-            <a href="login.html">Login/Cadastro</a>
+            <a href="#"><i class="fas fa-home"></i> Início</a>
+            <a href="mapaInterativo.html"><i class="fas fa-map"></i> Mapa Interativo</a>
+            <a href="#"><i class="fas fa-map-marker-alt"></i> Locais</a>
+            <a href="#"><i class="fas fa-search"></i> Buscar Passeios</a>
+            <a href="#"><i class="fas fa-calendar"></i> Eventos</a>
+            <a href="login.html"><i class="fas fa-user"></i> Login/Cadastro</a>
         </nav>
     </header>
+
     <section class="hero" id="hero">
         <div class="hero-image-wrapper">
             <img src="assets/Naufragio.jpg" alt="Turismo Náutico SC" class="hero-image">
+            <div class="particles" id="particles"></div>
             <div class="hero-overlay">
                 <div class="hero-content">
                     <h1>Explore o melhor do turismo náutico histórico em Santa Catarina</h1>
                     <p>Conectando pessoas com experiências únicas no litoral catarinense.</p>
-                    <a href="#valores" class="cta-btn" id="descubra-btn">Descubra Passeios</a>
+                    <a href="#valores" class="cta-btn" id="descubra-btn">
+                        <i class="fas fa-compass"></i> Descubra Passeios
+                    </a>
                 </div>
             </div>
         </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
     </section>
-    <section class="valores" id="valores">
+
+    <section class="valores fade-in" id="valores">
         <h2>Nossos Diferenciais</h2>
         <div class="cards">
-            <div class="card">
+            <div class="card fade-in">
                 <h3>Mapa Interativo</h3>
-                <p>Descubra naufrágios, passeios e pontos turísticos filtráveis.</p>
+                <p>Descubra naufrágios, passeios e pontos turísticos filtráveis com nossa tecnologia de ponta.</p>
             </div>
-            <div class="card">
+            <div class="card fade-in">
                 <h3>Recomendações Personalizadas</h3>
-                <p>Encontre experiências sob medida para você.</p>
+                <p>Encontre experiências sob medida para você com base em suas preferências e histórico.</p>
             </div>
-            <div class="card">
+            <div class="card fade-in">
                 <h3>Intermediação Segura</h3>
-                <p>Reserve e pague com segurança, com suporte dedicado.</p>
+                <p>Reserve e pague com segurança total, com suporte dedicado 24/7 para sua tranquilidade.</p>
             </div>
         </div>
     </section>
-    <section class="parceiros">
-        <h2>Parceiros</h2>
+
+    <section class="parceiros fade-in">
+        <h2>Nossos Parceiros</h2>
         <div class="parceiros-logos">
             <img src="static/images/parceiro1.png" alt="Parceiro 1">
             <img src="static/images/parceiro2.png" alt="Parceiro 2">
             <img src="static/images/parceiro3.png" alt="Parceiro 3">
         </div>
     </section>
+
     <footer class="footer">
         <p>&copy; 2025 DeepBlue SC. Todos os direitos reservados.</p>
     </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for CTA button
+        document.getElementById('descubra-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('valores').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // Parallax effect for hero image
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroImage = document.querySelector('.hero-image');
+            const rate = scrolled * -0.5;
+            heroImage.style.transform = `translateY(${rate}px)`;
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        createParticles();
+
+        // Card hover effects
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Enhanced CTA button interaction
+        const ctaBtn = document.getElementById('descubra-btn');
+        ctaBtn.addEventListener('mouseenter', () => {
+            ctaBtn.style.transform = 'translateY(-3px) scale(1.05)';
+        });
+        
+        ctaBtn.addEventListener('mouseleave', () => {
+            ctaBtn.style.transform = 'translateY(0) scale(1)';
+        });
+
+        // Mobile menu toggle (if needed)
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            const nav = document.querySelector('nav');
+            nav.style.display = 'none';
+            
+            // Add mobile menu toggle logic here if needed
+        }
+    </script>
 </body>
 </html>
