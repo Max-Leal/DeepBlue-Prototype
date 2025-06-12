@@ -51,13 +51,13 @@ CREATE SCHEMA IF NOT EXISTS `deepblue` DEFAULT CHARACTER SET utf8;
 USE `deepblue`;
 
 CREATE TABLE IF NOT EXISTS `tb_usuario` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `data_nascimento` DATE NOT NULL,
   `cpf` VARCHAR(14) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
-  `tipo` ENUM('adm', 'cliente') NOT NULL,
+  `tipo` ENUM('admin', 'cliente') NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE (`cpf`),
   UNIQUE (`email`)
