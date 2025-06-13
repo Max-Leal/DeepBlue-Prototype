@@ -70,9 +70,9 @@
             letter-spacing: 1px;
         }
 
-        .passeios {
+        .passeio {
             min-height: 80px;
-            background: var(--azul-claro, #b3e6ff);
+            background: var(--azul-espuma);
             border-radius: 12px;
             padding: 1.2rem;
             color: var(--azul-profundo);
@@ -107,19 +107,7 @@
         <div>
             <section class="passeios-section">
                 <h2 class="passeios-title">Passeios</h2>
-                <div class="passeios" id="passeios">
-                    <!-- Passeios serão exibidos aqui futuramente -->
-                </div>
-            </section>
-            <section class="passeios-section">
-                <h2 class="passeios-title">Passeios</h2>
-                <div class="passeios" id="passeios">
-                    <!-- Passeios serão exibidos aqui futuramente -->
-                </div>
-            </section>
-            <section class="passeios-section">
-                <h2 class="passeios-title">Passeios</h2>
-                <div class="passeios" id="passeios">
+                <div class="passeio" id="passeios">
                     <!-- Passeios serão exibidos aqui futuramente -->
                 </div>
             </section>
