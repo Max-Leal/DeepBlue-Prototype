@@ -129,7 +129,7 @@
                     <header class="header" id="header">
                         <div class="logo">DeepBlue SC</div>
                         <nav>
-                            <a href="index.html"><i class="fas fa-home"></i> Inï¿½cio</a>
+                            <a href="index.html"><i class="fas fa-home"></i> Início</a>
                             <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
                             <a href="#"><i class="fas fa-map-marker-alt"></i> Locais</a>
                             <a href="#"><i class="fas fa-search"></i> Buscar Passeios</a>
