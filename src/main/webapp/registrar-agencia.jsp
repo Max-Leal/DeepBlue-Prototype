@@ -36,5 +36,5 @@
         mensagem = "Preencha todos os campos do formulário.";
     }
 
-    response.sendRedirect("loginAgencia.html");
+    response.sendRedirect("login-agencia.html");
 %>
