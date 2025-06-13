@@ -1,3 +1,9 @@
+<%@ page import="java.util.List" %>
+<%@ page import="models.Passeio" %>
+<%@ page import="controllers.PasseioController" %>
+<%
+    List<Passeio> passeios = PasseioController.listarPasseios();
+%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -86,8 +92,8 @@
     <header class="header" id="header">
         <div class="logo">DeepBlue SC</div>
         <nav>
-            <a href="index.html"><i class="fas fa-home"></i> Início</a>
-            <a href="mapaInterativo.html"><i class="fas fa-map"></i> Mapa Interativo</a>
+            <a href="index.html"><i class="fas fa-home"></i> In�cio</a>
+            <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
             <a href="#"><i class="fas fa-map-marker-alt"></i> Locais</a>
             <a href="#"><i class="fas fa-search"></i> Buscar Passeios</a>
             <a href="#"><i class="fas fa-calendar"></i> Eventos</a>
@@ -108,8 +114,26 @@
             <section class="passeios-section">
                 <h2 class="passeios-title">Passeios</h2>
                 <div class="passeio" id="passeios">
-                    <!-- Passeios serão exibidos aqui futuramente -->
-                </div>
+    <%
+        for (Passeio p : passeios) {
+    %>
+        <div>
+            <strong><%= p.getLocal() %></strong> - 
+            <%= p.getData() %> - 
+            <%= p.getDuracao() %> - 
+            R$ <%= p.getValor() %> - 
+            <%= p.getTipo() %> - 
+            <%= p.getSituacao() %>
+        </div>
+    <%
+        }
+        if (passeios.isEmpty()) {
+    %>
+        <div>Nenhum passeio cadastrado.</div>
+    <%
+        }
+    %>
+</div>
             </section>
         </div>
     </main>
