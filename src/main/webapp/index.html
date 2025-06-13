@@ -5,59 +5,166 @@
     <title>DeepBlue SC - Turismo Náutico em Santa Catarina</title>
     <link rel="stylesheet" href="static/css/main-styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="static/js/main.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
+    <header class="header" id="header">
         <div class="logo">DeepBlue SC</div>
         <nav>
-            <a href="#">Início</a>
-            <a href="#">Mapa Interativo</a>
-            <a href="#">Locais</a>
-            <a href="#">Buscar Passeios</a>
-            <a href="#">Eventos</a>
-            <a href="#">Login/Cadastro</a>
+            <a href="#"><i class="fas fa-home"></i> Início</a>
+            <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
+            <a href="#"><i class="fas fa-map-marker-alt"></i> Locais</a>
+            <a href="#"><i class="fas fa-search"></i> Buscar Passeios</a>
+            <a href="#"><i class="fas fa-calendar"></i> Eventos</a>
+            <a href="login.html"><i class="fas fa-user"></i> Login/Cadastro</a>
         </nav>
     </header>
+
     <section class="hero" id="hero">
         <div class="hero-image-wrapper">
             <img src="assets/Naufragio.jpg" alt="Turismo Náutico SC" class="hero-image">
+            <div class="particles" id="particles"></div>
             <div class="hero-overlay">
                 <div class="hero-content">
                     <h1>Explore o melhor do turismo náutico histórico em Santa Catarina</h1>
                     <p>Conectando pessoas com experiências únicas no litoral catarinense.</p>
-                    <a href="#valores" class="cta-btn" id="descubra-btn">Descubra Passeios</a>
+                    <a href="#valores" class="cta-btn" id="descubra-btn">
+                        <i class="fas fa-compass"></i> Descubra Passeios
+                    </a>
                 </div>
             </div>
         </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
     </section>
-    <section class="valores" id="valores">
+
+    <section class="valores fade-in" id="valores">
         <h2>Nossos Diferenciais</h2>
         <div class="cards">
-            <div class="card">
+            <div class="card fade-in">
                 <h3>Mapa Interativo</h3>
-                <p>Descubra naufrágios, passeios e pontos turísticos filtráveis.</p>
+                <p>Descubra naufrágios, passeios e pontos turísticos filtráveis com nossa tecnologia de ponta.</p>
             </div>
-            <div class="card">
+            <div class="card fade-in">
                 <h3>Recomendações Personalizadas</h3>
-                <p>Encontre experiências sob medida para você.</p>
+                <p>Encontre experiências sob medida para você com base em suas preferências e histórico.</p>
             </div>
-            <div class="card">
+            <div class="card fade-in">
                 <h3>Intermediação Segura</h3>
-                <p>Reserve e pague com segurança, com suporte dedicado.</p>
+                <p>Reserve e pague com segurança total, com suporte dedicado 24/7 para sua tranquilidade.</p>
             </div>
         </div>
     </section>
-    <section class="parceiros">
-        <h2>Parceiros</h2>
+
+    <section class="parceiros fade-in">
+        <h2>Nossos Parceiros</h2>
         <div class="parceiros-logos">
             <img src="static/images/parceiro1.png" alt="Parceiro 1">
             <img src="static/images/parceiro2.png" alt="Parceiro 2">
             <img src="static/images/parceiro3.png" alt="Parceiro 3">
         </div>
     </section>
+
     <footer class="footer">
         <p>&copy; 2025 DeepBlue SC. Todos os direitos reservados.</p>
     </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for CTA button
+        document.getElementById('descubra-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('valores').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // Parallax effect for hero image
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroImage = document.querySelector('.hero-image');
+            const rate = scrolled * -0.5;
+            heroImage.style.transform = `translateY(${rate}px)`;
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        createParticles();
+
+        // Card hover effects
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Enhanced CTA button interaction
+        const ctaBtn = document.getElementById('descubra-btn');
+        ctaBtn.addEventListener('mouseenter', () => {
+            ctaBtn.style.transform = 'translateY(-3px) scale(1.05)';
+        });
+        
+        ctaBtn.addEventListener('mouseleave', () => {
+            ctaBtn.style.transform = 'translateY(0) scale(1)';
+        });
+
+        // Mobile menu toggle (if needed)
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            const nav = document.querySelector('nav');
+            nav.style.display = 'none';
+            
+            // Add mobile menu toggle logic here if needed
+        }
+    </script>
 </body>
 </html>
