@@ -31,7 +31,7 @@
     <meta charset="UTF-8">
     <title>Login - DeepBlue SC</title>
     <link rel="stylesheet" href="static/css/main-styles.css">
-    <link rel="stylesheet" href="static/css/login.css">
+    <link rel="stylesheet" href="static/css/login-styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body style="background: var(--azul-profundo, #f5f8fa);">

@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `tb_agencia` (
   `cnpj` VARCHAR(18) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
-  `situacao` ENUM('disponível', 'indiponível') NOT NULL,
+  `situacao` ENUM('disponivel', 'indisponivel') NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE (`cnpj`),
   UNIQUE (`email`)
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `tb_passeio` (
   `valor` DECIMAL(10,2) NOT NULL,
   `tb_agencia_id` INT NOT NULL,
   `tipo` ENUM('normal', 'especial') NOT NULL,
-  `situacao` ENUM('disponível', 'indiponível') NOT NULL,
+  `situacao` ENUM('disponivel', 'indisponivel') NOT NULL,
   PRIMARY KEY (`id`, `tb_agencia_id`),
   FOREIGN KEY (`tb_agencia_id`) REFERENCES `tb_agencia` (`id`)
 ) ENGINE=InnoDB;
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `tb_passeio` (
 CREATE TABLE IF NOT EXISTS `tb_atividade` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `localidade` VARCHAR(45) NOT NULL,
-  `situacao` ENUM('disponível', 'indiponível') NOT NULL,
+  `situacao` ENUM('disponivel', 'indisponivel') NOT NULL,
   `nome` VARCHAR(45) NOT NULL,
   `descricao` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`)
@@ -154,24 +154,24 @@ INSERT INTO tb_usuario (id, nome, data_nascimento, cpf, email, senha, tipo) VALU
 
 ```sql
 INSERT INTO tb_agencia (nome_empresarial, cnpj, email, senha, situacao) VALUES
-('Agência ViagensSol', '12.345.678/0001-99', 'contato@viagenssol.com', 'sol123', 'disponível'),
-('Mundo Aventuras', '98.765.432/0001-11', 'aventura@mundo.com', 'aventura@2024', 'disponível');
+('Agência ViagensSol', '12.345.678/0001-99', 'contato@viagenssol.com', 'sol123', 'disponivel'),
+('Mundo Aventuras', '98.765.432/0001-11', 'aventura@mundo.com', 'aventura@2024', 'disponivel');
 ```
 
 ### tb_passeio
 
 ```sql
 INSERT INTO tb_passeio (local, data, duracao, valor, tb_agencia_id, tipo, situacao) VALUES
-('Paraty - RJ', '2025-07-10', '04:00:00', 150.00, 1, 'normal', 'disponível'),
-('Chapada Diamantina', '2025-09-15', '08:00:00', 300.00, 2, 'especial', 'disponível');
+('Ilha do Campeche - Florianópolis', '2025-07-20', '05:00:00', 180.00, 1, 'normal', 'disponivel'),
+('Trilha da Lagoinha do Leste - Florianópolis', '2025-08-05', '06:00:00', 120.00, 2, 'especial', 'disponivel');
 ```
 
 ### tb_atividade
 
 ```sql
 INSERT INTO tb_atividade (localidade, situacao, nome, descricao) VALUES
-('Trilha Ecológica', 'disponível', 'Caminhada', 'Trilha com guia local'),
-('Rio Paraíba', 'disponível', 'Rafting', 'Descida de rio com botes');
+('Trilha Ecológica', 'disponivel', 'Caminhada', 'Trilha com guia local'),
+('Rio Paraíba', 'disponivel', 'Rafting', 'Descida de rio com botes');
 ```
 
 ### tb_reserva

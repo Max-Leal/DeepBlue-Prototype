@@ -23,6 +23,10 @@
             agencia.setSenha(senha);
             agencia.setSituacao(situacao);
             AgenciaController agenciaControl = new AgenciaController();
+            if (nomeEmpresarial.trim().isEmpty() || cnpj.trim().isEmpty() || email.trim().isEmpty() || senha.trim().isEmpty()) {
+                mensagem = "Dados inválidos. Verifique as informações e tente novamente.";
+                throw new Exception(mensagem);
+            }
             agenciaControl.registerAgencia(agencia);
             mensagem = "Cadastro realizado com sucesso! <a href='login-agencia.jsp'>Clique aqui para entrar</a>.";
         } catch (Exception e) {
@@ -31,5 +35,6 @@
     } else {
         mensagem = "Preencha todos os campos do formulário.";
     }
+
+    response.sendRedirect("login-agencia.html");
 %>
-<%= mensagem %>
