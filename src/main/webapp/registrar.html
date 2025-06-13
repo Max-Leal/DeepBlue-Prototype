@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Usuário - DeepBlue SC</title>
+    <link rel="stylesheet" href="static/css/main-styles.css">
+    <link rel="stylesheet" href="static/css/login-styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+</head>
+<body>
+    <header class="header">
+        <div class="logo">DeepBlue SC</div>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="mapaInterativo.jsp">Mapa Interativo</a>
+            <a href="#">Locais</a>
+            <a href="#">Buscar Passeios</a>
+            <a href="#">Eventos</a>
+            <a href="login.html">Login/Cadastro</a>
+        </nav>
+    </header>
+    <section class="hero">
+        <div class="hero-login-container">
+            <h2 class="hero-login-title">Criar nova conta</h2>
+            <form action="registrar.jsp" method="post" class="hero-login-form" autocomplete="off">
+                <div class="form-group">
+                    <label for="nome">Nome completo</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="data_nascimento">Data de nascimento</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-calendar input-icon"></i>
+                        <input type="date" id="data_nascimento" name="data_nascimento" placeholder="dd/mm/aaaa" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-id-card input-icon"></i>
+                        <input type="text" id="cpf" name="cpf" maxlength="14" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" placeholder="000.000.000-00" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="email" name="email" placeholder="email@exemplo.com" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="senha" name="senha" placeholder="Crie uma senha" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('senha', 'toggleIcon1')">
+                            <i class="fas fa-eye" id="toggleIcon1"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmarSenha">Confirmar Senha</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="confirmarSenha" name="confirmarSenha" placeholder="Repita a senha" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('confirmarSenha', 'toggleIcon2')">
+                            <i class="fas fa-eye" id="toggleIcon2"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tipo">Tipo de usuário</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-users input-icon"></i>
+                        <select id="tipo" name="tipo" required>
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="CLIENTE">Cliente</option>
+                            <option value="ADMIN">Administrador</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="hero-login-btn"><span>Registrar</span></button>
+            </form>
+            <div class="hero-login-register">
+                <span>Já tem uma conta?</span>
+                <a href="login.html">Entrar</a>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <p>&copy; 2025 DeepBlue SC. Todos os direitos reservados.</p>
+    </footer>
+    <script>
+        function togglePassword(inputId, iconId) {
+            const passwordInput = document.getElementById(inputId);
+            const toggleIcon = document.getElementById(iconId);
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+        // Efeitos de foco suaves
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+        // Validação visual para CPF
+        document.getElementById('cpf').addEventListener('input', function() {
+            const cpf = this.value.replace(/[^\d]+/g, '');
+            function validaCPF(cpf) {
+                if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+                let soma = 0, resto;
+                for (let i = 1; i <= 9; i++) soma += parseInt(cpf.substring(i-1, i)) * (11 - i);
+                resto = (soma * 10) % 11;
+                if ((resto === 10) || (resto === 11)) resto = 0;
+                if (resto !== parseInt(cpf.substring(9, 10))) return false;
+                soma = 0;
+                for (let i = 1; i <= 10; i++) soma += parseInt(cpf.substring(i-1, i)) * (12 - i);
+                resto = (soma * 10) % 11;
+                if ((resto === 10) || (resto === 11)) resto = 0;
+                if (resto !== parseInt(cpf.substring(10, 11))) return false;
+                return true;
+            }
+            if (cpf.length === 11) {
+                if (validaCPF(cpf)) {
+                    this.style.borderColor = 'var(--verde-sucesso)';
+                } else {
+                    this.style.borderColor = 'var(--vermelho-erro)';
+                }
+            } else if (cpf.length > 0) {
+                this.style.borderColor = 'var(--vermelho-erro)';
+            } else {
+                this.style.borderColor = 'rgba(96, 165, 250, 0.2)';
+            }
+        });
+        // Validação visual para senha e confirmação
+        document.getElementById('senha').addEventListener('input', function() {
+            const senha = this.value;
+            if (senha.length >= 6) {
+                this.style.borderColor = 'var(--verde-sucesso)';
+            } else if (senha.length > 0) {
+                this.style.borderColor = 'var(--vermelho-erro)';
+            } else {
+                this.style.borderColor = 'rgba(96, 165, 250, 0.2)';
+            }
+        });
+        document.getElementById('confirmarSenha').addEventListener('input', function() {
+            const senha = document.getElementById('senha').value;
+            if (this.value === senha && this.value.length >= 6) {
+                this.style.borderColor = 'var(--verde-sucesso)';
+            } else if (this.value.length > 0) {
+                this.style.borderColor = 'var(--vermelho-erro)';
+            } else {
+                this.style.borderColor = 'rgba(96, 165, 250, 0.2)';
+            }
+        });
+    </script>
+</body>
+</html>
