@@ -21,7 +21,7 @@ public class UsuarioDao {
 			
 			if (rs.next()) {
 				usuario = new Usuario();
-				usuario.setId(rs.getInt("id"));
+				usuario.setId(rs.getLong("id"));
 				usuario.setNome(rs.getString("nome"));
 				usuario.setData_nascimento(rs.getDate("data_nascimento").toLocalDate());
 				usuario.setCpf(rs.getString("cpf"));
@@ -69,7 +69,7 @@ public class UsuarioDao {
 			Usuario usuario = null;
 			if (rs.next()) {
 				usuario = new Usuario();
-				usuario.setId(rs.getInt("id"));
+				usuario.setId(rs.getLong("id"));
 				usuario.setNome(rs.getString("nome"));
 				usuario.setData_nascimento(rs.getDate("data_nascimento").toLocalDate());
 				usuario.setCpf(rs.getString("cpf"));
@@ -101,9 +101,9 @@ public class UsuarioDao {
 		}
 	}
 
-	// o usuario vai ser encontrado pelo id que for passado na entidade
+	
 	// usuarioAlterado (como atributo)
-	public static void update(Usuario usuarioAlterado) {
+	public static void update(Long id, Usuario usuarioAlterado) {
 		try {
 			Connection con = ConexaoDB.getConexao();
 			String sql = "update tb_usuario set nome = ?, data_nascimento = ?, cpf = ?, email = ?, senha = ?, tipo = ? where id = ?";
@@ -114,7 +114,7 @@ public class UsuarioDao {
 			stm.setString(4, usuarioAlterado.getEmail());
 			stm.setString(5, usuarioAlterado.getSenha());
 			stm.setString(6, usuarioAlterado.getTipo().toString());
-			stm.setInt(7, usuarioAlterado.getId());
+			stm.setLong(7, id);
 			stm.execute();
 
 			stm.close();

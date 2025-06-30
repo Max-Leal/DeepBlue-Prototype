@@ -3,7 +3,7 @@ package models;
 import Enums.Situacao;
 
 public class Agencia {
-	private int id;
+	private Long id;
 	private String nomeEmpresarial;
 	private String cnpj;
 	private String email;
@@ -13,16 +13,18 @@ public class Agencia {
 	public Agencia() {
 	}
 
-	public Agencia(int id, String nomeEmpresarial, String cnpj, String email, Situacao situacao) {
+	public Agencia(String nomeEmpresarial, String cnpj, String email, String senha, Situacao situacao) {
 		super();
-		this.id = id;
 		this.nomeEmpresarial = nomeEmpresarial;
 		this.cnpj = cnpj;
 		this.email = email;
+		this.senha = senha;
 		this.situacao = situacao;
 	}
 
-	public Agencia(int id, String nomeEmpresarial, String cnpj, String email, String senha, Situacao situacao) {
+
+
+	public Agencia(Long id, String nomeEmpresarial, String cnpj, String email, String senha, Situacao situacao) {
 		this.id = id;
 		this.nomeEmpresarial = nomeEmpresarial;
 		this.cnpj = cnpj;
@@ -31,11 +33,11 @@ public class Agencia {
 		this.situacao = situacao;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

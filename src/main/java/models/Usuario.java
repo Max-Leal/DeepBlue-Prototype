@@ -6,7 +6,7 @@ import Enums.TipoUsuario;
 
 public class Usuario {
 
-	private int id;
+	private Long id;
 	private String nome;
 	private LocalDate data_nascimento;
 	private String cpf;
@@ -27,7 +27,7 @@ public class Usuario {
 		this.tipo = tipo;
 	}
 
-	public Usuario(int id, String nome, LocalDate data_nascimento, String cpf, String email, String senha,
+	public Usuario(Long id, String nome, LocalDate data_nascimento, String cpf, String email, String senha,
 			TipoUsuario tipo) {
 		super();
 		this.id = id;
@@ -39,11 +39,11 @@ public class Usuario {
 		this.tipo = tipo;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
