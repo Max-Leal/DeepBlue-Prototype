@@ -21,7 +21,7 @@
             <a href="#">Locais</a>
             <a href="#">Buscar Passeios</a>
             <a href="#">Eventos</a>
-            <a href="login.html">Login/Cadastro</a>
+            <a href="login-usuario.html">Login/Cadastro</a>
         </nav>
     </header>
 
@@ -99,37 +99,6 @@
                 this.parentElement.style.transform = 'scale(1)';
             });
         });
-
-        // Validação visual em tempo real
-        document.getElementById('cnpj').addEventListener('input', function () {
-            const cnpj = this.value.replace(/[^\d]+/g, '');
-            function validaCNPJ(cnpj) {
-                if (cnpj.length !== 14) return false;
-                if (/^(\d)\1+$/.test(cnpj)) return false;
-                let t = cnpj.length - 2, d = cnpj.substring(t), d1 = parseInt(d.charAt(0)), d2 = parseInt(d.charAt(1));
-                let calc = x => {
-                    let n = 0, y = x - 7, i = 0;
-                    for (; x >= 1; x--, i++) n += cnpj.charAt(i) * x;
-                    for (x = 9; i < 12 + y; x--, i++) n += cnpj.charAt(i) * x;
-                    return n;
-                };
-                let dg1 = calc(5) % 11 < 2 ? 0 : 11 - calc(5) % 11;
-                let dg2 = calc(6) % 11 < 2 ? 0 : 11 - calc(6) % 11;
-                return dg1 === d1 && dg2 === d2;
-            }
-            if (cnpj.length === 14) {
-                if (validaCNPJ(cnpj)) {
-                    this.style.borderColor = 'var(--verde-sucesso)';
-                } else {
-                    this.style.borderColor = 'var(--vermelho-erro)';
-                }
-            } else if (cnpj.length > 0) {
-                this.style.borderColor = 'var(--vermelho-erro)';
-            } else {
-                this.style.borderColor = 'rgba(96, 165, 250, 0.2)';
-            }
-        });
-
         document.getElementById('senha').addEventListener('input', function () {
             const senha = this.value;
 
@@ -143,7 +112,7 @@
         });
         // Alternar entre usuário e agência
         document.getElementById('usuario').addEventListener('click', function () {
-            window.location.href = 'login.html';
+            window.location.href = 'login-usuario.html';
         });
     </script>
 </body>
