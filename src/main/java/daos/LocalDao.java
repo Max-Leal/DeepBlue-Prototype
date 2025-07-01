@@ -30,7 +30,7 @@ public class LocalDao {
         }
     }
 
-    public static Local getById(int id) {
+    public static Local getLocalById(int id) {
         try {
             Connection con = ConexaoDB.getConexao();
             String sql = "SELECT * FROM tb_local WHERE id = ?";
