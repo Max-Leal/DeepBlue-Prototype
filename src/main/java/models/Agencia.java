@@ -1,6 +1,7 @@
 package models;
 
 import Enums.Situacao;
+import utils.HashUtil;
 
 public class Agencia {
 	private Long id;
@@ -18,7 +19,7 @@ public class Agencia {
 		this.nomeEmpresarial = nomeEmpresarial;
 		this.cnpj = cnpj;
 		this.email = email;
-		this.senha = senha;
+		this.senha = HashUtil.hashSenha(senha);
 		this.situacao = situacao;
 	}
 
@@ -29,7 +30,7 @@ public class Agencia {
 		this.nomeEmpresarial = nomeEmpresarial;
 		this.cnpj = cnpj;
 		this.email = email;
-		this.senha = senha;
+		this.senha = HashUtil.hashSenha(senha);
 		this.situacao = situacao;
 	}
 
@@ -70,7 +71,7 @@ public class Agencia {
 	}
 
 	public void setSenha(String senha) {
-		this.senha = senha;
+		this.senha = HashUtil.hashSenha(senha);
 	}
 
 	public Situacao getSituacao() {

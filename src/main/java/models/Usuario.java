@@ -3,6 +3,7 @@ package models;
 import java.time.LocalDate;
 
 import Enums.TipoUsuario;
+import utils.HashUtil;
 
 public class Usuario {
 
@@ -23,7 +24,7 @@ public class Usuario {
 		this.data_nascimento = data_nascimento;
 		this.cpf = cpf;
 		this.email = email;
-		this.senha = senha;
+		this.senha = HashUtil.hashSenha(senha);
 		this.tipo = tipo;
 	}
 
@@ -35,7 +36,7 @@ public class Usuario {
 		this.data_nascimento = data_nascimento;
 		this.cpf = cpf;
 		this.email = email;
-		this.senha = senha;
+		this.senha = HashUtil.hashSenha(senha);
 		this.tipo = tipo;
 	}
 
@@ -84,7 +85,7 @@ public class Usuario {
 	}
 
 	public void setSenha(String senha) {
-		this.senha = senha;
+		this.senha = HashUtil.hashSenha(senha);
 	}
 
 	public TipoUsuario getTipo() {
