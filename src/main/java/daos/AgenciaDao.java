@@ -21,7 +21,7 @@ public class AgenciaDao {
 
             if (rs.next()) {
                 agencia = new Agencia();
-                agencia.setId(rs.getInt("id"));
+                agencia.setId(rs.getLong("id"));
                 agencia.setNomeEmpresarial(rs.getString("nome_empresarial"));
                 agencia.setCnpj(rs.getString("cnpj"));
                 agencia.setEmail(rs.getString("email"));
@@ -66,7 +66,7 @@ public class AgenciaDao {
             Agencia agencia = null;
             if (rs.next()) {
                 agencia = new Agencia();
-                agencia.setId(rs.getInt("id"));
+                agencia.setId(rs.getLong("id"));
                 agencia.setNomeEmpresarial(rs.getString("nome_empresarial"));
                 agencia.setCnpj(rs.getString("cnpj"));
                 agencia.setEmail(rs.getString("email"));
@@ -97,7 +97,7 @@ public class AgenciaDao {
         }
     }
 
-    public static void update(Agencia agenciaAlterada) {
+    public static void update(Long id, 	Agencia agenciaAlterada) {
         try {
             Connection con = ConexaoDB.getConexao();
             String sql = "UPDATE tb_agencia SET nome_empresarial = ?, cnpj = ?, email = ?, senha = ?, situacao = ? WHERE id = ?";
@@ -107,7 +107,7 @@ public class AgenciaDao {
             stm.setString(3, agenciaAlterada.getEmail());
             stm.setString(4, agenciaAlterada.getSenha());
             stm.setString(5, agenciaAlterada.getSituacao().toString().toLowerCase());
-            stm.setInt(6, agenciaAlterada.getId());
+            stm.setLong(6,id);
             stm.execute();
 
             stm.close();

@@ -29,8 +29,8 @@ public class AgenciaController {
     }
 
     // Atualizar agência
-    public void updateAgencia(Agencia agencia) {
-        AgenciaDao.update(agencia);
+    public void updateAgencia(Long id,Agencia agencia) {
+        AgenciaDao.update(id,agencia);
     }
 
     // Deletar agência por ID
