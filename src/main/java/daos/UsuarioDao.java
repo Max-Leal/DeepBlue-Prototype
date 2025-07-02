@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import Enums.TipoUsuario;
 import models.Usuario;
 import utils.ConexaoDB;
 
@@ -27,7 +26,6 @@ public class UsuarioDao {
 				usuario.setCpf(rs.getString("cpf"));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setSenha(rs.getString("senha"));
-				usuario.setTipo(TipoUsuario.valueOf(rs.getString("tipo").toUpperCase()));
 			}
 			rs.close();
 			stm.close();
@@ -42,14 +40,13 @@ public class UsuarioDao {
 	public static void insert(Usuario usuario) {
 		try {
 			Connection con = ConexaoDB.getConexao();
-			String sql = "insert into tb_usuario (nome, data_nascimento, cpf, email, senha, tipo) values (?, ?, ?, ?, ?, ?)";
+			String sql = "insert into tb_usuario (nome, data_nascimento, cpf, email, senha) values (?, ?, ?, ?, ?)";
 			PreparedStatement stm = con.prepareStatement(sql);
 			stm.setString(1, usuario.getNome());
 			stm.setDate(2, java.sql.Date.valueOf(usuario.getData_nascimento()));
 			stm.setString(3, usuario.getCpf());
 			stm.setString(4, usuario.getEmail());
 			stm.setString(5, usuario.getSenha());
-			stm.setString(6, usuario.getTipo().toString());
 			stm.execute();
 
 			stm.close();
@@ -75,7 +72,6 @@ public class UsuarioDao {
 				usuario.setCpf(rs.getString("cpf"));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setSenha(rs.getString("senha"));
-				usuario.setTipo(TipoUsuario.valueOf(rs.getString("tipo")));
 			}
 			rs.close();
 			stm.close();
@@ -106,14 +102,13 @@ public class UsuarioDao {
 	public static void update(Long id, Usuario usuarioAlterado) {
 		try {
 			Connection con = ConexaoDB.getConexao();
-			String sql = "update tb_usuario set nome = ?, data_nascimento = ?, cpf = ?, email = ?, senha = ?, tipo = ? where id = ?";
+			String sql = "update tb_usuario set nome = ?, data_nascimento = ?, cpf = ?, email = ?, senha = ? where id = ?";
 			PreparedStatement stm = con.prepareStatement(sql);
 			stm.setString(1, usuarioAlterado.getNome());
 			stm.setDate(2, java.sql.Date.valueOf(usuarioAlterado.getData_nascimento()));
 			stm.setString(3, usuarioAlterado.getCpf());
 			stm.setString(4, usuarioAlterado.getEmail());
 			stm.setString(5, usuarioAlterado.getSenha());
-			stm.setString(6, usuarioAlterado.getTipo().toString());
 			stm.setLong(7, id);
 			stm.execute();
 
