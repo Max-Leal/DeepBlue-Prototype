@@ -23,17 +23,6 @@ public class Agencia {
 		this.situacao = situacao;
 	}
 
-
-
-	public Agencia(Long id, String nomeEmpresarial, String cnpj, String email, String senha, Situacao situacao) {
-		this.id = id;
-		this.nomeEmpresarial = nomeEmpresarial;
-		this.cnpj = cnpj;
-		this.email = email;
-		this.senha = HashUtil.hashSenha(senha);
-		this.situacao = situacao;
-	}
-
 	public Long getId() {
 		return id;
 	}

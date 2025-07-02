@@ -2,6 +2,8 @@ package models;
 
 import java.time.LocalDate;
 
+import utils.HashUtil;
+
 public class Usuario {
 
 	private Long id;
@@ -16,7 +18,7 @@ public class Usuario {
 		this.data_nascimento = data_nascimento;
 		this.cpf = cpf;
 		this.email = email;
-		this.senha = senha;
+		this.senha = HashUtil.hashSenha(senha);
 	}
 
 	public Usuario() {
@@ -56,7 +58,7 @@ public class Usuario {
 		return senha;
 	}
 	public void setSenha(String senha) {
-		this.senha = senha;
+		this.senha = HashUtil.hashSenha(senha);
 	}
 	
 

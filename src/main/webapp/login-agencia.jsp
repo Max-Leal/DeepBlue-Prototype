@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     request.setCharacterEncoding("UTF-8");
+String mensagem = null;
 
     String email = request.getParameter("email");
     String senha = request.getParameter("senha");
@@ -14,6 +15,7 @@
 
         if (loginValido) {
             agencia = agenciaControl.getAgenciaByEmail(email);
+            
         }
     }
 %>

@@ -2,8 +2,10 @@ package controllers;
 
 import daos.AgenciaDao;
 import models.Agencia;
+import utils.HashUtil;
 
 public class AgenciaController {
+	
     // Cadastro de agência
     public void registerAgencia(Agencia agencia) {
         AgenciaDao.insert(agencia);
@@ -12,10 +14,8 @@ public class AgenciaController {
     // Login de agência
     public boolean loginAgencia(String email, String senha) {
         Agencia agencia = AgenciaDao.getAgenciaByEmail(email);
-        if (agencia != null && agencia.getSenha().equals(senha)) {
-            return true;
-        }
-        return false;
+     
+        return HashUtil.verificarSenha(senha, agencia.getSenha());
     }
 
     // Buscar agência por ID

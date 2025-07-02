@@ -50,7 +50,6 @@
             id: "<%= usuario.getId() %>",
             nome: "<%= usuario.getNome() %>",
             email: "<%= usuario.getEmail() %>",
-            tipo: "<%= usuario.getTipo() %>"
         }));
         // Redireciona para a página principal após login
         window.location.href = "index.html";
