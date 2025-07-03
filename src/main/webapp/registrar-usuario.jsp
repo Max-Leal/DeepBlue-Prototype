@@ -23,7 +23,7 @@
             LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr);
             Usuario usuario = new Usuario(nome, dataNascimento, cpf, email, senha);
             userControl.registerUser(usuario);
-            mensagem = "Cadastro realizado com sucesso! <a href='login-usuario.html'>Clique aqui para entrar</a>.";
+            response.sendRedirect("login-usuario.html");
         } catch (Exception e) {
             mensagem = "Erro ao cadastrar usuário: " + e.getMessage();
         }
