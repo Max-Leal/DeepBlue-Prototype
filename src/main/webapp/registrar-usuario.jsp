@@ -31,13 +31,6 @@
         mensagem = "Preencha todos os campos do formulário.";
     }
 %>
-<%
-    System.out.println("NOME: " + nome);
-    System.out.println("DATA: " + dataNascimentoStr);
-    System.out.println("CPF: " + cpf);
-    System.out.println("EMAIL: " + email);
-    System.out.println("SENHA: " + senha);
-%>
 
 <!DOCTYPE html>
 <html lang="pt-br">

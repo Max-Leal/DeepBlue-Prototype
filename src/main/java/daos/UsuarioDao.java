@@ -30,13 +30,11 @@ public class UsuarioDao {
 			rs.close();
 			stm.close();
 			con.close();
-			return usuario;
+			return usuario;	
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
-
-
 	public static void insert(Usuario usuario) {
 		try {
 			Connection con = ConexaoDB.getConexao();

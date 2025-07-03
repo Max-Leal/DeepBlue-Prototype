@@ -60,6 +60,9 @@ public class Agencia {
 	}
 
 	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	public void setSenhaHash(String senha) {
 		this.senha = HashUtil.hashSenha(senha);
 	}
 

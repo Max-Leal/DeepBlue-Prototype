@@ -57,8 +57,11 @@ public class Usuario {
 	public String getSenha() {
 		return senha;
 	}
-	public void setSenha(String senha) {
+	public void setSenhaHash(String senha) {
 		this.senha = HashUtil.hashSenha(senha);
+	}
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	
 

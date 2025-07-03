@@ -16,12 +16,8 @@
     if (nomeEmpresarial != null && cnpj != null && email != null && senha != null && situacaoStr != null) {
         try {
             Situacao situacao = Situacao.valueOf(situacaoStr.toUpperCase());
-            Agencia agencia = new Agencia();
-            agencia.setNomeEmpresarial(nomeEmpresarial);
-            agencia.setCnpj(cnpj);
-            agencia.setEmail(email);
-            agencia.setSenha(senha);
-            agencia.setSituacao(situacao);
+            Agencia agencia = new Agencia(nomeEmpresarial,cnpj,email,senha,situacao);
+         
             AgenciaController agenciaControl = new AgenciaController();
             if (nomeEmpresarial.trim().isEmpty() || cnpj.trim().isEmpty() || email.trim().isEmpty() || senha.trim().isEmpty()) {
                 mensagem = "Dados inválidos. Verifique as informações e tente novamente.";
