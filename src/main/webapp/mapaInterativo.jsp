@@ -71,7 +71,7 @@
     %>
         // Centralize o mapa no primeiro local, se houver
         <% if (lista != null && !lista.isEmpty()) { %>
-            var map = L.map('map').setView([<%= lista.get(0).getLatitude() %>, <%= lista.get(0).getLongitude() %>], 13);
+            var map = L.map('map').setView([<%= lista.get(0).getLatitude() %>, <%= lista.get(0).getLongitude() %>], 9);
         <% } else { %>
             var map = L.map('map').setView([0, 0], 2);
         <% } %>
@@ -81,10 +81,11 @@
 
         // Adicione os marcadores dinamicamente
         <% for (Local local : lista) { %>
-            L.marker([<%= local.getLatitude() %>, <%= local.getLongitude() %>])
+            L.marker([<%= local.getLatitude() %>-0.245, <%= local.getLongitude() %>-0.222])
                 .addTo(map)
                 .bindPopup('<b><%= local.getNome() %></b><br><%= local.getDescricao() %>');
         <% } %>
+        
     </script>
 </body>
 
