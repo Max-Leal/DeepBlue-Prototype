@@ -1,6 +1,5 @@
 <!-- filepath: c:\Users\Usuario\OneDrive\Área de Trabalho\Workspaces\.java\ENTRA21\DeepBlue-Prototype\src\main\webapp\registrar.jsp -->
 <%@ page import="models.Usuario" %>
-<%@ page import="Enums.TipoUsuario" %>
 <%@ page import="controllers.UsuarioController" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -15,17 +14,16 @@
     String cpf = request.getParameter("cpf");
     String email = request.getParameter("email");
     String senha = request.getParameter("senha");
-    String tipoStr = request.getParameter("tipo");
+    
 
     String mensagem = "";
 
-    if (nome != null && dataNascimentoStr != null && cpf != null && email != null && senha != null && tipoStr != null) {
+    if (nome != null && dataNascimentoStr != null && cpf != null && email != null && senha != null) {
         try {
             LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr);
-            TipoUsuario tipo = TipoUsuario.valueOf(tipoStr);
-            Usuario usuario = new Usuario(nome, dataNascimento, cpf, email, senha, tipo);
+            Usuario usuario = new Usuario(nome, dataNascimento, cpf, email, senha);
             userControl.registerUser(usuario);
-            mensagem = "Cadastro realizado com sucesso! <a href='login.html'>Clique aqui para entrar</a>.";
+            mensagem = "Cadastro realizado com sucesso! <a href='login-usuario.html'>Clique aqui para entrar</a>.";
         } catch (Exception e) {
             mensagem = "Erro ao cadastrar usuário: " + e.getMessage();
         }
@@ -33,6 +31,7 @@
         mensagem = "Preencha todos os campos do formulário.";
     }
 %>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
