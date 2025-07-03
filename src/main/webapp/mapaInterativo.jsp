@@ -81,7 +81,7 @@
 
         // Adicione os marcadores dinamicamente
         <% for (Local local : lista) { %>
-            L.marker([<%= local.getLatitude() %>-0.245, <%= local.getLongitude() %>-0.222])
+            L.marker([<%= local.getLatitude() %>, <%= local.getLongitude() %>])
                 .addTo(map)
                 .bindPopup('<b><%= local.getNome() %></b><br><%= local.getDescricao() %>');
         <% } %>
