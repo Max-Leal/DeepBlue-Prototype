@@ -5,7 +5,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>DeepBlue SC - Turismo Náutico em Santa Catarina</title>
+<title>DeepBlue SC - Turismo NÃ¡utico em Santa Catarina</title>
 <link rel="stylesheet" href="static/css/main-styles.css">
 <link rel="stylesheet" href="static/css/crud-styles.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,10 +23,10 @@
 	<header class="header" id="header">
 		<div class="logo">DeepBlue SC</div>
         <nav>
-            <a href="index.html"><i class="fas fa-home"></i> Início</a>
+            <a href="index.html"><i class="fas fa-home"></i> InÃ­cio</a>
             <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
             <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
-            <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
+            <a href="agencias.jsp"><i class="fas fa-search"></i> AgÃªncias</a>
             <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
             <a href="login-usuario.html"><i class="fas fa-user"></i> Login/Cadastro</a>
         </nav>
@@ -34,7 +34,7 @@
 
 
 	<section class="crud-section" id="agencias">
-		<h1 class="crud-titulo">Agências Cadastradas</h1>
+		<h1 class="crud-titulo">AgÃªncias Cadastradas</h1>
 		<div class="crud-lista">
 			<%
 			AgenciaController aController = new AgenciaController();
@@ -47,7 +47,7 @@
 				<div class="crud-info">
 					<b>CNPJ:</b>
 					<%=agencia.getCnpj()%><br> <b>Email:</b>
-					<%=agencia.getEmail()%><br> <b>Situação:</b>
+					<%=agencia.getEmail()%><br> <b>SituaÃ§Ã£o:</b>
 					<%=agencia.getSituacao()%>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 			}
 			} else {
 			%>
-			<p>Nenhuma agência cadastrada no momento.</p>
+			<p>Nenhuma agÃªncia cadastrada no momento.</p>
 			<%
 			}
 			%>

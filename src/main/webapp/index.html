@@ -19,7 +19,7 @@
             <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
             <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
             <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
-            <a href="login-usuario.html"><i class="fas fa-user"></i> Login/Cadastro</a>
+            <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
         </nav>
     </header>
 
@@ -74,6 +74,28 @@
     </footer>
 
     <script>
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const infLogin = document.getElementById("informacoes-login");
+      const dadosUsuario = localStorage.getItem("usuario");
+
+      if (dadosUsuario) {
+        const usuario = JSON.parse(dadosUsuario);
+
+        infLogin.innerHTML = `
+          <div>
+            <strong>Bem-vindo, ${usuario.nome}</strong><br>
+            <span>${usuario.email}</span><br>
+            <button onclick="logout()" id="logout-btn">Sair</button>
+          </div>
+        `;
+      }
+    });
+
+    function logout() {
+      localStorage.removeItem("usuario");
+      location.reload(); 
+    }
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
