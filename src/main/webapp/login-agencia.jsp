@@ -14,6 +14,7 @@
 
         if (loginValido) {
             agencia = agenciaControl.getAgenciaByEmail(email);
+            
         }
     }
 %>

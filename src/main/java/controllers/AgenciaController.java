@@ -1,9 +1,17 @@
 package controllers;
 
+import java.util.List;
+
 import daos.AgenciaDao;
 import models.Agencia;
+import utils.HashUtil;
 
 public class AgenciaController {
+	
+	public List<Agencia> listaAgencias() {
+		return  AgenciaDao.getAllAgencias();
+	}
+	
     // Cadastro de agência
     public void registerAgencia(Agencia agencia) {
         AgenciaDao.insert(agencia);
@@ -12,10 +20,8 @@ public class AgenciaController {
     // Login de agência
     public boolean loginAgencia(String email, String senha) {
         Agencia agencia = AgenciaDao.getAgenciaByEmail(email);
-        if (agencia != null && agencia.getSenha().equals(senha)) {
-            return true;
-        }
-        return false;
+     
+        return HashUtil.verificarSenha(senha, agencia.getSenha());
     }
 
     // Buscar agência por ID
@@ -29,8 +35,8 @@ public class AgenciaController {
     }
 
     // Atualizar agência
-    public void updateAgencia(Agencia agencia) {
-        AgenciaDao.update(agencia);
+    public void updateAgencia(Long id,Agencia agencia) {
+        AgenciaDao.update(id,agencia);
     }
 
     // Deletar agência por ID

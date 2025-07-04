@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import Enums.TipoUsuario;
 import models.Usuario;
 import utils.ConexaoDB;
 
@@ -21,35 +20,31 @@ public class UsuarioDao {
 			
 			if (rs.next()) {
 				usuario = new Usuario();
-				usuario.setId(rs.getInt("id"));
+				usuario.setId(rs.getLong("id"));
 				usuario.setNome(rs.getString("nome"));
 				usuario.setData_nascimento(rs.getDate("data_nascimento").toLocalDate());
 				usuario.setCpf(rs.getString("cpf"));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setSenha(rs.getString("senha"));
-				usuario.setTipo(TipoUsuario.valueOf(rs.getString("tipo").toUpperCase()));
 			}
 			rs.close();
 			stm.close();
 			con.close();
-			return usuario;
+			return usuario;	
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
-
-
 	public static void insert(Usuario usuario) {
 		try {
 			Connection con = ConexaoDB.getConexao();
-			String sql = "insert into tb_usuario (nome, data_nascimento, cpf, email, senha, tipo) values (?, ?, ?, ?, ?, ?)";
+			String sql = "insert into tb_usuario (nome, data_nascimento, cpf, email, senha) values (?, ?, ?, ?, ?)";
 			PreparedStatement stm = con.prepareStatement(sql);
 			stm.setString(1, usuario.getNome());
 			stm.setDate(2, java.sql.Date.valueOf(usuario.getData_nascimento()));
 			stm.setString(3, usuario.getCpf());
 			stm.setString(4, usuario.getEmail());
 			stm.setString(5, usuario.getSenha());
-			stm.setString(6, usuario.getTipo().toString());
 			stm.execute();
 
 			stm.close();
@@ -69,13 +64,12 @@ public class UsuarioDao {
 			Usuario usuario = null;
 			if (rs.next()) {
 				usuario = new Usuario();
-				usuario.setId(rs.getInt("id"));
+				usuario.setId(rs.getLong("id"));
 				usuario.setNome(rs.getString("nome"));
 				usuario.setData_nascimento(rs.getDate("data_nascimento").toLocalDate());
 				usuario.setCpf(rs.getString("cpf"));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setSenha(rs.getString("senha"));
-				usuario.setTipo(TipoUsuario.valueOf(rs.getString("tipo")));
 			}
 			rs.close();
 			stm.close();
@@ -101,20 +95,19 @@ public class UsuarioDao {
 		}
 	}
 
-	// o usuario vai ser encontrado pelo id que for passado na entidade
+	
 	// usuarioAlterado (como atributo)
-	public static void update(Usuario usuarioAlterado) {
+	public static void update(Long id, Usuario usuarioAlterado) {
 		try {
 			Connection con = ConexaoDB.getConexao();
-			String sql = "update tb_usuario set nome = ?, data_nascimento = ?, cpf = ?, email = ?, senha = ?, tipo = ? where id = ?";
+			String sql = "update tb_usuario set nome = ?, data_nascimento = ?, cpf = ?, email = ?, senha = ? where id = ?";
 			PreparedStatement stm = con.prepareStatement(sql);
 			stm.setString(1, usuarioAlterado.getNome());
 			stm.setDate(2, java.sql.Date.valueOf(usuarioAlterado.getData_nascimento()));
 			stm.setString(3, usuarioAlterado.getCpf());
 			stm.setString(4, usuarioAlterado.getEmail());
 			stm.setString(5, usuarioAlterado.getSenha());
-			stm.setString(6, usuarioAlterado.getTipo().toString());
-			stm.setInt(7, usuarioAlterado.getId());
+			stm.setLong(7, id);
 			stm.execute();
 
 			stm.close();

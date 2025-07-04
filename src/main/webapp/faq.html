@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FAQ</title>
+    <link rel="stylesheet" href="static/css/main-styles.css">
+    <link rel="stylesheet" href="static/css/faq-styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <header class="header" id="header">
+            <div class="logo">DeepBlue SC</div>
+        <nav>
+            <a href="index.html"><i class="fas fa-home"></i> Início</a>
+            <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
+            <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
+            <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
+            <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
+            <a href="login-usuario.html"><i class="fas fa-user"></i> Login/Cadastro</a>
+        </nav>
+        </header>
+
+        <main>
+
+            <h1 style="text-align:center; margin-top:7%;">Perguntas Frequentes (FAQ)</h1>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <input type="checkbox" id="acc1">
+                    <label for="acc1" class="accordion-header">
+                        <span class="accordion-title">Como funciona a plataforma DeepBlue SC?</span>
+                        <span class="accordion-icon">▼</span>
+                    </label>
+                    <div class="accordion-content">
+                        <p>A DeepBlue SC conecta turistas e operadores de turismo náutico, oferecendo mapas interativos,
+                            recomendações personalizadas e intermediação segura de passeios.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <input type="checkbox" id="acc2">
+                    <label for="acc2" class="accordion-header">
+                        <span class="accordion-title">Preciso pagar para usar o site?</span>
+                        <span class="accordion-icon">▼</span>
+                    </label>
+                    <div class="accordion-content">
+                        <p>O acesso ao site e à maioria das funcionalidades é gratuito. Apenas a reserva de passeios pode
+                            envolver custos, dependendo do operador.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <input type="checkbox" id="acc3">
+                    <label for="acc3" class="accordion-header">
+                        <span class="accordion-title">Como faço para reservar um passeio?</span>
+                        <span class="accordion-icon">▼</span>
+                    </label>
+                    <div class="accordion-content">
+                        <p>Basta buscar o passeio desejado, clicar em "Reservar" e seguir as instruções para pagamento e
+                            confirmação.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <input type="checkbox" id="acc4">
+                    <label for="acc4" class="accordion-header">
+                        <span class="accordion-title">Como entro em contato com o suporte?</span>
+                        <span class="accordion-icon">▼</span>
+                    </label>
+                    <div class="accordion-content">
+                        <p>Você pode entrar em contato com nosso suporte 24/7 através do formulário de contato no site ou pelo e-mail suporte@deepbluesc.com.br.</p>
+                    </div>
+                </div>
+                <!-- ...adicione mais perguntas conforme necessário... -->
+                
+            </div>
+            
+        </main>
+			<div style="padding-bottom: 335px"></div>
+        <footer class="footer">
+            <p>&copy; 2025 DeepBlue SC. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+<script>
+    // Header scroll effect (igual ao index.html)
+    window.addEventListener('scroll', () => {
+        const header = document.getElementById('header');
+        if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+    window.addEventListener('scroll', () => {
+        const header = document.getElementById('header');
+        if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
+    document.getElementById('descubra-btn').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('valores').scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const heroImage = document.querySelector('.hero-image');
+        const rate = scrolled * -0.5;
+        heroImage.style.transform = `translateY(${rate}px)`;
+    });
+
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+    });
+
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 50;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            particlesContainer.appendChild(particle);
+        }
+    }
+
+    createParticles();
+
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    const ctaBtn = document.getElementById('descubra-btn');
+    ctaBtn.addEventListener('mouseenter', () => {
+        ctaBtn.style.transform = 'translateY(-3px) scale(1.05)';
+    });
+
+    ctaBtn.addEventListener('mouseleave', () => {
+        ctaBtn.style.transform = 'translateY(0) scale(1)';
+    });
+
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+        const nav = document.querySelector('nav');
+        nav.style.display = 'none';
+    }
+</script>
+</body>
+
+</html>
