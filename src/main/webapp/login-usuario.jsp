@@ -53,7 +53,7 @@
                 email: "<%= usuario.getEmail() %>",
         }));
         // Redireciona para a página principal após login
-        //window.location.href = "index.html";
+        window.location.href = "index.html";
     </script>
     <% } %>
 </body>
