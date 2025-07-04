@@ -3,12 +3,41 @@ package daos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import Enums.Situacao;
 import models.Agencia;
 import utils.ConexaoDB;
 
 public class AgenciaDao {
+
+    public static List<Agencia> getAllAgencias() {
+        List<Agencia> agencias = new ArrayList<>();
+        try {
+            Connection con = ConexaoDB.getConexao();
+            String sql = "SELECT * FROM tb_agencia";
+            PreparedStatement stm = con.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                Agencia agencia = new Agencia();
+                agencia.setId(rs.getLong("id"));
+                agencia.setNomeEmpresarial(rs.getString("nome_empresarial"));
+                agencia.setCnpj(rs.getString("cnpj"));
+                agencia.setEmail(rs.getString("email"));
+                agencia.setSenha(rs.getString("senha"));
+                agencia.setSituacao(Situacao.valueOf(rs.getString("situacao").toUpperCase()));
+                agencias.add(agencia);
+            }
+            rs.close();
+            stm.close();
+            con.close();
+            return agencias;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 
     public static Agencia getAgenciaByEmail(String email) {
         Agencia agencia = null;
