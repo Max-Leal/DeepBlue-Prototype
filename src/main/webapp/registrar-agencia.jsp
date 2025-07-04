@@ -24,15 +24,14 @@
                 throw new Exception(mensagem);
             }
             agenciaControl.registerAgencia(agencia);
-            mensagem = "Cadastro realizado com sucesso! <a href='login-agencia.html'>Clique aqui para entrar</a>.";
+            response.sendRedirect("login-agencia.html");
         } catch (Exception e) {
             mensagem = "Erro ao cadastrar agência: " + e.getMessage();
         }
     } else {
         mensagem = "Preencha todos os campos do formulário.";
     }
-
     response.sendRedirect("login-agencia.html");
-    
-    out.println(mensagem);
+
+
 %>
