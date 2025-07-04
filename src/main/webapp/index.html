@@ -75,22 +75,31 @@
 
     <script>
     
-    document.addEventListener('DOMContentLoaded', () => {
-      const infLogin = document.getElementById("informacoes-login");
-      const dadosUsuario = localStorage.getItem("usuario");
+         document.addEventListener('DOMContentLoaded', () => {
+    	  const areaLogin = document.getElementById("informacoes-login");
+    	  const dadosUsuario = localStorage.getItem("usuario");
 
-      if (dadosUsuario) {
-        const usuario = JSON.parse(dadosUsuario);
+    	  if (dadosUsuario) {
+    	    const usuario = JSON.parse(dadosUsuario);
 
-        infLogin.innerHTML = `
-          <div>
-            <strong>Bem-vindo, ${usuario.nome}</strong><br>
-            <span>${usuario.email}</span><br>
-            <button onclick="logout()" id="logout-btn">Sair</button>
-          </div>
-        `;
-      }
-    });
+    	    // Criar um novo elemento para substituir o <a>
+    	    const novoElemento = document.createElement("p");
+    	    novoElemento.innerHTML = `
+    	      <strong class="nome-login">Bem-vindo, ${usuario.nome}</strong><br>
+    	      <span class="email-login">${usuario.email}</span><br>
+    	      <button class="logout-btn" onclick="logout()">Sair</button>
+    	    `;
+
+    	    // Substituir o <a> pelo novo <div>
+    	    areaLogin.replaceWith(novoElemento);
+    	  }
+    	});
+
+    	function logout() {
+    	  localStorage.removeItem("usuario");
+    	  location.reload(); // Recarrega a página
+    	}
+
 
     function logout() {
       localStorage.removeItem("usuario");
