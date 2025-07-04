@@ -12,22 +12,10 @@
 <head>
 <meta charset="UTF-8">
  <title>Lista de Locais</title>
-    <style>
-        body {
-            font-family: Arial;
-            background-color: #f7f7f7;
-            padding: 20px;
-        }
-        .local {
-            background-color: white;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-    </style>
+<link rel="stylesheet" href="static/css/main-styles.css">
 </head>
 <body>
+	   <div class="page-wrapper">
     <header class="header" id="header">
         <div class="logo">DeepBlue SC</div>
         <nav>
@@ -45,7 +33,7 @@
     <%
         for (Local local : listaLocais) {
     %>
-        <div class="local">
+        <div class="local-cards">
             <strong>Localidade:</strong> <%= local.getLocalidade() %><br>
             <strong>Situação:</strong> <%= local.getSituacao() %><br>       
             <strong>Descrição:</strong> <%= local.getDescricao() %><br>
@@ -59,6 +47,10 @@
     <%
         }
     %>
+    <footer class="footer">
+        <p>&copy; 2025 DeepBlue SC. Todos os direitos reservados.</p>
+    </footer>
+    </div>
 </body>
 </html>
             
