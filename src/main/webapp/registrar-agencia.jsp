@@ -24,7 +24,7 @@
                 throw new Exception(mensagem);
             }
             agenciaControl.registerAgencia(agencia);
-            response.sendRedirect("login-agencia.html");
+            
         } catch (Exception e) {
             mensagem = "Erro ao cadastrar agência: " + e.getMessage();
         }
