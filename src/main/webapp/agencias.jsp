@@ -110,13 +110,13 @@
 		<div class="cards">
 			<div class="card fade-in">
 				<h3>Mapa Interativo</h3>
-				<p>Descubra naufrÃ¡gios, atividades e pontos turÃ­sticos
-					filtrÃ¡veis com nossa tecnologia de ponta.</p>
+				<p>Descubra naufrágios, atividades e pontos turísticos
+					filtráveis com nossa tecnologia de ponta.</p>
 			</div>
 			<div class="card fade-in">
-				<h3>RecomendaÃ§Ãµes Personalizadas</h3>
-				<p>Encontre experiÃªncias sob medida para vocÃª com base em suas
-					preferÃªncias e histÃ³rico.</p>
+				<h3>Recomendações Personalizadas</h3>
+				<p>Encontre experiências sob medida para você com base em suas
+					preferências e histórico.</p>
 			</div>
 			<div class="card fade-in">
 				<h3>IntermediaÃ§Ã£o Segura</h3>
@@ -127,7 +127,7 @@
 	</section>
 
 	<section class="agencias-section fade-in" id="agencias">
-		<h2>AgÃªncias Cadastradas</h2>
+		<h2>Agências Cadastradas</h2>
 		<div class="agencias-lista">
 			<%
 			AgenciaController aController = new AgenciaController();
@@ -148,7 +148,7 @@
 			}
 			} else {
 			%>
-			<p>Nenhuma agÃªncia cadastrada no momento.</p>
+			<p>Nenhuma agência cadastrada no momento.</p>
 			<%
 			}
 			%>
