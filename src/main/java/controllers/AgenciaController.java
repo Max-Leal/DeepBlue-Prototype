@@ -1,10 +1,16 @@
 package controllers;
 
+import java.util.List;
+
 import daos.AgenciaDao;
 import models.Agencia;
 import utils.HashUtil;
 
 public class AgenciaController {
+	
+	public List<Agencia> listaAgencias() {
+		return  AgenciaDao.getAllAgencias();
+	}
 	
     // Cadastro de agência
     public void registerAgencia(Agencia agencia) {
