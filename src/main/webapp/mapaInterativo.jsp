@@ -27,10 +27,11 @@
     <header class="header" id="header">
         <div class="logo">DeepBlue SC</div>
         <nav>
-            <a href="index.html"><i class="fas fa-home"></i> InÃ­cio</a>
+            <a href="index.html"><i class="fas fa-home"></i> Início</a>
             <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
-            <a href="#"><i class="fas fa-map-marker-alt"></i> Locais</a>
-            <a href="#"><i class="fas fa-search"></i> AgÃªncias</a>
+            <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
+            <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
+            <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
             <a href="login-usuario.html"><i class="fas fa-user"></i> Login/Cadastro</a>
         </nav>
     </header>
@@ -39,14 +40,6 @@
             <div class="faixa-superior"></div>
             <section class="mapa-container">
                 <div id="map"></div>
-            </section>
-        </div>
-        <div>
-            <section class="locais-section">
-                <h2 class="locais-title">Locais</h2>
-                <div class="locais-lista" id="locais">
-
-                </div>
             </section>
         </div>
     </main>
