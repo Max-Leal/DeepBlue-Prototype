@@ -5,7 +5,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>DeepBlue SC - Turismo NÃ¡utico em Santa Catarina</title>
+<title>DeepBlue SC - Turismo Náutico em Santa Catarina</title>
 <link rel="stylesheet" href="static/css/main-styles.css">
 <link rel="stylesheet" href="static/css/crud-styles.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
