@@ -1,9 +1,10 @@
 package models;
 
 import Enums.Situacao;
+import utils.HashUtil;
 
 public class Agencia {
-	private int id;
+	private Long id;
 	private String nomeEmpresarial;
 	private String cnpj;
 	private String email;
@@ -13,29 +14,20 @@ public class Agencia {
 	public Agencia() {
 	}
 
-	public Agencia(int id, String nomeEmpresarial, String cnpj, String email, Situacao situacao) {
+	public Agencia(String nomeEmpresarial, String cnpj, String email, String senha, Situacao situacao) {
 		super();
-		this.id = id;
 		this.nomeEmpresarial = nomeEmpresarial;
 		this.cnpj = cnpj;
 		this.email = email;
+		this.senha = HashUtil.hashSenha(senha);
 		this.situacao = situacao;
 	}
 
-	public Agencia(int id, String nomeEmpresarial, String cnpj, String email, String senha, Situacao situacao) {
-		this.id = id;
-		this.nomeEmpresarial = nomeEmpresarial;
-		this.cnpj = cnpj;
-		this.email = email;
-		this.senha = senha;
-		this.situacao = situacao;
-	}
-
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -69,6 +61,9 @@ public class Agencia {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	public void setSenhaHash(String senha) {
+		this.senha = HashUtil.hashSenha(senha);
 	}
 
 	public Situacao getSituacao() {
