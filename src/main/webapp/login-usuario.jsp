@@ -46,11 +46,11 @@
     <% if (usuario != null) { %>
     <script>
         // Salva os dados do usuário no localStorage (exceto senha)
-        localStorage.setItem('usuario', JSON.stringify({
-            id: "<%= usuario.getId() %>",
-            nome: "<%= usuario.getNome() %>",
-            email: "<%= usuario.getEmail() %>",
-            tipo: "<%= usuario.getTipo() %>"
+     
+            localStorage.setItem('usuario', JSON.stringify({
+                id: "<%= usuario.getId() %>",
+                nome: "<%= usuario.getNome() %>",
+                email: "<%= usuario.getEmail() %>",
         }));
         // Redireciona para a página principal após login
         window.location.href = "index.html";
