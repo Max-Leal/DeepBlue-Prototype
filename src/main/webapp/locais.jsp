@@ -11,7 +11,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>DeepBlue SC - Locais Cadastrados</title>
+    <title>DeepBlue - Locais Cadastrados</title>
     <link rel="stylesheet" href="static/css/main-styles.css">
     <link rel="stylesheet" href="static/css/crud-styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,49 +22,95 @@
 </head>
 <body>
     <header class="header" id="header">
-        <div class="logo">DeepBlue SC</div>
+        <div class="logo">DeepBlue</div>
         <nav>
             <a href="index.html"><i class="fas fa-home"></i> Início</a>
             <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
             <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
             <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
             <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
-            <a href="login-usuario.html"><i class="fas fa-user"></i> Login/Cadastro</a>
+            <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
         </nav>
     </header>
 
     <section class="crud-section" id="locais">
-        <h1 class="crud-titulo">Locais Cadastrados</h1>
-        <div class="crud-lista">
-            <%
-                if (listaLocais != null && !listaLocais.isEmpty()) {
-                    for (Local local : listaLocais) {
-            %>
-            <div class="crud-card">
-                <div class="crud-nome"><%= local.getNome() != null ? local.getNome() : "Local" %></div>
-                <div class="crud-info">
-                    <b>Localidade:</b> <%= local.getLocalidade() %><br>
-                    <b>Situação:</b> <%= local.getSituacao() %><br>
-                    <b>Descrição:</b> <%= local.getDescricao() %><br>
-                    <b>Coordenadas:</b> <%= local.getLatitude() %>, <%= local.getLongitude() %>
-                </div>
+    <h1 class="crud-titulo">Locais Cadastrados</h1>
+    <div class="crud-lista">
+        <%
+            if (listaLocais != null && !listaLocais.isEmpty()) {
+                for (Local local : listaLocais) {
+        %>
+        <div class="crud-card">
+            <div class="crud-nome"><%= local.getNome() != null ? local.getNome() : "Local" %></div>
+            <div class="crud-info">
+                <b>Localidade:</b> <%= local.getLocalidade() %><br>
+                <b>Situação:</b> <%= local.getSituacao() %><br>
+                <b>Descrição:</b> <%= local.getDescricao() %><br>
+                <b>Coordenadas:</b> <%= local.getLatitude() %>, <%= local.getLongitude() %>
             </div>
-            <%
-                    }
-                } else {
-            %>
-            <p class="sem-agencias">Nenhum local cadastrado no momento.</p>
-            <%
-                }
-            %>
+            
+            <!-- Botão para ver detalhes -->
+            <div style="margin-top: 1rem;">
+                <a href="local-detalhe.jsp?id=<%= local.getId() %>" class="cta-btn">Ver Detalhes</a>
+            </div>
         </div>
-    </section>
+        <%
+                }
+            } else {
+        %>
+        <p class="sem-agencias">Nenhum local cadastrado no momento.</p>
+        <%
+            }
+        %>
+    </div>
+</section>
+
 
     <footer class="footer">
-        <p>&copy; 2025 DeepBlue SC. Todos os direitos reservados.</p>
+        <p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
     </footer>
 
     <script>
+    document.addEventListener('DOMContentLoaded', () => {
+		  const el = document.getElementById("informacoes-login");
+		  const usuario = localStorage.getItem("usuario");
+		  const agencia = localStorage.getItem("agencia");
+
+		  const dados = usuario ? JSON.parse(usuario) : agencia ? JSON.parse(agencia) : null;
+		  const nome = dados?.nome || dados?.nomeEmpresarial;
+		  const email = dados?.email;
+
+		  if (el && nome && email) {
+		    const div = document.createElement("div");
+		    div.className = "usuario-logado";
+
+		    ["Bem-vindo, " + nome, email].forEach(text => {
+		      div.appendChild(document.createTextNode(text));
+		      div.appendChild(document.createElement("br"));
+		    });
+
+		    const btn = document.createElement("button");
+		    btn.textContent = "Sair";
+		    btn.id = "logout-btn";
+		    btn.style.marginTop = "0.5rem";
+		    btn.onclick = () => {
+		      localStorage.removeItem("usuario");
+		      localStorage.removeItem("agencia");
+		      location.reload();
+		    };
+
+		    div.appendChild(btn);
+		    el.replaceWith(div);
+		  }
+		});
+
+
+
+		function logout() {
+		  localStorage.removeItem("usuario");
+		  localStorage.removeItem("agencia");
+		  location.reload();
+		}
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
