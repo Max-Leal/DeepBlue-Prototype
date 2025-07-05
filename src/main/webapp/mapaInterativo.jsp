@@ -76,10 +76,11 @@
         <% for (Local local : lista) { %>
             L.marker([<%= local.getLatitude() %>, <%= local.getLongitude() %>])
                 .addTo(map)
-                .bindPopup('<b><%= local.getNome() %></b><br><%= local.getDescricao() %>');
+                .bindPopup('<b><%= local.getNome() %></b><br><%= local.getDescricao() %><br><a href="local-detalhe.jsp?id=<%= local.getId() %>">Ver detalhes</a>');
         <% } %>
         
     </script>
+    
 </body>
 
 </html>
