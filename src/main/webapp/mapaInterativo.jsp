@@ -29,11 +29,11 @@
 	<header class="header" id="header">
 		<div class="logo">DeepBlue</div>
 		<nav>
-			<a href="index.html"><i class="fas fa-home"></i> Inï¿½cio</a> <a
+			<a href="index.html"><i class="fas fa-home"></i> Início</a> <a
 				href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa
 				Interativo</a> <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i>
 				Locais</a> <a href="agencias.jsp"><i class="fas fa-search"></i>
-				Agï¿½ncias</a> <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
+				Agências</a> <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
 			<a href="login-usuario.html" id="informacoes-login"><i
 				class="fas fa-user"></i> Login/Cadastro</a>
 		</nav>
