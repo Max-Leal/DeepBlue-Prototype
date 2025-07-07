@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>DeepBlue SC - Turismo Náutico em Santa Catarina</title>
+    <title>DeepBlue - Turismo Náutico em Santa Catarina</title>
     <link rel="stylesheet" href="static/css/main-styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -12,7 +12,7 @@
 </head>
 <body>
     <header class="header" id="header">
-        <div class="logo">DeepBlue SC</div>
+        <div class="logo">DeepBlue</div>
         <nav>
             <a href="index.html"><i class="fas fa-home"></i> Início</a>
             <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
@@ -70,32 +70,51 @@
     </section>
 
     <footer class="footer">
-        <p>&copy; 2025 DeepBlue SC. Todos os direitos reservados.</p>
+        <p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
     </footer>
 
     <script>
     
     document.addEventListener('DOMContentLoaded', () => {
-      const infLogin = document.getElementById("informacoes-login");
-      const dadosUsuario = localStorage.getItem("usuario");
+		  const el = document.getElementById("informacoes-login");
+		  const usuario = localStorage.getItem("usuario");
+		  const agencia = localStorage.getItem("agencia");
 
-      if (dadosUsuario) {
-        const usuario = JSON.parse(dadosUsuario);
+		  const dados = usuario ? JSON.parse(usuario) : agencia ? JSON.parse(agencia) : null;
+		  const nome = dados?.nome || dados?.nomeEmpresarial;
+		  const email = dados?.email;
 
-        infLogin.innerHTML = `
-          <div>
-            <strong>Bem-vindo, ${usuario.nome}</strong><br>
-            <span>${usuario.email}</span><br>
-            <button onclick="logout()" id="logout-btn">Sair</button>
-          </div>
-        `;
-      }
-    });
+		  if (el && nome && email) {
+		    const div = document.createElement("div");
+		    div.className = "usuario-logado";
 
-    function logout() {
-      localStorage.removeItem("usuario");
-      location.reload(); 
-    }
+		    ["Bem-vindo, " + nome, email].forEach(text => {
+		      div.appendChild(document.createTextNode(text));
+		      div.appendChild(document.createElement("br"));
+		    });
+
+		    const btn = document.createElement("button");
+		    btn.textContent = "Sair";
+		    btn.id = "logout-btn";
+		    btn.style.marginTop = "0.5rem";
+		    btn.onclick = () => {
+		      localStorage.removeItem("usuario");
+		      localStorage.removeItem("agencia");
+		      location.reload();
+		    };
+
+		    div.appendChild(btn);
+		    el.replaceWith(div);
+		  }
+		});
+
+
+
+		function logout() {
+		  localStorage.removeItem("usuario");
+		  localStorage.removeItem("agencia");
+		  location.reload();
+		}
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
@@ -185,7 +204,6 @@
             const nav = document.querySelector('nav');
             nav.style.display = 'none';
             
-            // Add mobile menu toggle logic here if needed
         }
     </script>
 </body>
