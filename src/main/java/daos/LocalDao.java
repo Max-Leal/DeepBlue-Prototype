@@ -45,9 +45,9 @@ public class LocalDao {
             stm.setString(1, l.getLocalidade());
             stm.setString(2, l.getSituacao().toString().toLowerCase());
             stm.setString(3, l.getNome());
-            stm.setString(4, l.getLongitude());
-            stm.setString(5, l.getDescricao());
-            stm.setString(6, l.getLatitude());
+            stm.setString(4, l.getDescricao());
+            stm.setString(5, l.getLatitude());
+            stm.setString(6, l.getLongitude());
             stm.execute();
 
             stm.close();
