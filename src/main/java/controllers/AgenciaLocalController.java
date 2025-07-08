@@ -6,29 +6,24 @@ import daos.AgenciaLocalDao;
 import models.AgenciaLocal;
 
 public class AgenciaLocalController {
-    
-    // Inserir relação entre agência e local
-    public void registerAgenciaLocal(AgenciaLocal agenciaLocal) {
-        AgenciaLocalDao.insert(agenciaLocal);
+
+    public void adicionar(AgenciaLocal al) {
+        AgenciaLocalDao.insert(al);
     }
 
-    // Atualizar relação
-    public void updateAgenciaLocal(AgenciaLocal agenciaLocal) {
-        AgenciaLocalDao.update(agenciaLocal);
+    public List<AgenciaLocal> listarTodos() {
+        return AgenciaLocalDao.getAll();
     }
 
-    // Deletar relação entre agência e local
-    public void deleteAgenciaLocal(int idAgencia, int idLocal) {
+    public void remover(int idAgencia, int idLocal) {
         AgenciaLocalDao.delete(idAgencia, idLocal);
     }
 
-    // Buscar uma relação específica por IDs
-    public AgenciaLocal getAgenciaLocalByIds(int idAgencia, int idLocal) {
-        return AgenciaLocalDao.getByIds(idAgencia, idLocal);
+    public List<AgenciaLocal> getAgenciasPorLocal(int idLocal) {
+        return AgenciaLocalDao.getAgenciasByLocalId(idLocal);
     }
 
-    // Listar todas as relações entre agências e locais
-    public List<AgenciaLocal> listarTodasAgenciaLocal() {
-        return AgenciaLocalDao.getAll();
+    public List<AgenciaLocal> getLocaisPorAgencia(int idAgencia) {
+        return AgenciaLocalDao.getLocaisByAgenciaId(idAgencia);
     }
 }
