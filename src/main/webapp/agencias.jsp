@@ -5,8 +5,9 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>DeepBlue SC - Turismo NÃ¡utico em Santa Catarina</title>
+<title>DeepBlue - Turismo Nï¿½utico em Santa Catarina</title>
 <link rel="stylesheet" href="static/css/main-styles.css">
+<link rel="stylesheet" href="static/css/crud-styles.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -16,131 +17,37 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
 	rel="stylesheet">
-<style>
-/* Container da seÃ§Ã£o CRUD */
-.agencias-section {
-	max-width: 900px;
-	margin: 2rem auto;
-	background: #f9fafb;
-	border-radius: 18px;
-	box-shadow: 0 2px 12px rgba(1, 32, 58, 0.08);
-	padding: 2rem 1.5rem;
-	border: 1px solid #e0e7ef;
-}
 
-.agencias-section h2 {
-	color: #1e3a5c;
-	font-size: 1.6rem;
-	margin-bottom: 1.2rem;
-	text-align: center;
-	letter-spacing: 1px;
-}
-
-.agencias-lista {
-	display: flex;
-	flex-direction: column;
-	gap: 1.2rem;
-}
-
-/* Card de agÃªncia */
-.agencia-card {
-	background: #fff;
-	border-radius: 10px;
-	box-shadow: 0 2px 8px rgba(59, 130, 246, 0.08);
-	padding: 1.2rem 1.5rem;
-	border-left: 6px solid #1e3a5c;
-	transition: box-shadow 0.2s;
-}
-
-.agencia-card:hover {
-	box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
-}
-
-.agencia-nome {
-	font-size: 1.2rem;
-	color: #1e3a5c;
-	margin-bottom: 0.5rem;
-	font-weight: 600;
-}
-
-.agencia-info {
-	font-size: 1rem;
-	color: #333;
-}
-
-.agencias-lista p {
-	color: #888;
-	text-align: center;
-	margin: 2rem 0 0 0;
-}
-
-/* BotÃµes CRUD (exemplo, caso queira adicionar depois) */
-.crud-btn {
-	background: #1e3a5c;
-	color: #fff;
-	border: none;
-	border-radius: 6px;
-	padding: 0.5rem 1.2rem;
-	margin: 0 0.3rem;
-	font-size: 1rem;
-	cursor: pointer;
-	transition: background 0.2s;
-}
-
-.crud-btn:hover {
-	background: #2563eb;
-}
-</style>
 </head>
 <body>
 	<header class="header" id="header">
-		<div class="logo">DeepBlue SC</div>
+        <div class="logo">DeepBlue</div>
         <nav>
             <a href="index.html"><i class="fas fa-home"></i> Início</a>
             <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
             <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
             <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
             <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
-            <a href="login-usuario.html"><i class="fas fa-user"></i> Login/Cadastro</a>
+            <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
         </nav>
-	</header>
+    </header>
 
-	<section class="valores fade-in" id="valores">
-		<h2>Nossos Diferenciais</h2>
-		<div class="cards">
-			<div class="card fade-in">
-				<h3>Mapa Interativo</h3>
-				<p>Descubra naufrágios, atividades e pontos turísticos
-					filtráveis com nossa tecnologia de ponta.</p>
-			</div>
-			<div class="card fade-in">
-				<h3>Recomendações Personalizadas</h3>
-				<p>Encontre experiências sob medida para você com base em suas
-					preferências e histórico.</p>
-			</div>
-			<div class="card fade-in">
-				<h3>IntermediaÃ§Ã£o Segura</h3>
-				<p>Reserve e pague com seguranÃ§a total, com suporte dedicado
-					24/7 para sua tranquilidade.</p>
-			</div>
-		</div>
-	</section>
 
-	<section class="agencias-section fade-in" id="agencias">
-		<h2>Agências Cadastradas</h2>
-		<div class="agencias-lista">
+	<section class="crud-section" id="agencias">
+		<h1 class="crud-titulo">Agências Cadastradas</h1>
+		<div class="crud-lista">
 			<%
 			AgenciaController aController = new AgenciaController();
 			List<Agencia> agencias = aController.listaAgencias();
 			if (agencias != null && !agencias.isEmpty()) {
 				for (Agencia agencia : agencias) {
 			%>
-			<div class="agencia-card">
-				<div class="agencia-nome"><%=agencia.getNomeEmpresarial()%></div>
-				<div class="agencia-info">
+			<div class="crud-card">
+				<div class="crud-nome"><%=agencia.getNomeEmpresarial()%></div>
+				<div class="crud-info">
 					<b>CNPJ:</b>
 					<%=agencia.getCnpj()%><br> <b>Email:</b>
-					<%=agencia.getEmail()%><br> <b>SituaÃ§Ã£o:</b>
+					<%=agencia.getEmail()%><br> <b>Situação:</b>
 					<%=agencia.getSituacao()%>
 				</div>
 			</div>
@@ -156,10 +63,51 @@
 	</section>
 
 	<footer class="footer">
-		<p>&copy; 2025 DeepBlue SC. Todos os direitos reservados.</p>
+		<p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
 	</footer>
 
 	<script>
+	 document.addEventListener('DOMContentLoaded', () => {
+		  const el = document.getElementById("informacoes-login");
+		  const usuario = localStorage.getItem("usuario");
+		  const agencia = localStorage.getItem("agencia");
+
+		  const dados = usuario ? JSON.parse(usuario) : agencia ? JSON.parse(agencia) : null;
+		  const nome = dados?.nome || dados?.nomeEmpresarial;
+		  const email = dados?.email;
+
+		  if (el && nome && email) {
+		    const div = document.createElement("div");
+		    div.className = "usuario-logado";
+
+		    ["Bem-vindo, " + nome, email].forEach(text => {
+		      div.appendChild(document.createTextNode(text));
+		      div.appendChild(document.createElement("br"));
+		    });
+
+		    const btn = document.createElement("button");
+		    btn.textContent = "Sair";
+		    btn.id = "logout-btn";
+		    btn.style.marginTop = "0.5rem";
+		    btn.onclick = () => {
+		      localStorage.removeItem("usuario");
+		      localStorage.removeItem("agencia");
+		      location.reload();
+		    };
+
+		    div.appendChild(btn);
+		    el.replaceWith(div);
+		  }
+		});
+
+
+
+		function logout() {
+		  localStorage.removeItem("usuario");
+		  localStorage.removeItem("agencia");
+		  location.reload();
+		}
+  	
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
