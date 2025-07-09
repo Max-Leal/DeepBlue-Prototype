@@ -43,14 +43,19 @@
 				for (Agencia agencia : agencias) {
 			%>
 			<div class="crud-card">
-				<div class="crud-nome"><%=agencia.getNomeEmpresarial()%></div>
-				<div class="crud-info">
-					<b>CNPJ:</b>
-					<%=agencia.getCnpj()%><br> <b>Email:</b>
-					<%=agencia.getEmail()%><br> <b>Situação:</b>
-					<%=agencia.getSituacao()%>
-				</div>
-			</div>
+    <div class="crud-nome"><%=agencia.getNomeEmpresarial()%></div>
+    <div class="crud-info">
+        <b>CNPJ:</b> <%=agencia.getCnpj()%><br>
+        <b>Email:</b> <%=agencia.getEmail()%><br>
+        <b>Situação:</b> <%=agencia.getSituacao()%>
+    </div>
+
+    <!-- Botão para ver detalhes -->
+    <div style="margin-top: 1rem;">
+        <a href="agencia-detalhe.jsp?id=<%= agencia.getId() %>" class="cta-btn">Ver Detalhes</a>
+    </div>
+</div>
+
 			<%
 			}
 			} else {
