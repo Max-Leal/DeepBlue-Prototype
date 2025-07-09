@@ -48,12 +48,10 @@
       font-weight: 700;
     }
 
-    /* Espaço entre navbar e conteúdo */
     .accordion-wrapper {
       margin-top: 120px;
     }
 
-    /* Accordion */
     .accordion {
       max-width: 700px;
       margin: 40px auto;
@@ -111,7 +109,6 @@
       padding: 20px;
     }
 
-    /* Formulário */
     .form-group {
       margin-bottom: 1.5rem;
       display: flex;
@@ -167,7 +164,7 @@
   </nav>
 </div>
 
-<!-- ACCORDION COM FORMULÁRIO -->
+<!-- ACCORDION FORM -->
 <section class="accordion-wrapper">
   <div class="accordion">
     <div class="accordion-item">
@@ -177,46 +174,85 @@
         <span class="accordion-icon">▼</span>
       </label>
       <div class="accordion-content">
-        <form onsubmit="event.preventDefault(); alert('Local cadastrado!');" autocomplete="off" style="max-width: 600px; margin: auto;">
+        <form action="painel-adicionar-local.jsp" method="post" autocomplete="off" style="max-width: 600px; margin: auto;">
           <div class="form-group">
             <label for="localidade"><i class="fas fa-location-dot"></i> Localidade:</label>
-            <input type="text" id="localidade" class="input-padrao" required>
+            <input type="text" id="localidade" name="localidade" class="input-padrao" required>
           </div>
-     <div class="form-group">
-        <label for="situacao"><i class="fas fa-flag"></i> Situação:</label>
-      <select id="situacao" class="select-padrao" required>
-        <option value="INDISPONÍVEL" selected>INDISPONÍVEL</option>
-        <option value="DISPONÍVEL">DISPONÍVEL</option>
-      </select>
-     </div>
+
+          <div class="form-group">
+            <label for="situacao"><i class="fas fa-flag"></i> Situação:</label>
+            <select id="situacao" name="situacao" class="select-padrao" required>
+              <option value="INDISPONÍVEL" selected>INDISPONÍVEL</option>
+              <option value="DISPONÍVEL">DISPONÍVEL</option>
+            </select>
+          </div>
+
           <div class="form-group">
             <label for="nome"><i class="fas fa-map-marker-alt"></i> Nome do Local:</label>
-            <input type="text" id="nome" class="input-padrao" required>
+            <input type="text" id="nome" name="nome" class="input-padrao" required>
           </div>
 
           <div class="form-group">
             <label for="descricao"><i class="fas fa-align-left"></i> Descrição:</label>
-            <textarea id="descricao" rows="2" class="input-padrao" required></textarea>
+            <textarea id="descricao" name="descricao" rows="2" class="input-padrao" required></textarea>
           </div>
 
           <div class="form-group">
             <label for="latitude"><i class="fas fa-arrows-alt-v"></i> Latitude:</label>
-            <input type="text" id="latitude" class="input-padrao" required>
+            <input type="text" id="latitude" name="latitude" class="input-padrao" required>
           </div>
 
           <div class="form-group">
             <label for="longitude"><i class="fas fa-arrows-alt-h"></i> Longitude:</label>
-            <input type="text" id="longitude" class="input-padrao" required>
+            <input type="text" id="longitude" name="longitude" class="input-padrao" required>
           </div>
 
+          <div class="form-group">
+            <label><i class="fas fa-water"></i> Serviços oferecidos:</label>
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; padding-left: 0.3rem;">
+              <label style="display: flex; align-items: center; gap: 0.5rem;">
+                <input type="checkbox" id="oferecePasseio" name="oferecePasseio"> Passeio
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.5rem;">
+                <input type="checkbox" id="ofereceMergulho" name="ofereceMergulho"> Mergulho
+              </label>
+            </div>
+          </div>
+
+          <input type="hidden" id="idAgencia" name="idAgencia">
+
           <div style="text-align: center;">
-            <button type="submit" class="btn-primario"><i class="fas fa-plus"></i> Cadastrar Local</button>
+            <button type="submit" class="btn-primario">
+              <i class="fas fa-plus"></i> Cadastrar Local
+            </button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const agenciaStorage = localStorage.getItem('agencia');
+    if (agenciaStorage) {
+      try {
+        const agenciaObj = JSON.parse(agenciaStorage);
+        const agenciaId = agenciaObj.id;
+        if (agenciaId) {
+          document.getElementById('idAgencia').value = agenciaId;
+        } else {
+          alert("Erro: ID da agência não encontrado no objeto.");
+        }
+      } catch (e) {
+        alert("Erro ao interpretar os dados da agência.");
+      }
+    } else {
+      alert("Erro: Objeto 'Agencia' não encontrado no localStorage.");
+    }
+  });
+</script>
 
 </body>
 </html>
