@@ -1,20 +1,33 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ page import="models.Local, controllers.LocalController" %>
+<%@ page import="models.AgenciaLocal, controllers.AgenciaLocalController" %>
+<%@ page import="controllers.AgenciaController" %>
+<%@ page import="models.Agencia" %>
+<%@ page import="java.util.List, java.util.ArrayList" %>
+
 <%
-    String idParam = request.getParameter("id");
+    List<AgenciaLocal> relacoes = new ArrayList<>();
     Local local = null;
 
+    String idParam = request.getParameter("id");
     if (idParam != null) {
         try {
             int id = Integer.parseInt(idParam);
-            LocalController controller = new LocalController();
-            local = controller.getLocalById(id);
+
+            LocalController localController = new LocalController();
+            local = localController.getLocalById(id);
+
+            AgenciaLocalController agenciaLocalController = new AgenciaLocalController();
+            relacoes = agenciaLocalController.getAgenciasPorLocal(id);
+
         } catch (NumberFormatException e) {
             out.println("<p>ID inválido!</p>");
         }
     } else {
         out.println("<p>ID não fornecido!</p>");
     }
+
+    AgenciaController agenciaController = new AgenciaController();
 %>
 
 <!DOCTYPE html>
@@ -64,22 +77,78 @@
             margin-bottom: 0.8rem;
             color: var(--cinza-medio);
         }
+
+        /* Estilo para os cards de agência */
+        .agencias-lista {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .agencia-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            width: calc(50% - 1.5rem);
+            box-sizing: border-box;
+            transition: box-shadow 0.3s ease;
+        }
+        .agencia-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .agencia-nome {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--azul-escuro);
+            margin-bottom: 0.5rem;
+        }
+
+        .agencia-info {
+            font-size: 1rem;
+            color: var(--cinza-medio);
+            margin-bottom: 0.3rem;
+        }
+
+        .agencia-link {
+            margin-top: 1rem;
+            display: inline-block;
+            background: var(--azul-escuro);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .agencia-link:hover {
+            background: var(--azul-claro);
+            color: #222;
+        }
+
+        @media (max-width: 600px) {
+            .agencia-card {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
 
-<!-- Cabeçalho fixo -->
 <header class="header" id="header">
-        <div class="logo">DeepBlue</div>
-        <nav>
-            <a href="index.html"><i class="fas fa-home"></i> Início</a>
-            <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
-            <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
-            <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
-            <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
-            <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
-        </nav>
-    </header>
+    <div class="logo">DeepBlue</div>
+    <nav>
+        <a href="index.html"><i class="fas fa-home"></i> Início</a>
+        <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
+        <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
+        <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
+        <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
+        <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
+    </nav>
+</header>
 
 <main class="detalhes-container">
 <% if (local != null) { %>
@@ -88,50 +157,78 @@
     <p><strong>Descrição:</strong> <%= local.getDescricao() %></p>
     <p><strong>Situação:</strong> <%= local.getSituacao() %></p>
 
+    <!-- Listar agências relacionadas -->
+    <section>
+        <h2>Agências que operam neste local</h2>
+        <% if (relacoes != null && !relacoes.isEmpty()) { %>
+            <div class="agencias-lista">
+            <% for (AgenciaLocal relacao : relacoes) {
+                   Agencia agencia = agenciaController.getAgenciaById(relacao.getIdAgencia());
+                   if (agencia != null) {
+            %>
+                <div class="agencia-card">
+                    <div class="agencia-nome"><%= agencia.getNomeEmpresarial() %></div>
+                    <div class="agencia-info"><strong>Email:</strong> <%= agencia.getEmail() %></div>
+                    <div class="agencia-info"><strong>Oferece Mergulho:</strong> <%= relacao.isOfereceMergulho() ? "Sim" : "Não" %></div>
+                    <div class="agencia-info"><strong>Oferece Passeio:</strong> <%= relacao.isOferecePasseio() ? "Sim" : "Não" %></div>
+                    <a class="agencia-link" href="agencia-detalhe.jsp?id=<%= agencia.getId() %>">Ver Detalhes</a>
+                </div>
+            <%   } else { %>
+                <div class="agencia-card">
+                    <p>Agência com ID <%= relacao.getIdAgencia() %> não encontrada.</p>
+                </div>
+            <%   }
+               }
+            %>
+            </div>
+        <% } else { %>
+            <p>Nenhuma agência cadastrada para este local.</p>
+        <% } %>
+    </section>
+
+    <!-- Mapa Leaflet -->
     <div id="mapa"></div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-		  const el = document.getElementById("informacoes-login");
-		  const usuario = localStorage.getItem("usuario");
-		  const agencia = localStorage.getItem("agencia");
+        document.addEventListener('DOMContentLoaded', () => {
+            const el = document.getElementById("informacoes-login");
+            const usuario = localStorage.getItem("usuario");
+            const agencia = localStorage.getItem("agencia");
 
-		  const dados = usuario ? JSON.parse(usuario) : agencia ? JSON.parse(agencia) : null;
-		  const nome = dados?.nome || dados?.nomeEmpresarial;
-		  const email = dados?.email;
+            const dados = usuario ? JSON.parse(usuario) : agencia ? JSON.parse(agencia) : null;
+            const nome = dados?.nome || dados?.nomeEmpresarial;
+            const email = dados?.email;
 
-		  if (el && nome && email) {
-		    const div = document.createElement("div");
-		    div.className = "usuario-logado";
+            if (el && nome && email) {
+                const div = document.createElement("div");
+                div.className = "usuario-logado";
 
-		    ["Bem-vindo, " + nome, email].forEach(text => {
-		      div.appendChild(document.createTextNode(text));
-		      div.appendChild(document.createElement("br"));
-		    });
+                ["Bem-vindo, " + nome, email].forEach(text => {
+                    div.appendChild(document.createTextNode(text));
+                    div.appendChild(document.createElement("br"));
+                });
 
-		    const btn = document.createElement("button");
-		    btn.textContent = "Sair";
-		    btn.id = "logout-btn";
-		    btn.style.marginTop = "0.5rem";
-		    btn.onclick = () => {
-		      localStorage.removeItem("usuario");
-		      localStorage.removeItem("agencia");
-		      location.reload();
-		    };
+                const btn = document.createElement("button");
+                btn.textContent = "Sair";
+                btn.id = "logout-btn";
+                btn.style.marginTop = "0.5rem";
+                btn.onclick = () => {
+                    localStorage.removeItem("usuario");
+                    localStorage.removeItem("agencia");
+                    location.reload();
+                };
 
-		    div.appendChild(btn);
-		    el.replaceWith(div);
-		  }
-		});
+                div.appendChild(btn);
+                el.replaceWith(div);
+            }
+        });
 
+        function logout() {
+            localStorage.removeItem("usuario");
+            localStorage.removeItem("agencia");
+            location.reload();
+        }
 
-
-		function logout() {
-		  localStorage.removeItem("usuario");
-		  localStorage.removeItem("agencia");
-		  location.reload();
-		}
-  	
         const lat = parseFloat("<%= local.getLatitude() %>");
         const lng = parseFloat("<%= local.getLongitude() %>");
         const map = L.map('mapa').setView([lat, lng], 13);
@@ -145,6 +242,7 @@
             .bindPopup("<%= local.getNome() %>")
             .openPopup();
     </script>
+
 <% } else { %>
     <h1>Local não encontrado</h1>
     <p>Verifique se o ID está correto na URL.</p>
