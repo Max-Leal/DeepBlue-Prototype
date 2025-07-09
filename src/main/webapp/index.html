@@ -2,24 +2,109 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>DeepBlue SC - Turismo Náutico em Santa Catarina</title>
+    <title>DeepBlue - Turismo Náutico em Santa Catarina</title>
     <link rel="stylesheet" href="static/css/main-styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style type="text/css">
+    .info-projeto {
+    max-width: 900px;
+    margin: 48px auto 32px auto;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    font-family: 'Poppins', Arial, sans-serif;
+    color: #1a3557;
+    text-align: center;
+}
+ 
+.info-projeto h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #1e3a8a;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 8px #e0f2fe;
+    position: relative;
+    display: inline-block;
+}
+ 
+.info-projeto h2::after {
+    content: '';
+    display: block;
+    width: 86px;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6 0%, #f59e0b 100%);
+    border-radius: 2px;
+    margin: 10px auto 0 auto;
+}
+ 
+.quem-somos-box {
+    padding: 2.2rem 1.7rem 1.7rem 1.7rem;
+    margin: 0 auto 2rem auto;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+ 
+.quem-somos-titulo {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 0.3rem;
+    margin-top: 1.2rem;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 8px #e0f2fe;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+}
+ 
+.quem-somos-titulo::after {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6 0%, #f59e0b 100%);
+    border-radius: 2px;
+    margin: 10px auto 0 auto;
+}
+ 
+.quem-somos-texto {
+    font-size: 1.08rem;
+    color: #223a5e;
+    line-height: 1.5;
+    text-align: center;
+    margin: 0 0 0.5rem 0;
+    background: rgba(255, 255, 255, 0.986);
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    box-shadow: 0 1px 6px rgba(59,130,246,0.04);
+    transition: transform 0.25s cubic-bezier(.4,1.4,.6,1), box-shadow 0.25s;
+}
+ 
+.quem-somos-texto:hover {
+    transform: scale(1.035);
+    box-shadow: 0 4px 18px rgba(59,130,246,0.10);
+}</style>
 </head>
 <body>
     <header class="header" id="header">
-        <div class="logo">DeepBlue SC</div>
+        <div class="logo">DeepBlue</div>
         <nav>
             <a href="index.html"><i class="fas fa-home"></i> Início</a>
             <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
             <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
             <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
             <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
-            <a href="login-usuario.html"><i class="fas fa-user"></i> Login/Cadastro</a>
+            <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
         </nav>
     </header>
 
@@ -41,7 +126,25 @@
             <i class="fas fa-chevron-down"></i>
         </div>
     </section>
-
+  <section class="info-projeto fade-in" id="info-projeto">
+        <h2>Sobre o Projeto DeepBlue SC</h2>
+        <div class="quem-somos-box">
+           
+            <h3 class="quem-somos-titulo">Quem Somos</h3>
+            <p class="quem-somos-texto">
+            A <strong>DeepBlue SC</strong> é uma plataforma inovadora que conecta turistas apaixonados por aventura,
+            história e natureza às melhores agências de mergulho da região de Florianópolis. <br>
+            Nosso propósito é proporcionar <span style="color:#1e3a8a;font-weight:500;">experiências inesquecíveis</span> de exploração subaquática, de exploração subaquática,
+            com foco em visitas guiadas a <span style="color:#3b82f6;font-weight:500;">naufrágios históricos</span> espalhados pela deslumbrante baía da Ilha da Magia.
+            </p>
+            <h3 class="quem-somos-titulo">Nossa Missão</h3>
+            <p class="quem-somos-texto">
+            Nossa missão é valorizar o patrimônio subaquático de Florianópolis,
+            oferecendo aos visitantes uma imersão segura, educativa e sustentável.
+            Buscamos unir aventura e preservação, promovendo o turismo responsável e fomentando a cultura marítima local.
+            </p>
+        </div>
+    </section>
     <section class="valores fade-in" id="valores">
         <h2>Nossos Diferenciais</h2>
         <div class="cards">
@@ -70,10 +173,51 @@
     </section>
 
     <footer class="footer">
-        <p>&copy; 2025 DeepBlue SC. Todos os direitos reservados.</p>
+        <p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
     </footer>
 
     <script>
+    
+    document.addEventListener('DOMContentLoaded', () => {
+		  const el = document.getElementById("informacoes-login");
+		  const usuario = localStorage.getItem("usuario");
+		  const agencia = localStorage.getItem("agencia");
+
+		  const dados = usuario ? JSON.parse(usuario) : agencia ? JSON.parse(agencia) : null;
+		  const nome = dados?.nome || dados?.nomeEmpresarial;
+		  const email = dados?.email;
+
+		  if (el && nome && email) {
+		    const div = document.createElement("div");
+		    div.className = "usuario-logado";
+
+		    ["Bem-vindo, " + nome, email].forEach(text => {
+		      div.appendChild(document.createTextNode(text));
+		      div.appendChild(document.createElement("br"));
+		    });
+
+		    const btn = document.createElement("button");
+		    btn.textContent = "Sair";
+		    btn.id = "logout-btn";
+		    btn.style.marginTop = "0.5rem";
+		    btn.onclick = () => {
+		      localStorage.removeItem("usuario");
+		      localStorage.removeItem("agencia");
+		      location.reload();
+		    };
+
+		    div.appendChild(btn);
+		    el.replaceWith(div);
+		  }
+		});
+
+
+
+		function logout() {
+		  localStorage.removeItem("usuario");
+		  localStorage.removeItem("agencia");
+		  location.reload();
+		}
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
@@ -163,7 +307,6 @@
             const nav = document.querySelector('nav');
             nav.style.display = 'none';
             
-            // Add mobile menu toggle logic here if needed
         }
     </script>
 </body>

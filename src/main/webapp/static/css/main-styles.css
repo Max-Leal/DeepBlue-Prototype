@@ -25,6 +25,29 @@ body {
     overflow-x: hidden;
 }
 
+.usuario-logado {
+    color: white;
+    font-weight: 500;
+    text-align: right;
+    padding: 0.5rem 1rem;
+}
+
+.usuario-logado button {
+    background: var(--azul-medio);
+    color: white;
+    border: none;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.usuario-logado button:hover {
+    background: var(--azul-agua);
+}
+
+
 /* Header aprimorado */
 .header {
     background: rgba(1, 32, 58, 0.95);
