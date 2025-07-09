@@ -119,3 +119,21 @@ INSERT INTO tb_agencia (nome_empresarial, cnpj, email, senha, situacao) VALUES
 ('Mundo Aventuras', '98.765.432/0001-11', 'aventura@mundo.com', 'aventura@2024', 'disponivel');
 ```
 
+### tb_local
+
+```sql
+insert into tb_local (localidade, situacao, nome, descricao, latitude, longitude) values
+('Santa Catarina', 'disponivel', 'San Miguel', 'Nau espanhola', '-27.58565', '-48.57048'),
+('Santa Catarina', 'disponivel', 'Guilhermina', 'Lanchão de nacionalidade desconhecida', '-27.49565', '-48.53795'),
+('Santa Catarina', 'disponivel', 'Sardinha', 'Iate brasileiro', '-27.46432', '-48.55442'),
+('Santa Catarina', 'disponivel', 'Porto Belgrano', 'Draga argentina', '-27.39640', '-48.46408'),
+('Santa Catarina', 'disponivel', 'Nome desconhecido', 'Embarcação desconhecida espanhola', '-27.43667', '-48.37638'),
+('Santa Catarina', 'disponivel', 'Melo II', 'Iate brasileiro', '-27.83275', '-48.49828'),
+('Santa Catarina', 'disponivel', 'Camponês', 'Iate brasileiro', '-27.86057', '-48.57105'),
+('Santa Catarina', 'disponivel', 'Marie Charlotte', 'Lúgar francês', '-27.84892', '-48.57478'),
+('Santa Catarina', 'disponivel', 'Nuestra Señora de La Concépcion', 'Nau espanhola', '-27.84093', '-48.57023'),
+('Santa Catarina', 'disponivel', 'Nome desconhecido', 'Caravela espanhola', '-27.83593', '-48.56422'),
+('Santa Catarina', 'disponivel', 'Provedora San Estebán', 'Nau espanhola', '-27.82840', '-48.57245'),
+('Santa Catarina', 'disponivel', 'Febo', 'Barca italiana', '-27,22718', '-48.42557');
+```
+
