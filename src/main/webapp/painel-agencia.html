@@ -1,24 +1,222 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Painel agência pós login</title>
- <link rel="stylesheet" href="static/css/main-styles.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Painel Agência - Cadastrar Locais</title>
+  <link rel="stylesheet" href="static/css/main-styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --azul-profundo: #01203a;
+      --azul-escuro: #1e3a8a;
+      --azul-medio: #3b82f6;
+      --azul-agua: #60a5fa;
+      --azul-claro: #93c5fd;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f9;
+    }
+
+    .header {
+      background-color: var(--azul-profundo);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header nav a {
+      color: white;
+      margin-left: 1.5rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    /* Espaço entre navbar e conteúdo */
+    .accordion-wrapper {
+      margin-top: 120px;
+    }
+
+    /* Accordion */
+    .accordion {
+      max-width: 700px;
+      margin: 40px auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid #ddd;
+    }
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    .accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      cursor: pointer;
+      background-color: #f8f9fa;
+      transition: background-color 0.3s ease;
+    }
+
+    .accordion-header:hover {
+      background-color: #e9ecef;
+    }
+
+    .accordion-title {
+      font-size: 16px;
+      color: #212529;
+    }
+
+    .accordion-icon {
+      transition: transform 0.3s ease;
+      font-size: 18px;
+    }
+
+    input[type="checkbox"]:checked + label .accordion-icon {
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      background-color: white;
+      padding: 0 20px;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+    }
+
+    input[type="checkbox"]:checked ~ .accordion-content {
+      max-height: 1000px;
+      padding: 20px;
+    }
+
+    /* Formulário */
+    .form-group {
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-padrao,
+    .select-padrao {
+      padding: 0.6rem 1rem;
+      border: 1px solid var(--azul-claro);
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .input-padrao:focus,
+    .select-padrao:focus {
+      border-color: var(--azul-medio);
+      box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-primario {
+      background: linear-gradient(45deg, var(--azul-medio), var(--azul-agua));
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .btn-primario:hover {
+      background: linear-gradient(45deg, var(--azul-claro), var(--azul-medio));
+    }
+  </style>
 </head>
 <body>
-<div class="logo">DeepBlue</div>
-        <nav>
-            <a href="index.html"><i class="fas fa-home"></i> Início</a>
-            <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
-            <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
-            <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
-            <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
-            <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
-        </nav>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">DeepBlue</div>
+  <nav>
+    <a href="index.html"><i class="fas fa-home"></i> Início</a>
+    <a href="mapaInterativo.html"><i class="fas fa-map"></i> Mapa Interativo</a>
+    <a href="locais.html"><i class="fas fa-map-marker-alt"></i> Locais</a>
+    <a href="agencias.html"><i class="fas fa-search"></i> Agências</a>
+    <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
+    <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
+  </nav>
+</div>
+
+<!-- ACCORDION COM FORMULÁRIO -->
+<section class="accordion-wrapper">
+  <div class="accordion">
+    <div class="accordion-item">
+      <input type="checkbox" id="formToggle">
+      <label for="formToggle" class="accordion-header">
+        <span class="accordion-title"><i class="fas fa-plus-circle"></i> Cadastrar Novo Local</span>
+        <span class="accordion-icon">▼</span>
+      </label>
+      <div class="accordion-content">
+        <form onsubmit="event.preventDefault(); alert('Local cadastrado!');" autocomplete="off" style="max-width: 600px; margin: auto;">
+          <div class="form-group">
+            <label for="localidade"><i class="fas fa-location-dot"></i> Localidade:</label>
+            <input type="text" id="localidade" class="input-padrao" required>
+          </div>
+     <div class="form-group">
+        <label for="situacao"><i class="fas fa-flag"></i> Situação:</label>
+      <select id="situacao" class="select-padrao" required>
+        <option value="INDISPONÍVEL" selected>INDISPONÍVEL</option>
+        <option value="DISPONÍVEL">DISPONÍVEL</option>
+      </select>
+     </div>
+          <div class="form-group">
+            <label for="nome"><i class="fas fa-map-marker-alt"></i> Nome do Local:</label>
+            <input type="text" id="nome" class="input-padrao" required>
+          </div>
+
+          <div class="form-group">
+            <label for="descricao"><i class="fas fa-align-left"></i> Descrição:</label>
+            <textarea id="descricao" rows="2" class="input-padrao" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="latitude"><i class="fas fa-arrows-alt-v"></i> Latitude:</label>
+            <input type="text" id="latitude" class="input-padrao" required>
+          </div>
+
+          <div class="form-group">
+            <label for="longitude"><i class="fas fa-arrows-alt-h"></i> Longitude:</label>
+            <input type="text" id="longitude" class="input-padrao" required>
+          </div>
+
+          <div style="text-align: center;">
+            <button type="submit" class="btn-primario"><i class="fas fa-plus"></i> Cadastrar Local</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
 </body>
 </html>
