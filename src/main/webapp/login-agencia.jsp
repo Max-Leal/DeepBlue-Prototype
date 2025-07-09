@@ -28,6 +28,6 @@
         situacao: "<%= agencia.getSituacao() %>"
     }));
     // Redireciona para a página principal da agência após login
-    window.location.href = "index.html";
+    window.location.href = "painel-agencia.html";
 </script>
 <% } %>
