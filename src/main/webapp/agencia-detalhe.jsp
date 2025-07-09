@@ -156,5 +156,54 @@
     &copy; 2025 DeepBlue. Todos os direitos reservados.
 </footer>
 
+<script type="text/javascript"> document.addEventListener('DOMContentLoaded', () => {
+	  const el = document.getElementById("informacoes-login");
+	  const usuario = localStorage.getItem("usuario");
+	  const agencia = localStorage.getItem("agencia");
+
+	  const dados = usuario ? JSON.parse(usuario) : agencia ? JSON.parse(agencia) : null;
+	  const nome = dados?.nome || dados?.nomeEmpresarial;
+	  const email = dados?.email;
+
+	  if (el && nome && email) {
+	    const div = document.createElement("div");
+	    div.className = "usuario-logado";
+
+	    ["Bem-vindo, " + nome, email].forEach(text => {
+	      div.appendChild(document.createTextNode(text));
+	      div.appendChild(document.createElement("br"));
+	    });
+
+	    const btn = document.createElement("button");
+	    btn.textContent = "Sair";
+	    btn.id = "logout-btn";
+	    btn.style.marginTop = "0.5rem";
+	    btn.onclick = () => {
+	      localStorage.removeItem("usuario");
+	      localStorage.removeItem("agencia");
+	      location.reload();
+	    };
+
+	    div.appendChild(btn);
+	    el.replaceWith(div);
+	  }
+	});
+
+
+
+	function logout() {
+	  localStorage.removeItem("usuario");
+	  localStorage.removeItem("agencia");
+	  location.reload();
+	}
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+        const header = document.getElementById('header');
+        if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });</script>
 </body>
 </html>
