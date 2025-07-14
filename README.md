@@ -14,6 +14,13 @@ Para obter uma cópia local deste projeto, execute o seguinte comando no termina
 ```bash
 git clone https://github.com/Max-Leal/DeepBlue-Prototype.git
 ```
+
+Não se esqueça de alterar o caminho da pasta, utilizando o seguinte comando no terminal:
+
+```bash
+cd DeepBlue-Prototype
+```
+
 ## 🌿 Como criar e acessar sua própria branch
 
 Para entrar na sua branch para fazer as tarefas use no terminal onde está aberto o projeto:

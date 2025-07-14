@@ -10,8 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
       </div>
       <div id="chatMessages" style="flex:1;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;overflow-y:auto;">
         <div style="background:white;padding:8px 12px;border-radius:20px 20px 20px 0;margin-bottom:8px;max-width:80%;align-self:flex-start;font-size:14px;color:#222;">Olá! Como podemos ajudar você hoje?</div>
-        <div style="background:white;padding:8px 12px;border-radius:20px 20px 20px 0;margin-bottom:8px;max-width:80%;align-self:flex-start;font-size:14px;color:#222;">Temos promoções exclusivas neste mês!</div>
-        <div style="background:#DCF8C6;padding:8px 12px;border-radius:20px 20px 0 20px;max-width:80%;align-self:flex-end;font-size:14px;color:#222;">Quero saber mais!</div>
+        <div style="background:white;padding:8px 12px;border-radius:20px 20px 20px 0;margin-bottom:8px;max-width:80%;align-self:flex-start;font-size:14px;color:#222;">Estaremos atendendo as suas dúvidas das 7:30 até às 17:30.</div>
       </div>
       <div id="chatFooter" style="background:white;padding:10px;border-top:1px solid #ccc;display:flex;align-items:center;gap:8px;">
         <input type="text" id="messageInput" placeholder="Digite sua mensagem..." style="flex:1;padding:8px 12px;border-radius:20px;border:1px solid #ccc;font-size:14px;outline:none;" />

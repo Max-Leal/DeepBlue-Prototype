@@ -31,4 +31,9 @@ public class LocalController {
 	public void deleteLocalById(int id) {
 		LocalDao.deleteById(id);
 	}
+	
+	public int cadastrarLocalRetornandoId(Local local) {
+	    return LocalDao.insertAndReturnId(local);
+	}
+
 }
