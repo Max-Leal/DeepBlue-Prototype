@@ -23,20 +23,21 @@
             LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr);
             Usuario usuario = new Usuario(nome, dataNascimento, cpf, email, senha);
             userControl.registerUser(usuario);
-            response.sendRedirect("login-usuario.html");
+            
         } catch (Exception e) {
             mensagem = "Erro ao cadastrar usuário: " + e.getMessage();
         }
     } else {
         mensagem = "Preencha todos os campos do formulário.";
     }
+    response.sendRedirect("login-usuario.html");
 %>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Registro - DeepBlue SC</title>
+    <title>Registro - DeepBlue</title>
     <link rel="stylesheet" href="static/css/main-styles.css">
     <link rel="stylesheet" href="static/css/login-styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

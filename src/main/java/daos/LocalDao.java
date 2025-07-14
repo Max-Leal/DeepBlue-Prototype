@@ -10,6 +10,33 @@ import models.Local;
 import utils.ConexaoDB;
 
 public class LocalDao {
+	
+	public static int insertAndReturnId(Local local) {
+	    int id = -1;
+	    try (Connection conn = ConexaoDB.getConexao()) {
+	        String sql = "INSERT INTO tb_local (localidade, situacao, nome, descricao, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?)";
+	        PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+	        stmt.setString(1, local.getLocalidade());
+	        stmt.setString(2, local.getSituacao().toString().toLowerCase());
+	        stmt.setString(3, local.getNome());
+	        stmt.setString(4, local.getDescricao());
+	        stmt.setString(5, local.getLatitude());
+	        stmt.setString(6, local.getLongitude());
+
+	        stmt.executeUpdate();
+
+	        ResultSet rs = stmt.getGeneratedKeys();
+	        if (rs.next()) {
+	            id = rs.getInt(1);
+	        }
+
+	        rs.close();
+	        stmt.close();
+	    } catch (Exception e) {
+	        throw new RuntimeException("Erro ao inserir local e retornar ID: " + e.getMessage());
+	    }
+	    return id;
+	}
 
     public static List<Local> getLista() {
         List<Local> lista = new java.util.ArrayList<>();
@@ -45,9 +72,9 @@ public class LocalDao {
             stm.setString(1, l.getLocalidade());
             stm.setString(2, l.getSituacao().toString().toLowerCase());
             stm.setString(3, l.getNome());
-            stm.setString(4, l.getLongitude());
-            stm.setString(5, l.getDescricao());
-            stm.setString(6, l.getLatitude());
+            stm.setString(4, l.getDescricao());
+            stm.setString(5, l.getLatitude());
+            stm.setString(6, l.getLongitude());
             stm.execute();
 
             stm.close();

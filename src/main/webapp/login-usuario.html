@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login Usuário - DeepBlue SC</title>
+    <title>Login Usuário - DeepBlue</title>
     <link rel="stylesheet" href="static/css/main-styles.css">
     <link rel="stylesheet" href="static/css/login-styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,16 +11,16 @@
     
 </head>
 
-<body>
-    <header class="header">
-        <div class="logo">DeepBlue SC</div>
+<body onload="logout()">
+    <header class="header" id="header">
+        <div class="logo">DeepBlue</div>
         <nav>
             <a href="index.html"><i class="fas fa-home"></i> Início</a>
             <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
             <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
             <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
             <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
-            <a href="login-usuario.html"><i class="fas fa-user"></i> Login/Cadastro</a>
+            <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
         </nav>
     </header>
     
@@ -69,10 +69,16 @@
     </section>
     
     <footer class="footer">
-        <p>&copy; 2025 DeepBlue SC. Todos os direitos reservados.</p>
+        <p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
     </footer>
 
     <script>
+
+    function logout() {
+    	  localStorage.removeItem("usuario");
+    	localStorage.removeItem("agencia");
+    	}
+    
         function togglePassword() {
             const passwordInput = document.getElementById('senha');
             const toggleIcon = document.getElementById('toggleIcon');
