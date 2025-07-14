@@ -108,7 +108,7 @@ nav a:hover::after {
 
 /* Hero Section */
 .hero {
-    flex: 1;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -116,6 +116,7 @@ nav a:hover::after {
     padding: 2rem;
     position: relative;
     z-index: 1;
+    margin-bottom: 1px;
 }
 
 /* Container de Login/Cadastro */
@@ -135,11 +136,6 @@ nav a:hover::after {
     transform: translateY(0);
     transition: all 0.3s ease;
     animation: fadeInUp 0.8s ease;
-}
-
-.hero-login-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 15px 30px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .hero-login-title {
