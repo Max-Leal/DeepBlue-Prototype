@@ -318,8 +318,8 @@ nav a:hover {
 /* Valores Section */
 .valores {
     padding: 5rem 2rem;
-
     position: relative;
+    background-image: url("assets/backgroundlogo.png");
 }
 
 .valores h2 {

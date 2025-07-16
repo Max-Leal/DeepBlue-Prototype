@@ -18,8 +18,8 @@
             background-position: center top;
             background-repeat: no-repeat;
             background-size: cover;
+            position: relative;
         }
-
         .info-projeto {
             max-width: 900px;
             margin: 48px auto 32px auto;
@@ -104,6 +104,18 @@
             transform: scale(1.035);
             box-shadow: 0 4px 18px rgba(59, 130, 246, 0.10);
         }
+
+        .img-fundo {
+            position: absolute;
+            bottom: 0;
+            left: 15%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: auto;
+            opacity: 0.8;
+            pointer-events: none;
+            filter: blur(2px);
+        }
     </style>
 </head>
 
@@ -119,7 +131,6 @@
             <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
         </nav>
     </header>
-
     <section class="hero" id="hero">
         <div class="hero-image-wrapper">
 
@@ -166,7 +177,6 @@
                 </p>
             </div>
         </div>
-
     </section>
     <section class="valores fade-in" id="valores">
         <h2>Nossos Diferenciais</h2>
@@ -186,16 +196,16 @@
             </div>
         </div>
     </section>
-
+    
     <section class="parceiros fade-in">
         <h2>Nossos Parceiros</h2>
         <div class="parceiros-logos">
-            <img src="static/images/parceiro1.png" alt="Parceiro 1">
+            <img src="static/images/parceiro1.png" alt="Parceiro 1">    
             <img src="static/images/parceiro2.png" alt="Parceiro 2">
             <img src="static/images/parceiro3.png" alt="Parceiro 3">
         </div>
     </section>
-
+    <img src="assets/backgroundlogo.png" alt="" class="img-fundo">
     <footer class="footer">
         <p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
     </footer>
