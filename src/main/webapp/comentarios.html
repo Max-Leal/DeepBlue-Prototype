@@ -5,31 +5,17 @@
     <meta charset="UTF-8">
     <title>Comentários</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/css/main-styles.css">
-    <link rel="stylesheet" href="static/css/faq-styles.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="static/css/comentarios-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/comentarios-styles.css">
+    <link rel="stylesheet" href="static/css/main-styles.css">
 </head>
 
 <body>
     <div class="page-wrapper">
-        <header class="header" id="header">
-            <div class="logo">DeepBlue</div>
-            <nav>
-                <a href="index.html"><i class="fas fa-home"></i> Início</a>
-                <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
-                <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
-                <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
-                <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
-                <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
-            </nav>
-        </header>
+        <script src="static/js/header.js"></script>
         <div class="center-container">
             <div class="main-box">
                 <div class="post-top">
@@ -124,10 +110,9 @@
                 </div>
             </div>
         </div>
-        <footer class="footer">
-            <p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
-        </footer>
+        <script src="static/js/footer.js"></script>
     </div>
+    
     <script>
         function toggleComments(id) {
             var section = document.getElementById(id);
