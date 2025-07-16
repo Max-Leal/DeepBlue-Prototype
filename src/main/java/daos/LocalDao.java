@@ -14,14 +14,17 @@ public class LocalDao {
 	public static int insertAndReturnId(Local local) {
 	    int id = -1;
 	    try (Connection conn = ConexaoDB.getConexao()) {
-	        String sql = "INSERT INTO tb_local (localidade, situacao, nome, descricao, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?)";
+	        String sql = "INSERT INTO tb_local (nome, localidade, descricao, tipo_embarcacao, ano_afundamento, profundidade, situacao, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	        PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-	        stmt.setString(1, local.getLocalidade());
-	        stmt.setString(2, local.getSituacao().toString().toLowerCase());
-	        stmt.setString(3, local.getNome());
-	        stmt.setString(4, local.getDescricao());
-	        stmt.setString(5, local.getLatitude());
-	        stmt.setString(6, local.getLongitude());
+	        stmt.setString(1, local.getNome());
+	        stmt.setString(2, local.getLocalidade());
+	        stmt.setString(3, local.getDescricao());
+	        stmt.setString(4, local.getTipo_embarcacao());
+	        stmt.setInt(5, local.getAno_afundamento());
+	        stmt.setDouble(6, local.getProfundidade());
+	        stmt.setString(7, local.getSituacao().toString().toLowerCase());
+	        stmt.setString(8, local.getLongitude());
+	        stmt.setString(9, local.getLatitude());
 
 	        stmt.executeUpdate();
 
@@ -48,14 +51,18 @@ public class LocalDao {
             while (rs.next()) {
                 Local local = new Local();
                 local.setId(rs.getLong("id"));
-                local.setLocalidade(rs.getString("localidade"));
-                local.setSituacao(Situacao.valueOf(rs.getString("situacao").toUpperCase()));
                 local.setNome(rs.getString("nome"));
+                local.setLocalidade(rs.getString("localidade"));
                 local.setDescricao(rs.getString("descricao"));
+                local.setTipo_embarcacao(rs.getString("tipo_embarcacao"));
+                local.setAno_afundamento(rs.getInt("ano_afundamento"));
+                local.setProfundidade(rs.getDouble("profundidade"));
+                local.setSituacao(Situacao.valueOf(rs.getString("situacao").toUpperCase()));
                 local.setLongitude(rs.getString("longitude"));
                 local.setLatitude(rs.getString("latitude"));
                 lista.add(local);
             }
+            
             rs.close();
             stm.close();
             con.close();
@@ -64,23 +71,28 @@ public class LocalDao {
         }
         return lista;
     }
+    
     public static void insert(Local l) {
-        try {
-            Connection con = ConexaoDB.getConexao();
-            String sql = "INSERT INTO tb_local (localidade, situacao, nome, descricao, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement stm = con.prepareStatement(sql);
-            stm.setString(1, l.getLocalidade());
-            stm.setString(2, l.getSituacao().toString().toLowerCase());
-            stm.setString(3, l.getNome());
-            stm.setString(4, l.getDescricao());
-            stm.setString(5, l.getLatitude());
-            stm.setString(6, l.getLongitude());
-            stm.execute();
+        String sql = "INSERT INTO tb_local (nome, localidade, descricao, tipo_embarcacao, ano_afundamento, profundidade, situacao, longitude, latitude) "
+                   + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            stm.close();
-            con.close();
+        try (Connection con = ConexaoDB.getConexao();
+             PreparedStatement stm = con.prepareStatement(sql)) {
+
+            stm.setString(1, l.getNome());
+            stm.setString(2, l.getLocalidade());
+            stm.setString(3, l.getDescricao());
+            stm.setString(4, l.getTipo_embarcacao());
+            stm.setInt(5, l.getAno_afundamento());
+            stm.setDouble(6, l.getProfundidade());
+            stm.setString(7, l.getSituacao().toString().toLowerCase()); 
+            stm.setString(8, l.getLongitude());
+            stm.setString(9, l.getLatitude());
+
+            stm.executeUpdate(); 
+
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao inserir local: " + e.getMessage());
+            throw new RuntimeException("Erro ao inserir local: " + e.getMessage(), e);
         }
     }
 
@@ -91,20 +103,26 @@ public class LocalDao {
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
+
             Local local = null;
             if (rs.next()) {
                 local = new Local();
                 local.setId(rs.getLong("id"));
-                local.setLocalidade(rs.getString("localidade"));
-                local.setSituacao(Situacao.valueOf(rs.getString("situacao").toUpperCase()));
                 local.setNome(rs.getString("nome"));
+                local.setLocalidade(rs.getString("localidade"));
                 local.setDescricao(rs.getString("descricao"));
+                local.setTipo_embarcacao(rs.getString("tipo_embarcacao"));
+                local.setAno_afundamento(rs.getInt("ano_afundamento"));
+                local.setProfundidade(rs.getDouble("profundidade"));
+                local.setSituacao(Situacao.valueOf(rs.getString("situacao").toUpperCase()));
                 local.setLongitude(rs.getString("longitude"));
                 local.setLatitude(rs.getString("latitude"));
             }
+
             rs.close();
             stm.close();
             con.close();
+
             return local;
         } catch (Exception e) {
             throw new RuntimeException("Erro ao buscar local por ID: " + e.getMessage());
@@ -129,21 +147,26 @@ public class LocalDao {
     public static void update(Long id, Local localAtualizado) {
         try {
             Connection con = ConexaoDB.getConexao();
-            String sql = "UPDATE tb_local SET localidade = ?, situacao = ?, nome = ?, descricao = ?, longitude = ?, latitude = ? WHERE id = ?";
+            String sql = "UPDATE tb_local SET nome = ?, localidade = ?, descricao = ?, tipo_embarcacao = ?, ano_afundamento = ?, profundidade = ?, situacao = ?, longitude = ?, latitude = ? WHERE id = ?";
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setString(1, localAtualizado.getLocalidade());
-            stm.setString(2, localAtualizado.getSituacao().toString().toLowerCase());
-            stm.setString(3, localAtualizado.getNome());
-            stm.setString(4, localAtualizado.getDescricao());
-            stm.setString(5, localAtualizado.getLongitude());
-            stm.setString(6, localAtualizado.getLatitude());
-            stm.setLong(7, id);
-            stm.execute();
+
+            stm.setString(1, localAtualizado.getNome());
+            stm.setString(2, localAtualizado.getLocalidade());
+            stm.setString(3, localAtualizado.getDescricao());
+            stm.setString(4, localAtualizado.getTipo_embarcacao());
+            stm.setInt(5, localAtualizado.getAno_afundamento());
+            stm.setDouble(6, localAtualizado.getProfundidade());
+            stm.setString(7, localAtualizado.getSituacao().toString().toLowerCase());
+            stm.setString(8, localAtualizado.getLongitude());
+            stm.setString(9, localAtualizado.getLatitude());
+            stm.setLong(10, id);
+
+            stm.executeUpdate();
 
             stm.close();
             con.close();
         } catch (Exception e) {
             throw new RuntimeException("Erro ao atualizar local: " + e.getMessage());
         }
-    }
+    } 
 }
