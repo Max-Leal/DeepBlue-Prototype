@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>DeepBlue - Conexões Náuticas em Santa Catarina</title>
+    <title>DeepBlue - Turismo Náutico em Santa Catarina</title>
     <link rel="stylesheet" href="static/css/main-styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -13,6 +13,13 @@
         rel="stylesheet">
 
     <style type="text/css">
+        body {
+            background-image: url("assets/backgroundmar.png");
+            background-position: center top;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
         .info-projeto {
             max-width: 900px;
             margin: 48px auto 32px auto;
@@ -29,9 +36,9 @@
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 24px;
-            color: #1e3a8a;
             letter-spacing: 0.5px;
-            text-shadow: 0 2px 8px #e0f2fe;
+            color: var(--dourado);
+            text-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
             position: relative;
             display: inline-block;
         }
@@ -44,6 +51,7 @@
             background: linear-gradient(90deg, #3b82f6 0%, #f59e0b 100%);
             border-radius: 2px;
             margin: 10px auto 0 auto;
+
         }
 
         .quem-somos-box {
@@ -59,11 +67,11 @@
         .quem-somos-titulo {
             font-size: 1.35rem;
             font-weight: 700;
-            color: #1e3a8a;
+            color: var(--dourado);
+            text-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
             margin-bottom: 0.3rem;
             margin-top: 1.2rem;
             letter-spacing: 0.5px;
-            text-shadow: 0 2px 8px #e0f2fe;
             text-transform: uppercase;
             position: relative;
             display: inline-block;
@@ -81,14 +89,14 @@
 
         .quem-somos-texto {
             font-size: 1.08rem;
-            color: #223a5e;
+            color: #ffffff;
             line-height: 1.5;
             text-align: center;
             margin: 0 0 0.5rem 0;
-            background: rgba(255, 255, 255, 0.986);
+
             border-radius: 8px;
             padding: 0.7rem 1rem;
-            box-shadow: 0 1px 6px rgba(59, 130, 246, 0.04);
+
             transition: transform 0.25s cubic-bezier(.4, 1.4, .6, 1), box-shadow 0.25s;
         }
 
@@ -100,15 +108,25 @@
 </head>
 
 <body>
-    <script src="static/js/header.js"></script>
+    <header class="header" id="header">
+        <div class="logo">DeepBlue</div>
+        <nav>
+            <a href="index.html"><i class="fas fa-home"></i> Início</a>
+            <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
+            <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
+            <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
+            <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
+            <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
+        </nav>
+    </header>
 
     <section class="hero" id="hero">
         <div class="hero-image-wrapper">
-            <img src="assets/Naufragio.jpg" alt="Turismo Náutico SC" class="hero-image">
+
             <div class="particles" id="particles"></div>
             <div class="hero-overlay">
                 <div class="hero-content">
-                    <h1>Explore o melhor do turismo náutico histórico em Santa Catarina</h1>
+                    <h1>Conecte-se aos Naufrágios Históricos em Santa Catarina</h1>
                     <p>Conectando pessoas com experiências únicas no litoral catarinense.</p>
                     <a href="#valores" class="cta-btn" id="descubra-btn">
                         <i class="fas fa-compass"></i> Descubra Experiências
@@ -123,24 +141,32 @@
     <section class="info-projeto fade-in" id="info-projeto">
         <h2>Sobre o Projeto DeepBlue</h2>
         <div class="quem-somos-box">
-
-            <h3 class="quem-somos-titulo">Quem Somos</h3>
-            <p class="quem-somos-texto">
-                A <strong>DeepBlue</strong> é uma plataforma inovadora que conecta turistas apaixonados por aventura,
-                história e natureza. <br>
-                Nosso propósito é proporcionar <span style="color:#1e3a8a;font-weight:500;">experiências
-                    inesquecíveis</span> de exploração subaquática,
-                a <span style="color:#3b82f6;font-weight:500;">naufrágios históricos</span> espalhados pela deslumbrante
-                baía da Ilha da Magia.
-            </p>
-            <h3 class="quem-somos-titulo">Nossa Missão</h3>
-            <p class="quem-somos-texto">
-                Nossa missão é valorizar o patrimônio subaquático de Santa Catarina,
-                oferecendo aos visitantes uma imersão educativa e sustentável.
-                Buscamos unir aventura e preservação, promovendo o turismo responsável e fomentando a cultura marítima
-                local.
-            </p>
+            <div class="quem-somos-texto">
+                <h3 class="quem-somos-titulo">Quem Somos</h3>
+                <p>
+                    A <strong>DeepBlue</strong> é uma plataforma inovadora que conecta turistas apaixonados por
+                    aventura,
+                    história e natureza. <br>
+                    Nosso propósito é proporcionar <span style="color:#ffa600;font-weight:500;">experiências
+                        inesquecíveis</span> de exploração subaquática,
+                    a <span style="color:#ffc400;font-weight:500;">naufrágios históricos</span> espalhados pela
+                    deslumbrante
+                    baía da Ilha da Magia.
+                </p>
+            </div>
+            <br>
+            <div class="quem-somos-texto">
+                <h3 class="quem-somos-titulo">Nossa Missão</h3>
+                <p>
+                    Nossa missão é valorizar o patrimônio subaquático de Santa Catarina,
+                    oferecendo aos visitantes uma imersão educativa e sustentável.
+                    Buscamos unir aventura e preservação, promovendo o turismo responsável e fomentando a cultura
+                    marítima
+                    local.
+                </p>
+            </div>
         </div>
+
     </section>
     <section class="valores fade-in" id="valores">
         <h2>Nossos Diferenciais</h2>
@@ -169,7 +195,10 @@
             <img src="static/images/parceiro3.png" alt="Parceiro 3">
         </div>
     </section>
-    <script src="static/js/footer.js"></script>
+
+    <footer class="footer">
+        <p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
+    </footer>
 
     <script>
 
