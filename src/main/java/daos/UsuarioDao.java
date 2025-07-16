@@ -9,6 +9,35 @@ import utils.ConexaoDB;
 
 public class UsuarioDao {
 
+	public static Usuario autenticar(String email, String senha) {
+	    Usuario usuario = null;
+	    try {
+	        Connection con = ConexaoDB.getConexao();
+	        String sql = "SELECT * FROM tb_usuario WHERE email = ? AND senha = ?";
+	        PreparedStatement stm = con.prepareStatement(sql);
+	        stm.setString(1, email);
+	        stm.setString(2, senha);
+	        ResultSet rs = stm.executeQuery();
+
+	        if (rs.next()) {
+	            usuario = new Usuario();
+	            usuario.setId(rs.getLong("id"));
+	            usuario.setNome(rs.getString("nome"));
+	            usuario.setEmail(rs.getString("email"));
+	            usuario.setSenha(rs.getString("senha"));
+	            usuario.setFoto(rs.getString("foto"));
+	        }
+
+	        rs.close();
+	        stm.close();
+	        con.close();
+	        return usuario;
+
+	    } catch (Exception e) {
+	        throw new RuntimeException(e.getMessage());
+	    }
+	}
+	
     public static Usuario getUsuarioByEmail(String email) {
         Usuario usuario = null;
         try {

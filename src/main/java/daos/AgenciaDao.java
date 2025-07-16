@@ -11,6 +11,42 @@ import models.Agencia;
 import utils.ConexaoDB;
 
 public class AgenciaDao {
+	
+	public static Agencia autenticar(String email, String senha) {
+	    Agencia agencia = null;
+	    try {
+	        Connection con = ConexaoDB.getConexao();
+	        String sql = "SELECT * FROM tb_agencia WHERE email = ? AND senha = ?";
+	        PreparedStatement stm = con.prepareStatement(sql);
+	        stm.setString(1, email);
+	        stm.setString(2, senha);
+	        ResultSet rs = stm.executeQuery();
+
+	        if (rs.next()) {
+	            agencia = new Agencia();
+	            agencia.setId(rs.getLong("id"));
+	            agencia.setNomeEmpresarial(rs.getString("nome_empresarial"));
+	            agencia.setCnpj(rs.getString("cnpj"));
+	            agencia.setEmail(rs.getString("email"));
+	            agencia.setSenha(rs.getString("senha"));
+	            agencia.setSituacao(Situacao.valueOf(rs.getString("situacao").toUpperCase()));
+	            agencia.setDescricao(rs.getString("descricao"));
+	            agencia.setCep(rs.getString("cep"));
+	            agencia.setTelefone(rs.getString("telefone"));
+	            agencia.setWhatsapp(rs.getString("whatsapp"));
+	            agencia.setInstagram(rs.getString("instagram"));
+	        }
+
+	        rs.close();
+	        stm.close();
+	        con.close();
+	        return agencia;
+
+	    } catch (Exception e) {
+	        throw new RuntimeException(e.getMessage());
+	    }
+	}
+
 
     public static List<Agencia> getAllAgencias() {
         List<Agencia> agencias = new ArrayList<>();
