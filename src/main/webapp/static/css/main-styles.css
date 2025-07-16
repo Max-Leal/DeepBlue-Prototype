@@ -456,7 +456,7 @@ nav a:hover {
 
 /* Footer */
 .footer {
-    background: var(--azul-escuro);
+    background:#01203a;
     color: white;
     text-align: center;
     padding: 2rem;

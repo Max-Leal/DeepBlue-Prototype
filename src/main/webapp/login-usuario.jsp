@@ -30,8 +30,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Login - DeepBlue</title>
-    <link rel="stylesheet" href="static/css/main-styles.css">
     <link rel="stylesheet" href="static/css/login-styles.css">
+    <link rel="stylesheet" href="static/css/main-styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body style="background: var(--azul-profundo, #f5f8fa);">
@@ -50,7 +50,7 @@
             localStorage.setItem('usuario', JSON.stringify({
                 id: "<%= usuario.getId() %>",
                 nome: "<%= usuario.getNome() %>",
-                email: "<%= usuario.getEmail() %>",
+                email: "<%= usuario.getEmail() %>"
         }));
         // Redireciona para a página principal após login
         window.location.href = "index.html";

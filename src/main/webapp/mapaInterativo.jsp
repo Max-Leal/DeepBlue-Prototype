@@ -26,16 +26,15 @@
 </head>
 
 <body>
+<div class="page-wrapper">
 	<header class="header" id="header">
 		<div class="logo">DeepBlue</div>
 		<nav>
-			<a href="index.html"><i class="fas fa-home"></i> Início</a> <a
-				href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa
-				Interativo</a> <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i>
-				Locais</a> <a href="agencias.jsp"><i class="fas fa-search"></i>
-				Agências</a> <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
-			<a href="login-usuario.html" id="informacoes-login"><i
-				class="fas fa-user"></i> Login/Cadastro</a>
+			<a href="index.html"><i class="fas fa-home"></i> Início</a>
+			<a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
+			<a href="agencias.jsp"><i class="fas fa-map-marker-alt"></i> Agências</a>
+			<a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
+			<a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
 		</nav>
 	</header>
 	<main>
@@ -46,10 +45,11 @@
 			</section>
 		</div>
 	</main>
-	<footer class="footer">
+	<div style="margin: 4%"></div>
+	<footer class="footer" style="background-color: #01203a">
 		<p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
 	</footer>
-
+	</div>
 	<script>
     
     

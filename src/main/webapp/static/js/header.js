@@ -17,16 +17,6 @@
     style.textContent = `
     :root {
     --azul-profundo: #01203a;
-    --azul-escuro: #1e3a8a;
-    --azul-medio: #3b82f6;
-    --azul-agua: #60a5fa;
-    --azul-claro: #93c5fd;
-    --azul-espuma: #eff6ff;
-    --branco: #ffffff;
-    --cinza-claro: #f8fafc;
-    --cinza-medio: #64748b;
-    --dourado: #f59e0b;
-    --dourado-escuro: #d97706;
 }
 
 * {

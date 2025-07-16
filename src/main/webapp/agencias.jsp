@@ -5,9 +5,9 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>DeepBlue - Turismo Nï¿½utico em Santa Catarina</title>
-<link rel="stylesheet" href="static/css/main-styles.css">
+<title>DeepBlue - Turismo Náutico em Santa Catarina</title>
 <link rel="stylesheet" href="static/css/crud-styles.css">
+<link rel="stylesheet" href="static/css/main-styles.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -20,56 +20,42 @@
 
 </head>
 <body>
-	<header class="header" id="header">
-        <div class="logo">DeepBlue</div>
-        <nav>
-            <a href="index.html"><i class="fas fa-home"></i> Início</a>
-            <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
-            <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
-            <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
-            <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
-            <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
-        </nav>
-    </header>
+		<script src="static/js/header.js"></script>
+		<section class="crud-section" id="agencias">
+			<h1 class="crud-titulo">Agências Cadastradas</h1>
+			<div class="crud-lista">
+				<%
+				AgenciaController aController = new AgenciaController();
+				List<Agencia> agencias = aController.listaAgencias();
+				if (agencias != null && !agencias.isEmpty()) {
+					for (Agencia agencia : agencias) {
+				%>
+				<div class="crud-card">
+					<div class="crud-nome"><%=agencia.getNomeEmpresarial()%></div>
+					<div class="crud-info">
+						<b>CNPJ:</b>
+						<%=agencia.getCnpj()%><br> <b>Email:</b>
+						<%=agencia.getEmail()%><br> <b>Situação:</b>
+						<%=agencia.getSituacao()%>
+					</div>
 
+					<!-- Botão para ver detalhes -->
+					<div style="margin-top: 1rem;">
+						<a href="agencia-detalhe.jsp?id=<%=agencia.getId()%>"
+							class="cta-btn">Ver Detalhes</a>
+					</div>
+				</div>
 
-	<section class="crud-section" id="agencias">
-		<h1 class="crud-titulo">Agências Cadastradas</h1>
-		<div class="crud-lista">
-			<%
-			AgenciaController aController = new AgenciaController();
-			List<Agencia> agencias = aController.listaAgencias();
-			if (agencias != null && !agencias.isEmpty()) {
-				for (Agencia agencia : agencias) {
-			%>
-			<div class="crud-card">
-    <div class="crud-nome"><%=agencia.getNomeEmpresarial()%></div>
-    <div class="crud-info">
-        <b>CNPJ:</b> <%=agencia.getCnpj()%><br>
-        <b>Email:</b> <%=agencia.getEmail()%><br>
-        <b>Situação:</b> <%=agencia.getSituacao()%>
-    </div>
-
-    <!-- Botão para ver detalhes -->
-    <div style="margin-top: 1rem;">
-        <a href="agencia-detalhe.jsp?id=<%= agencia.getId() %>" class="cta-btn">Ver Detalhes</a>
-    </div>
-</div>
-
-			<%
-			}
-			} else {
-			%>
-			<p>Nenhuma agência cadastrada no momento.</p>
-			<%
-			}
-			%>
-		</div>
-	</section>
-
-	<footer class="footer">
-		<p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
-	</footer>
+				<%
+				}
+				} else {
+				%>
+				<p>Nenhuma agência cadastrada no momento.</p>
+				<%
+				}
+				%>
+			</div>
+		</section>
 
 	<script>
 	 document.addEventListener('DOMContentLoaded', () => {
