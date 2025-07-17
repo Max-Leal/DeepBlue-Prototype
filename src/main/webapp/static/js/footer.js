@@ -10,15 +10,6 @@
 :root {
     --azul-profundo: #01203a;
     --azul-escuro: #1e3a8a;
-    --azul-medio: #3b82f6;
-    --azul-agua: #60a5fa;
-    --azul-claro: #93c5fd;
-    --azul-espuma: #eff6ff;
-    --branco: #ffffff;
-    --cinza-claro: #f8fafc;
-    --cinza-medio: #64748b;
-    --dourado: #f59e0b;
-    --dourado-escuro: #d97706;
 }
 
 * {
@@ -30,12 +21,12 @@
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    color: var(--azul-profundo);
+    color: var(--azul-escuro);
     overflow-x: hidden;
 }
 
 .footer {
-    background: var(--azul-escuro);
+    background: var(--azul-profundo);
     color: white;
     text-align: center;
     padding: 2rem;
