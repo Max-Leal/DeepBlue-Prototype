@@ -12,13 +12,34 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--azul-profundo) 0%, var(--azul-agua) 100%);
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") bottom repeat-x;
+            z-index: -1;
+        }
+    </style>
 </head>
 
 <body>
     <div class="page-wrapper">
         <script src="static/js/header.js"></script>
         <main>
-            <h1 style="text-align:center; margin-top:4.5%;">Perguntas Frequentes (FAQ)</h1>
+            <h1 style="text-align:center; margin-top:4.5%; color: white;">Perguntas Frequentes (FAQ)</h1>
             <div class="accordion">
                 <div class="accordion-item">
                     <input type="checkbox" id="acc1">
@@ -28,8 +49,10 @@
                     </label>
                     <div class="accordion-content">
                         <p>
-                            A DeepBlue SC é uma plataforma que conecta turistas aventureiros, amantes da história e da
-                            natureza, às melhores agências de mergulho de Florianópolis. Nosso foco está na criação de
+                            A DeepBlue SC é uma plataforma que conecta turistas aventureiros, amantes da história e
+                            da
+                            natureza, às melhores agências de mergulho de Florianópolis. Nosso foco está na criação
+                            de
                             experiências subaquáticas memoráveis em naufrágios históricos da região.
                         </p>
                     </div>
@@ -62,7 +85,8 @@
                             Basta acessar nossa plataforma online e:
                             Procurar um local desejado.
                             Procurar agências que se relacionam com esse local.
-                            Entrar em contato com essa agência via whatsapp, instagram ou até mesmo nosso próprio chat.
+                            Entrar em contato com essa agência via whatsapp, instagram ou até mesmo nosso próprio
+                            chat.
                         </p>
 
                     </div>
@@ -84,12 +108,14 @@
                 <div class="accordion-item">
                     <input type="checkbox" id="acc5">
                     <label for="acc5" class="accordion-header">
-                        <span class="accordion-title">Qual a melhor época do ano para mergulhar em Florianópolis?</span>
+                        <span class="accordion-title">Qual a melhor época do ano para mergulhar em
+                            Florianópolis?</span>
                         <span class="accordion-icon">▼</span>
                     </label>
                     <div class="accordion-content">
                         <p>
-                            A temporada ideal vai de outubro a abril, quando a visibilidade subaquática é melhor e as
+                            A temporada ideal vai de outubro a abril, quando a visibilidade subaquática é melhor e
+                            as
                             águas estão mais quentes.
                         </p>
 
@@ -104,7 +130,8 @@
                     </label>
                     <div class="accordion-content">
                         <p>
-                            Não. Somos uma plataforma de conexão entre turistas e agências especializadas. Nosso papel é
+                            Não. Somos uma plataforma de conexão entre turistas e agências especializadas. Nosso
+                            papel é
                             garantir que você encontre a experiência ideal com qualidade, excelência e compromisso
                             histórico.
                         </p>
@@ -122,13 +149,14 @@
                     <div class="accordion-content">
                         <p>
                             Você pode entrar em contato conosco pelo nosso formulário de atendimento no site, via
-                            WhatsApp ou pelas redes sociais. Estamos sempre prontos para ajudar a planejar sua próxima
+                            WhatsApp ou pelas redes sociais. Estamos sempre prontos para ajudar a planejar sua
+                            próxima
                             aventura subaquática!
                         </p>
 
                     </div>
                 </div>
-
+            </div>
         </main>
         <div style="padding-bottom: 335px"></div>
         <script src="static/js/footer.js"></script>
