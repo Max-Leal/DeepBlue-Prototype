@@ -108,8 +108,9 @@
         .img-fundo {
             position: absolute;
             bottom: 0;
-            left: 15%;
-            transform: translateX(-50%);
+            left: -10%;
+            transform: translateX(-20%);
+            transition-duration: 3s;
             width: 50%;
             height: auto;
             opacity: 0.8;
@@ -121,27 +122,17 @@
 </head>
 
 <body>
-    <header class="header" id="header">
-        <div class="logo">DeepBlue</div>
-        <nav>
-            <a href="index.html"><i class="fas fa-home"></i> Início</a>
-            <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
-            <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
-            <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
-            <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
-            <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
-        </nav>
-    </header>
+<script src="static/js/header.js"></script>
     <section class="hero" id="hero">
         <div class="hero-image-wrapper">
 
             <div class="particles" id="particles"></div>
             <div class="hero-overlay">
                 <div class="hero-content">
-                    <h1>Conexão aos Naufrágios Históricos em Santa Catarina</h1>
+                    <h1>Reviva os Naufrágios Históricos em Santa Catarina</h1>
                     <p>Conectando pessoas a experiências únicas no litoral catarinense.</p>
                     <a href="#valores" class="cta-btn" id="descubra-btn">
-                        <i class="fas fa-compass"></i> Descubra Experiências
+                        <i class="fas fa-compass"></i> Descubra mais
                     </a>
                 </div>
             </div>
@@ -206,10 +197,8 @@
             <img src="static/images/parceiro3.png" alt="Parceiro 3">
         </div>
     </section>
-    <img src="assets/backgroundlogo.png" alt="" class="img-fundo">
-    <footer class="footer">
-        <p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
-    </footer>
+    <img src="assets/backgroundlogo.png" alt="" class="img-fundo fade-in">
+<script src="static/js/footer.js"></script>
 
     <script>
 
