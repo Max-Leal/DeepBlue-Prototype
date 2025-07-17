@@ -357,6 +357,7 @@ nav a:hover {
     position: relative;
     overflow: hidden;
     border: 1px solid rgba(96, 165, 250, 0.1);
+    z-index: 10;
 }
 
 .card::before {
@@ -423,6 +424,8 @@ nav a:hover {
     background: var(--azul-profundo);
     color: white;
     text-align: center;
+    position: relative;
+    z-index: -2;
 }
 
 .parceiros h2 {
