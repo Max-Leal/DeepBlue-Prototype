@@ -121,17 +121,7 @@
 </head>
 
 <body>
-    <header class="header" id="header">
-        <div class="logo">DeepBlue</div>
-        <nav>
-            <a href="index.html"><i class="fas fa-home"></i> Início</a>
-            <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
-            <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
-            <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
-            <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
-            <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
-        </nav>
-    </header>
+    <script src="static/js/header.js"></script>
     <section class="hero" id="hero">
         <div class="hero-image-wrapper">
 
@@ -207,9 +197,7 @@
         </div>
     </section>
     <img src="assets/backgroundlogo.png" alt="" class="img-fundo">
-    <footer class="footer">
-        <p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
-    </footer>
+    <script src="static/js/footer.js"></script>
 
     <script>
 
@@ -341,7 +329,6 @@
         if (isMobile) {
             const nav = document.querySelector('nav');
             nav.style.display = 'none';
-
         }
     </script>
 </body>
