@@ -142,11 +142,9 @@ if (idParam != null) {
 							<strong>Situação:</strong>
 							<%=local.getSituacao().toString().toLowerCase().replace("_", " ")%></p>
 						<p>
-							<strong>Oferece Mergulho:</strong>
-							<%=al.isOfereceMergulho() ? "Sim" : "Não"%></p>
-						<p>
-							<strong>Oferece Passeio:</strong>
-							<%=al.isOferecePasseio() ? "Sim" : "Não"%></p>
+							<strong>Servico oferecido:</strong>
+							<%=al.getTipoAtividade()%></p>
+						
 					</div>
 					<%
 					} else {
