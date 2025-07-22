@@ -9,7 +9,7 @@
         <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
         <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
         <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
-        <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
+        <a href="login-usuario.jsp" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
     </nav>
 </header>`;
 

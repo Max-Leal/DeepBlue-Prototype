@@ -18,7 +18,6 @@
                 usuario.setEmail(email.trim());
                 usuario.setSenhaHash(senha.trim());
                 usuario.setFoto(null); // inicialmente nulo
-				System.out.println(usuario.getSenha());
                 UsuarioController userControl = new UsuarioController();
                 userControl.registerUsuario(usuario);
 
@@ -46,7 +45,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 
-<body onload="logout()">
+<body>
     <script src="static/js/header.js"></script>
     <div style="padding-top: 4.5%">
         <section class="hero">
@@ -101,17 +100,13 @@
 
                 <div class="hero-login-register">
                     <span>Já tem uma conta?</span>
-                    <a href="login-usuario.html">Entrar</a>
+                    <a href="login-usuario.jsp">Entrar</a>
                 </div>
             </div>
         </section>
     </div>
 
     <script>
-        function logout() {
-            localStorage.removeItem("usuario");
-            localStorage.removeItem("agencia");
-        }
 
         function togglePassword(inputId, iconId) {
             const passwordInput = document.getElementById(inputId);

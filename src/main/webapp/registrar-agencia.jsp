@@ -69,7 +69,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 
-<body onload="logout()">
+<body>
     <div class="page-wrapper">
         <script src="static/js/header.js"></script>
 
@@ -150,7 +150,7 @@
 
                     <div class="hero-login-register">
                         <span>Já tem uma conta?</span>
-                        <a href="login-agencia.html">Entrar</a>
+                        <a href="login-agencia.jsp">Entrar</a>
                     </div>
                 </div>
             </section>
@@ -158,10 +158,7 @@
     </div>
 
     <script>
-        function logout() {
-            localStorage.removeItem("usuario");
-            localStorage.removeItem("agencia");
-        }
+      
 
         function togglePassword(inputId, iconId) {
             const passwordInput = document.getElementById(inputId);
