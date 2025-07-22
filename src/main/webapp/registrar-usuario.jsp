@@ -18,7 +18,7 @@
                 usuario.setEmail(email.trim());
                 usuario.setSenhaHash(senha.trim());
                 usuario.setFoto(null); // inicialmente nulo
-
+				System.out.println(usuario.getSenha());
                 UsuarioController userControl = new UsuarioController();
                 userControl.registerUsuario(usuario);
 

@@ -15,8 +15,6 @@ public class AgenciaController {
 
     // Cadastro de nova agência
     public void registerAgencia(Agencia agencia) {
-        // Garante que a senha será criptografada antes de salvar
-        agencia.setSenhaHash(agencia.getSenha());
         AgenciaDao.insert(agencia);
     }
 
