@@ -13,16 +13,6 @@
     background: var(--azul-espuma, #f5f8fa);
 }
 
-.faixa-superior {
-    position: absolute;
-    top: -32px;
-    left: 0;
-    width: 100%;
-    height: 94px;
-    background: white;
-    z-index: 2;
-}
-
 .locais-section {
     max-width: 900px;
     margin: 0 auto 2.5rem auto;

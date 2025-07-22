@@ -138,17 +138,7 @@
 </head>
 <body>
 
-<header class="header" id="header">
-    <div class="logo">DeepBlue</div>
-    <nav>
-        <a href="index.html"><i class="fas fa-home"></i> Início</a>
-        <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
-        <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
-        <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
-        <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
-        <a href="login-usuario.html" id="informacoes-login"><i class="fas fa-user"></i> Login/Cadastro</a>
-    </nav>
-</header>
+<script src="static/js/header.js"></script>
 
 <main class="detalhes-container">
 <% if (local != null) { %>
@@ -168,9 +158,8 @@
             %>
                 <div class="agencia-card">
                     <div class="agencia-nome"><%= agencia.getNomeEmpresarial() %></div>
-                    <div class="agencia-info"><strong>Email:</strong> <%= agencia.getEmail() %></div>
-                    <div class="agencia-info"><strong>Oferece Mergulho:</strong> <%= relacao.isOfereceMergulho() ? "Sim" : "Não" %></div>
-                    <div class="agencia-info"><strong>Oferece Passeio:</strong> <%= relacao.isOferecePasseio() ? "Sim" : "Não" %></div>
+                    <div class="agencia-info"><strong>Email:</strong> <%= agencia.getEmail() %></div>                    
+                    <div class="agencia-info"><strong>Serviço oferecido:</strong> <%= relacao.getTipoAtividade() %></div>                    
                     <a class="agencia-link" href="agencia-detalhe.jsp?id=<%= agencia.getId() %>">Ver Detalhes</a>
                 </div>
             <%   } else { %>

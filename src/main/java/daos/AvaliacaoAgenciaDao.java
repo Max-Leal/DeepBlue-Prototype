@@ -4,20 +4,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import models.Avaliacao;
+import models.AvaliacaoAgencia;
 import utils.ConexaoDB;
 
-public class AvaliacaoDao {
+public class AvaliacaoAgenciaDao {
 
-    public static void insert(Avaliacao a) {
+    public static void insert(AvaliacaoAgencia a) {
         try {
             Connection con = ConexaoDB.getConexao();
-            String sql = "INSERT INTO tb_avaliacao (escala, sugestao, tb_usuario_id, tb_agencia_id) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO tb_avaliacao_agencia (escala, sugestao, tb_usuario_id, tb_agencia_id) VALUES (?, ?, ?, ?)";
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setString(1, String.valueOf(a.getNota())); // ENUM em string
+            stm.setString(1, String.valueOf(a.getEscala())); // ENUM como string
             stm.setString(2, a.getSugestao());
-            stm.setLong(3, a.getIdUsuarioResponsavel());
-            stm.setLong(4, a.getIdAgenciaAvaliada());
+            stm.setLong(3, a.getUsuarioId());
+            stm.setLong(4, a.getAgenciaId());
             stm.execute();
 
             stm.close();
@@ -27,21 +27,25 @@ public class AvaliacaoDao {
         }
     }
 
-    public static Avaliacao getAvaliacaoById(Long id) {
+    public static AvaliacaoAgencia getAvaliacaoById(Long id) {
         try {
             Connection con = ConexaoDB.getConexao();
-            String sql = "SELECT * FROM tb_avaliacao WHERE id = ?";
+            String sql = "SELECT * FROM tb_avaliacao_agencia WHERE id = ?";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setLong(1, id);
             ResultSet rs = stm.executeQuery();
-            Avaliacao a = null;
+            AvaliacaoAgencia a = null;
             if (rs.next()) {
-                a = new Avaliacao();
+                a = new AvaliacaoAgencia();
                 a.setId(rs.getLong("id"));
-                a.setNota(Integer.parseInt(rs.getString("escala"))); // Enum é string
+                a.setEscala(Integer.parseInt(rs.getString("escala")));
                 a.setSugestao(rs.getString("sugestao"));
-                a.setIdUsuarioResponsavel(rs.getLong("tb_usuario_id"));
-                a.setIdAgenciaAvaliada(rs.getLong("tb_agencia_id"));
+                a.setUsuarioId(rs.getLong("tb_usuario_id"));
+                a.setAgenciaId(rs.getLong("tb_agencia_id"));
+
+                if (rs.getTimestamp("data_avaliacao") != null) {
+                    a.setDataAvaliacao(rs.getTimestamp("data_avaliacao").toLocalDateTime());
+                }
             }
             rs.close();
             stm.close();
@@ -55,7 +59,7 @@ public class AvaliacaoDao {
     public static void deleteById(Long id) {
         try {
             Connection con = ConexaoDB.getConexao();
-            String sql = "DELETE FROM tb_avaliacao WHERE id = ?";
+            String sql = "DELETE FROM tb_avaliacao_agencia WHERE id = ?";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setLong(1, id);
             stm.execute();
@@ -67,15 +71,15 @@ public class AvaliacaoDao {
         }
     }
 
-    public static void update(Long id, Avaliacao atualizada) {
+    public static void update(Long id, AvaliacaoAgencia atualizada) {
         try {
             Connection con = ConexaoDB.getConexao();
-            String sql = "UPDATE tb_avaliacao SET escala = ?, sugestao = ?, tb_usuario_id = ?, tb_agencia_id = ? WHERE id = ?";
+            String sql = "UPDATE tb_avaliacao_agencia SET escala = ?, sugestao = ?, tb_usuario_id = ?, tb_agencia_id = ? WHERE id = ?";
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setString(1, String.valueOf(atualizada.getNota())); // enum como string
+            stm.setString(1, String.valueOf(atualizada.getEscala()));
             stm.setString(2, atualizada.getSugestao());
-            stm.setLong(3, atualizada.getIdUsuarioResponsavel());
-            stm.setLong(4, atualizada.getIdAgenciaAvaliada());
+            stm.setLong(3, atualizada.getUsuarioId());
+            stm.setLong(4, atualizada.getAgenciaId());
             stm.setLong(5, id);
             stm.execute();
 
