@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"%>
-<%@ page import="models.Agencia, controllers.AgenciaController"%>
+<%@ page import="models.Agencia, models.Usuario, controllers.AgenciaController"%>
 <%@ page import="Enums.Situacao"%>
 <%@ page
 	import="controllers.AgenciaLocalController, models.AgenciaLocal, models.Local, controllers.LocalController"%>
@@ -103,6 +103,17 @@ if (idParam != null) {
 </head>
 <body>
 	<div class="page-wrapper">
+	<%
+    Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+    Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
+%>
+<script>
+    window.usuarioLogado = <%= usuarioLogado != null ? "\"" + usuarioLogado.getNome() + "\"" : "null" %>;
+    window.usuarioEmail = <%= usuarioLogado != null ? "\"" + usuarioLogado.getEmail() + "\"" : "null" %>;
+    window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
+    window.agenciaEmail = <%= agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null" %>;
+</script>
+	
 		<script src="static/js/header.js"></script>
 
 		<main class="detalhes-container">

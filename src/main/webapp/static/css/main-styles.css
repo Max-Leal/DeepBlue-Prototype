@@ -25,94 +25,9 @@ body {
     overflow-x: hidden;
 }
 
-.usuario-logado {
-    color: white;
-    font-weight: 500;
-    text-align: right;
-    padding: 0.5rem 1rem;
-}
-
-.usuario-logado button {
-    background: var(--azul-medio);
-    color: white;
-    border: none;
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background 0.3s;
-}
-
-.usuario-logado button:hover {
-    background: var(--azul-agua);
-}
 
 
-/* Header aprimorado */
-.header {
-    background: rgba(1, 32, 58, 0.95);
-    backdrop-filter: blur(15px);
-    color: white;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    transition: all 0.3s ease;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
 
-.logo {
-    font-size: 2rem;
-    font-weight: 800;
-    background: linear-gradient(45deg, #60a5fa, #93c5fd, #3b82f6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 0 30px rgba(96, 165, 250, 0.5);
-}
-
-nav {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.7rem 1.2rem;
-    border-radius: 25px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-nav a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, var(--azul-agua), var(--azul-medio));
-    transition: left 0.3s ease;
-    z-index: -1;
-}
-
-nav a:hover::before {
-    left: 0;
-}
-
-nav a:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(96, 165, 250, 0.4);
-}
 
 /* Hero Section */
 .hero {
@@ -215,50 +130,6 @@ nav a:hover {
 .cta-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 35px rgba(245, 158, 11, 0.4);
-}
-
-.logout-btn {
-    background: linear-gradient(135deg, var(--azul-medio), var(--azul-agua));
-    color: var(--branco);
-    padding: 0.4rem 1.8rem;
-    border: none;
-    border-radius: 30px;
-    font-weight: 550;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
-    position: relative;
-    overflow: hidden;
-    margin: 5px;
-
-}
-
-.logout-btn::before {
-    content: '';
-
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, var(--azul-claro), var(--azul-medio));
-    transition: all 0.4s ease;
-    z-index: 0;
-}
-
-.logout-btn:hover::before {
-    left: 0;
-}
-
-.logout-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
-    color: var(--branco);
-}
-
-.logout-btn:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
 }
 
 .email-login {

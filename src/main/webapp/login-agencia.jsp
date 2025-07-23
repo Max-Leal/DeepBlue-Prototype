@@ -3,6 +3,7 @@
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+	session.invalidate();
     request.setCharacterEncoding("UTF-8");
 
     String mensagem = "";
