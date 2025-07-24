@@ -2,7 +2,7 @@
 <%@ page import="models.Local, controllers.LocalController" %>
 <%@ page import="models.AgenciaLocal, controllers.AgenciaLocalController" %>
 <%@ page import="controllers.AgenciaController" %>
-<%@ page import="models.Agencia" %>
+<%@ page import="models.Agencia, models.Usuario" %>
 <%@ page import="java.util.List, java.util.ArrayList" %>
 
 <%
@@ -137,6 +137,17 @@
     </style>
 </head>
 <body>
+
+<%
+    Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+    Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
+%>
+<script>
+    window.usuarioLogado = <%= usuarioLogado != null ? "\"" + usuarioLogado.getNome() + "\"" : "null" %>;
+    window.usuarioEmail = <%= usuarioLogado != null ? "\"" + usuarioLogado.getEmail() + "\"" : "null" %>;
+    window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
+    window.agenciaEmail = <%= agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null" %>;
+</script>
 
 <script src="static/js/header.js"></script>
 

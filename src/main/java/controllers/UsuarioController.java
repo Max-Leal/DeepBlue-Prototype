@@ -8,7 +8,6 @@ public class UsuarioController {
 
     // Cadastro
     public void registerUsuario(Usuario usuario) {
-        usuario.setSenhaHash(usuario.getSenha());
         UsuarioDao.insert(usuario);
     }
 
@@ -16,6 +15,7 @@ public class UsuarioController {
     public boolean loginUsuario(String email, String senha) {
         Usuario usuario = UsuarioDao.getUsuarioByEmail(email);
         return usuario != null && HashUtil.verificarSenha(senha, usuario.getSenha());
+        
     }
 
     // Buscar por ID

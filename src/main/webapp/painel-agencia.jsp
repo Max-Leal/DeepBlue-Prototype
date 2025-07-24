@@ -1,3 +1,4 @@
+<%@ page import="models.Agencia, models.Usuario" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -143,6 +144,17 @@
 <body>
 
 	<div class="page-wrapper">
+	<%
+    Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+    Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
+%>
+<script>
+    window.usuarioLogado = <%= usuarioLogado != null ? "\"" + usuarioLogado.getNome() + "\"" : "null" %>;
+    window.usuarioEmail = <%= usuarioLogado != null ? "\"" + usuarioLogado.getEmail() + "\"" : "null" %>;
+    window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
+    window.agenciaEmail = <%= agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null" %>;
+</script>
+	
         <script src="static/js/header.js"></script>
 
 		<section class="accordion-wrapper">
