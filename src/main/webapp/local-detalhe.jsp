@@ -2,7 +2,7 @@
 <%@ page import="models.Local, controllers.LocalController" %>
 <%@ page import="models.AgenciaLocal, controllers.AgenciaLocalController" %>
 <%@ page import="controllers.AgenciaController" %>
-<%@ page import="models.Agencia" %>
+<%@ page import="models.Agencia, models.Usuario" %>
 <%@ page import="java.util.List, java.util.ArrayList" %>
 
 <%
@@ -138,6 +138,17 @@
 </head>
 <body>
 
+<%
+    Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+    Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
+%>
+<script>
+    window.usuarioLogado = <%= usuarioLogado != null ? "\"" + usuarioLogado.getNome() + "\"" : "null" %>;
+    window.usuarioEmail = <%= usuarioLogado != null ? "\"" + usuarioLogado.getEmail() + "\"" : "null" %>;
+    window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
+    window.agenciaEmail = <%= agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null" %>;
+</script>
+
 <script src="static/js/header.js"></script>
 
 <main class="detalhes-container">
@@ -158,9 +169,8 @@
             %>
                 <div class="agencia-card">
                     <div class="agencia-nome"><%= agencia.getNomeEmpresarial() %></div>
-                    <div class="agencia-info"><strong>Email:</strong> <%= agencia.getEmail() %></div>
-                    <div class="agencia-info"><strong>Oferece Mergulho:</strong> <%= relacao.isOfereceMergulho() ? "Sim" : "Não" %></div>
-                    <div class="agencia-info"><strong>Oferece Passeio:</strong> <%= relacao.isOferecePasseio() ? "Sim" : "Não" %></div>
+                    <div class="agencia-info"><strong>Email:</strong> <%= agencia.getEmail() %></div>                    
+                    <div class="agencia-info"><strong>Serviço oferecido:</strong> <%= relacao.getTipoAtividade() %></div>                    
                     <a class="agencia-link" href="agencia-detalhe.jsp?id=<%= agencia.getId() %>">Ver Detalhes</a>
                 </div>
             <%   } else { %>

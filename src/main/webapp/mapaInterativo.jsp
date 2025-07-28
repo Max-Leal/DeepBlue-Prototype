@@ -1,5 +1,5 @@
 <%@ page import="controllers.LocalController"%>
-<%@ page import="models.Local"%>
+<%@ page import="models.Local, models.Agencia, models.Usuario"%>
 <%@ page import="java.util.*"%>
 
 <!DOCTYPE html>
@@ -48,6 +48,16 @@
 
 <body>
 <div class="page-wrapper">
+<%
+    Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+    Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
+%>
+<script>
+    window.usuarioLogado = <%= usuarioLogado != null ? "\"" + usuarioLogado.getNome() + "\"" : "null" %>;
+    window.usuarioEmail = <%= usuarioLogado != null ? "\"" + usuarioLogado.getEmail() + "\"" : "null" %>;
+    window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
+    window.agenciaEmail = <%= agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null" %>;
+</script>
 	<script src="static/js/header.js"></script>
 	<main>
 		<div style="position: relative; margin: 9%;">
