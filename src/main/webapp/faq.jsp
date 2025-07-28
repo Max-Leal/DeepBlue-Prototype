@@ -1,3 +1,5 @@
+<%@ page import="models.Agencia"%>
+<%@ page import="models.Usuario"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -37,9 +39,20 @@
 
 <body>
     <div class="page-wrapper">
+    
+    <%
+    Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+    Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
+%>
+<script>
+    window.usuarioLogado = <%= usuarioLogado != null ? "\"" + usuarioLogado.getNome() + "\"" : "null" %>;
+    window.usuarioEmail = <%= usuarioLogado != null ? "\"" + usuarioLogado.getEmail() + "\"" : "null" %>;
+    window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
+    window.agenciaEmail = <%= agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null" %>;
+</script>
         <script src="static/js/header.js"></script>
         <main>
-            <h1 style="text-align:center; margin-top:4.5%; color: white;">Perguntas Frequentes (FAQ)</h1>
+            <h1 style="text-align:center; padding-top: 10%; color: white;">Perguntas Frequentes (FAQ)</h1>
             <div class="accordion">
                 <div class="accordion-item">
                     <input type="checkbox" id="acc1">
