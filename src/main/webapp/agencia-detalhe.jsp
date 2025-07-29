@@ -166,6 +166,25 @@ section {
 	color: #333;
 }
 
+ .stars {
+            direction: rtl;
+            unicode-bidi: bidi-override;
+            font-size: 2em;
+            display: inline-flex;
+        }
+        .stars input {
+            display: none;
+        }
+        .stars label {
+            color: #ccc;
+            cursor: pointer;
+        }
+        .stars input:checked ~ label,
+        .stars label:hover,
+        .stars label:hover ~ label {
+            color: gold;
+        }
+
 @media ( max-width : 600px) {
 	.local-card {
 		width: 100%;
@@ -264,6 +283,13 @@ section {
 				<h2>Avaliações</h2>
 
 				<form class="avaliacoes-form">
+				 <div class="stars">
+            <input type="radio" id="estrela5" name="estrela" value="5"/><label for="estrela5">&#9733;</label>
+            <input type="radio" id="estrela4" name="estrela" value="4"/><label for="estrela4">&#9733;</label>
+            <input type="radio" id="estrela3" name="estrela" value="3"/><label for="estrela3">&#9733;</label>
+            <input type="radio" id="estrela2" name="estrela" value="2"/><label for="estrela2">&#9733;</label>
+            <input type="radio" id="estrela1" name="estrela" value="1"/><label for="estrela1">&#9733;</label>
+        </div>
 					<textarea name="avaliacao" placeholder="Digite sua avaliação..."></textarea>
 					<button type="submit">Enviar</button>
 				</form>
@@ -273,14 +299,23 @@ section {
 					<% if(avaliacoes != null && !avaliacoes.isEmpty()) {
 			
 						for (AvaliacaoAgencia av : avaliacoes) {
-							
+													
 							Usuario user = userController.getUsuarioById(av.getUsuarioId()) ;
 							if (user != null) {
 					%>
 					
 					
 					<div class="avaliacao">
-						<strong><%=user.getNome() %></strong> <span><%= av.getDataAvaliacao() %></span>
+						<strong><%=user.getNome() %></strong> <span><%= av.getDataAvaliacao() %></span> 
+						<% int nota = av.getEscala(); %>
+						<% for (int i = 1; i <= 5; i++) { %>
+   						<% if (i <= nota) { %>
+        				<span style="color: gold;">&#9733;</span>
+   	 					<% } else { %>
+        				<span style="color: #ccc;">&#9733;</span>
+    					<% } %>
+						<% } %>
+						
 						<p><%= av.getSugestao() %></p>
 					</div>
 					<%}}} else {%>
