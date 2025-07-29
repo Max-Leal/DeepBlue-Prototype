@@ -329,12 +329,6 @@ section {
 	});
 
 
-
-	function logout() {
-	  localStorage.removeItem("usuario");
-	  localStorage.removeItem("agencia");
-	  location.reload();
-	}
     // Header scroll effect
     window.addEventListener('scroll', () => {
         const header = document.getElementById('header');
