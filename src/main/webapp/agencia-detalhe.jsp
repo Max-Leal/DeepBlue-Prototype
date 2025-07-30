@@ -7,6 +7,57 @@
 <%@ page import="java.util.List, java.util.ArrayList"%>
 
 <%
+// ----- LÓGICA DE MENSAGENS E PROCESSAMENTO DO FORMULÁRIO -----
+
+String postMensagem = ""; // Mensagem de erro específica do POST
+String flashMensagem = ""; // Mensagem de sucesso/status vinda do redirect
+
+// 1. Verifica por mensagens "flash" da sessão (após um redirect)
+if (session.getAttribute("flashMensagem") != null) {
+	flashMensagem = (String) session.getAttribute("flashMensagem");
+	session.removeAttribute("flashMensagem"); // Limpa para não mostrar de novo
+}
+
+// 2. Processa o formulário de avaliação (POST)
+if ("POST".equalsIgnoreCase(request.getMethod())) {
+	try {
+		int escala = Integer.parseInt(request.getParameter("estrela"));
+		String sugestao = request.getParameter("avaliacao");
+		String agenciaIdParam = request.getParameter("id"); // O 'id' virá de um input hidden
+
+		Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+
+		if (usuarioLogado == null) {
+	postMensagem = "Você precisa estar logado como usuário para avaliar.";
+		} else if (sugestao == null || sugestao.trim().isEmpty()) {
+	postMensagem = "Por favor, escreva uma sugestão.";
+		} else if (agenciaIdParam == null || agenciaIdParam.trim().isEmpty()) {
+	postMensagem = "ID da agência inválido.";
+		} else {
+	Long agenciaId = Long.parseLong(agenciaIdParam);
+
+	AvaliacaoAgencia avaliacao = new AvaliacaoAgencia();
+	avaliacao.setEscala(escala);
+	avaliacao.setSugestao(sugestao);
+	avaliacao.setUsuarioId(usuarioLogado.getId());
+	avaliacao.setAgenciaId(agenciaId);
+
+	AvaliacaoAgenciaController avController = new AvaliacaoAgenciaController();
+	avController.registrarAvaliacao(avaliacao);
+
+	// **A CORREÇÃO PRINCIPAL:** Salva a mensagem na sessão antes de redirecionar
+	session.setAttribute("flashMensagem", "Avaliação enviada com sucesso!");
+	response.sendRedirect("agencia-detalhe.jsp?id=" + agenciaId);
+	return; // Importante para parar a execução da página aqui
+		}
+	} catch (Exception e) {
+		// Em caso de erro, a página será recarregada mostrando a mensagem de erro
+		postMensagem = "Erro ao enviar avaliação: " + e.getMessage();
+	}
+}
+
+// ----- LÓGICA PARA CARREGAR DADOS DA PÁGINA (GET) -----
+
 String idParam = request.getParameter("id");
 Agencia agencia = null;
 List<AgenciaLocal> locaisRelacionados = new ArrayList<>();
@@ -23,16 +74,13 @@ if (idParam != null) {
 		if (agencia != null) {
 	AgenciaLocalController alController = new AgenciaLocalController();
 	locaisRelacionados = alController.getLocaisPorAgencia(agencia.getId().intValue());
-	
+
 	AvaliacaoAgenciaController avController = new AvaliacaoAgenciaController();
-	avaliacoes = avController.getAvaliacoesPorAgencia(agencia.getId()); // Verificar se n e necessario mudar para int
-	
+	avaliacoes = avController.getAvaliacoesPorAgencia(agencia.getId());
 		}
 	} catch (NumberFormatException e) {
-		out.println("<p>ID inválido!</p>");
+		// Não precisa de out.println aqui, a página vai lidar com 'agencia == null'
 	}
-} else {
-	out.println("<p>ID não fornecido!</p>");
 }
 %>
 
@@ -166,24 +214,26 @@ section {
 	color: #333;
 }
 
- .stars {
-            direction: rtl;
-            unicode-bidi: bidi-override;
-            font-size: 2em;
-            display: inline-flex;
-        }
-        .stars input {
-            display: none;
-        }
-        .stars label {
-            color: #ccc;
-            cursor: pointer;
-        }
-        .stars input:checked ~ label,
-        .stars label:hover,
-        .stars label:hover ~ label {
-            color: gold;
-        }
+.stars {
+	direction: rtl;
+	unicode-bidi: bidi-override;
+	font-size: 2em;
+	display: inline-flex;
+}
+
+.stars input {
+	display: none;
+}
+
+.stars label {
+	color: #ccc;
+	cursor: pointer;
+}
+
+.stars input:checked ~ label, .stars label:hover, .stars label:hover ~
+	label {
+	color: gold;
+}
 
 @media ( max-width : 600px) {
 	.local-card {
@@ -282,46 +332,95 @@ section {
 			<section>
 				<h2>Avaliações</h2>
 
-				<form class="avaliacoes-form">
-				 <div class="stars">
-            <input type="radio" id="estrela5" name="estrela" value="5"/><label for="estrela5">&#9733;</label>
-            <input type="radio" id="estrela4" name="estrela" value="4"/><label for="estrela4">&#9733;</label>
-            <input type="radio" id="estrela3" name="estrela" value="3"/><label for="estrela3">&#9733;</label>
-            <input type="radio" id="estrela2" name="estrela" value="2"/><label for="estrela2">&#9733;</label>
-            <input type="radio" id="estrela1" name="estrela" value="1"/><label for="estrela1">&#9733;</label>
-        </div>
-					<textarea name="avaliacao" placeholder="Digite sua avaliação..."></textarea>
-					<button type="submit">Enviar</button>
+
+				<%
+				if (!flashMensagem.isEmpty()) {
+				%>
+				<div
+					style="padding: 1rem; margin-bottom: 1rem; border-radius: 8px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;">
+					<%=flashMensagem%>
+				</div>
+				<%
+				}
+				%>
+				<%
+				if (!postMensagem.isEmpty()) {
+				%>
+				<div
+					style="padding: 1rem; margin-bottom: 1rem; border-radius: 8px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;">
+					<%=postMensagem%>
+				</div>
+				<%
+				}
+				%>
+
+
+				<form class="avaliacoes-form" method="post"
+					action="agencia-detalhe.jsp?id=<%=agencia.getId()%>">
+					<input type="hidden" name="id" value="<%=agencia.getId()%>">
+
+					<div class="stars">
+						<input type="radio" id="estrela5" name="estrela" value="5"
+							required /><label for="estrela5">&#9733;</label> <input
+							type="radio" id="estrela4" name="estrela" value="4" /><label
+							for="estrela4">&#9733;</label> <input type="radio" id="estrela3"
+							name="estrela" value="3" /><label for="estrela3">&#9733;</label>
+						<input type="radio" id="estrela2" name="estrela" value="2" /><label
+							for="estrela2">&#9733;</label> <input type="radio" id="estrela1"
+							name="estrela" value="1" /><label for="estrela1">&#9733;</label>
+					</div>
+					<textarea name="avaliacao" placeholder="Digite sua avaliação..."
+						required></textarea>
+					<button type="submit">Enviar Avaliação</button>
 				</form>
 
 				<div class="avaliacoes-lista">
-					
-					<% if(avaliacoes != null && !avaliacoes.isEmpty()) {
-			
+
+					<%
+					if (avaliacoes != null && !avaliacoes.isEmpty()) {
+
 						for (AvaliacaoAgencia av : avaliacoes) {
-													
-							Usuario user = userController.getUsuarioById(av.getUsuarioId()) ;
+
+							Usuario user = userController.getUsuarioById(av.getUsuarioId());
 							if (user != null) {
 					%>
-					
-					
+
+
 					<div class="avaliacao">
-						<strong><%=user.getNome() %></strong> <span><%= av.getDataAvaliacao() %></span> 
-						<% int nota = av.getEscala(); %>
-						<% for (int i = 1; i <= 5; i++) { %>
-   						<% if (i <= nota) { %>
-        				<span style="color: gold;">&#9733;</span>
-   	 					<% } else { %>
-        				<span style="color: #ccc;">&#9733;</span>
-    					<% } %>
-						<% } %>
-						
-						<p><%= av.getSugestao() %></p>
+						<strong><%=user.getNome()%></strong> <span><%=av.getDataAvaliacao()%></span>
+						<%
+						int nota = av.getEscala();
+						%>
+						<%
+						for (int i = 1; i <= 5; i++) {
+						%>
+						<%
+						if (i <= nota) {
+						%>
+						<span style="color: gold;">&#9733;</span>
+						<%
+						} else {
+						%>
+						<span style="color: #ccc;">&#9733;</span>
+						<%
+						}
+						%>
+						<%
+						}
+						%>
+
+						<p><%=av.getSugestao()%></p>
 					</div>
-					<%}}} else {%>
+					<%
+					}
+					}
+					} else {
+					%>
 					<p>Nenhuma avaliação foi feita para essa agência no momento</p>
-					<%} %>
-				</div> 
+					<%
+					}
+					%>
+				</div>
 
 			</section>
 
@@ -372,6 +471,7 @@ section {
         } else {
             header.classList.remove('scrolled');
         }
-    });</script>
+    });
+    </script>
 </body>
 </html>
