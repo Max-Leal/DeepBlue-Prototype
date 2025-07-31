@@ -3,16 +3,14 @@ package models;
 public class AgenciaLocal {
     private int idAgencia;
     private int idLocal;
-    private boolean ofereceMergulho;
-    private boolean oferecePasseio;
+    private String tipoAtividade;
 
     public AgenciaLocal() {}
 
-    public AgenciaLocal(int idAgencia, int idLocal, boolean ofereceMergulho, boolean oferecePasseio) {
+    public AgenciaLocal(int idAgencia, int idLocal, String tipoAtividade) {
         this.idAgencia = idAgencia;
         this.idLocal = idLocal;
-        this.ofereceMergulho = ofereceMergulho;
-        this.oferecePasseio = oferecePasseio;
+        this.tipoAtividade = tipoAtividade;
     }
 
     public int getIdAgencia() {
@@ -31,19 +29,11 @@ public class AgenciaLocal {
         this.idLocal = idLocal;
     }
 
-    public boolean isOfereceMergulho() {
-        return ofereceMergulho;
+    public String getTipoAtividade() {
+        return tipoAtividade;
     }
 
-    public void setOfereceMergulho(boolean ofereceMergulho) {
-        this.ofereceMergulho = ofereceMergulho;
-    }
-
-    public boolean isOferecePasseio() {
-        return oferecePasseio;
-    }
-
-    public void setOferecePasseio(boolean oferecePasseio) {
-        this.oferecePasseio = oferecePasseio;
+    public void setTipoAtividade(String tipoAtividade) {
+        this.tipoAtividade = tipoAtividade;
     }
 }

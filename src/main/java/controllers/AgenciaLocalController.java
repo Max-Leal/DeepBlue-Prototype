@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.List;
-
 import daos.AgenciaLocalDao;
 import models.AgenciaLocal;
 

@@ -5,32 +5,36 @@ import models.Usuario;
 import utils.HashUtil;
 
 public class UsuarioController {
-	// This class will handle user-related operations such as registration, login,
-	// and profile management.
-	// It will interact with the UsuarioDao to perform database operations.
 
-	// Example method for user registration
-	public void registerUser(Usuario usuario) {
-		UsuarioDao.insert(usuario);
-	}
+    // Cadastro
+    public void registerUsuario(Usuario usuario) {
+        UsuarioDao.insert(usuario);
+    }
 
-	// Example method for user login
-	public boolean loginUser(String email, String senha) {
-	    Usuario user = UsuarioDao.getUsuarioByEmail(email);
-	    if (user == null || user.getSenha() == null) {
-	    	return false;
-	    }
-	    return HashUtil.verificarSenha(senha, user.getSenha());
-	}
+    // Login
+    public boolean loginUsuario(String email, String senha) {
+        Usuario usuario = UsuarioDao.getUsuarioByEmail(email);
+        return usuario != null && HashUtil.verificarSenha(senha, usuario.getSenha());
+        
+    }
 
+    // Buscar por ID
+    public Usuario getUsuarioById(int id) {
+        return UsuarioDao.getUsuarioById(id);
+    }
 
-	// Método para buscar um usuário pelo ID
-	public Usuario getUsuarioById(int id) {
-		return UsuarioDao.getUsuarioById(id);
-	}
+    // Buscar por email
+    public Usuario getUsuarioByEmail(String email) {
+        return UsuarioDao.getUsuarioByEmail(email);
+    }
 
-	public Usuario getUsuarioByEmail(String email) {
-		return UsuarioDao.getUsuarioByEmail(email);
-	}
-	
+    // Atualizar
+    public void updateUsuario(Long id, Usuario usuario) {
+        UsuarioDao.update(id, usuario);
+    }
+
+    // Deletar
+    public void deleteUsuarioById(int id) {
+        UsuarioDao.deleteById(id);
+    }
 }
