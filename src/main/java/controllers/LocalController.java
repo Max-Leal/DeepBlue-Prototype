@@ -35,11 +35,5 @@ public class LocalController {
 	public int cadastrarLocalRetornandoId(Local local) {
 	    return LocalDao.insertAndReturnId(local);
 	}
-	
-	//Buscar na SearchBar
-	public List<Local> buscarPorNome(String nome) {
-	    return LocalDao.buscarPorNome(nome);
-	}
-
 
 }

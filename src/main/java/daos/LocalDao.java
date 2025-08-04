@@ -158,36 +158,5 @@ public class LocalDao {
             throw new RuntimeException("Erro ao atualizar local: " + e.getMessage());
         }
     }
-    
-    public static List<Local> buscarPorNome(String nome) {
-        List<Local> lista = new ArrayList<>();
-        try (Connection con = ConexaoDB.getConexao()) {
-            String sql = "SELECT * FROM tb_local WHERE nome LIKE ?";
-            PreparedStatement stm = con.prepareStatement(sql);
-            stm.setString(1, "%" + nome + "%");
-            ResultSet rs = stm.executeQuery();
-
-            while (rs.next()) {
-                Local local = new Local();
-                local.setId(rs.getLong("id"));
-                local.setNome(rs.getString("nome"));
-                local.setLocalidade(rs.getString("localidade"));
-                local.setDescricao(rs.getString("descricao"));
-                local.setTipoEmbarcacao(rs.getString("tipo_embarcacao"));
-                local.setAnoAfundamento(rs.getInt("ano_afundamento"));
-                local.setProfundidade(rs.getDouble("profundidade"));
-                local.setSituacao(Situacao.valueOf(rs.getString("situacao").toUpperCase()));
-                local.setLatitude(rs.getString("latitude"));
-                local.setLongitude(rs.getString("longitude"));
-                lista.add(local);
-            }
-
-            rs.close();
-            stm.close();
-        } catch (Exception e) {
-            throw new RuntimeException("Erro ao buscar locais por nome: " + e.getMessage());
-        }
-        return lista;
-    }
 
 }

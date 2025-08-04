@@ -64,9 +64,9 @@ body::before {
 		<!--<script src="static/js/header.js"></script>-->
 		<main>
 			<div>
-				<form method="get" action="mapa.jsp">
-    				<input type="text" name="query" placeholder="Buscar por nome..." value="<%= request.getParameter("query") != null ? request.getParameter("query") : "" %>">
-   					<button type="submit">Buscar</button>
+				<form method="get" action="mapaInterativo.jsp">
+					<input type="text" name="query" placeholder="Buscar por nome...">
+					<button type="submit">Buscar</button>
 				</form>
 			</div>
 			<div style="position: relative; margin: 9%;">
@@ -80,9 +80,9 @@ body::before {
 			<p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
 		</footer>
 	</div>
+	
 	<script>
-    
-    
+	
 	document.addEventListener('DOMContentLoaded', () => {
 		  const el = document.getElementById("informacoes-login");
 		  const usuario = localStorage.getItem("usuario");
@@ -145,37 +145,31 @@ body::before {
             attribution : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // Adicione os marcadores dinamicamente
-        <% for (Local local : lista) { %>
+     // Adicione os marcadores dinamicamente com filtro da query
+        <%
+            String query = request.getParameter("query");
+            LocalController controller = new LocalController();
+            List<Local> todosLocais = controller.listaLocais();
+
+            List<Local> locais = new ArrayList<>();
+
+            if (query != null && !query.trim().isEmpty()) {
+                for (Local local : todosLocais) {
+                    if (local.getNome().toLowerCase().contains(query.toLowerCase())) {
+                        locais.add(local);
+                    }
+                }
+            } else {
+                locais = todosLocais;
+            }
+        %>
+
+        <% for (Local local : locais) { %>
             L.marker([<%= local.getLatitude() %>, <%= local.getLongitude() %>])
                 .addTo(map)
                 .bindPopup('<b><%= local.getNome() %></b><br><%= local.getDescricao() %><br><a href="local-detalhe.jsp?id=<%= local.getId() %>">Ver detalhes</a>');
-        <%}%>
-        
-        // Comandos da SearchBar
-        <%String query = request.getParameter("query");
-		LocalController controller = new LocalController();
-		List<Local> listaSearch;
+        <% } %>
 
-		if (query != null && !query.trim().isEmpty()) {
-			listaSearch = controller.buscarPorNome(query);
-		} else {
-			listaSearch = controller.listaLocais();
-		}
-
-		request.setAttribute("lista", listaSearch); // opcional se quiser reutilizar mais tarde%>
-		
-		//----------------------------------------------------------------------------------------------------
-		// Todo - dar uma olhada aqui:
-	    var map = L.map('map').setView([-23.5, -46.6], 10); // ajuste conforme necessário
-	    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
-	    <% for (Local local : lista) { %>
-	        L.marker([<%= local.getLatitude() %>, <%= local.getLongitude() %>])
-	            .addTo(map)
-	            .bindPopup('<b><%= local.getNome() %></b><br><%= local.getDescricao() %><br><a href="local-detalhe.jsp?id=<%= local.getId() %>">Ver detalhes</a>');
-	    <% } %>
-	  //----------------------------------------------------------------------------------------------------
     </script>
 
 </body>
