@@ -79,10 +79,19 @@ if (idParam != null) {
 	avaliacoes = avController.getAvaliacoesPorAgencia(agencia.getId());
 		}
 	} catch (NumberFormatException e) {
-		// Não precisa de out.println aqui, a página vai lidar com 'agencia == null'
 	}
 }
+
+//Lógica para fazer a média de estrelas:
+double escalaAgencia = 0;
+for (AvaliacaoAgencia av : avaliacoes) {
+	escalaAgencia += av.getEscala();
+}
+
+escalaAgencia = escalaAgencia / avaliacoes.size();
 %>
+
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -261,7 +270,27 @@ section {
 			<%
 			if (agencia != null) {
 			%>
-			<h1><%=agencia.getNomeEmpresarial()%></h1>
+			<h1 style="margin: 0px; padding: 0px"><%=agencia.getNomeEmpresarial()%></h1>
+			<h3 style="margin: 0px	; margin-bottom: 10px">
+		
+						<%
+						for (int i = 1; i <= 5; i++) {
+						%>
+						<%
+						if (i <= escalaAgencia) {
+						%>
+						<span style="color: gold;">&#9733;</span>
+						<%
+						} else {
+						%>
+						<span style="color: #ccc;">&#9733;</span>
+						<%
+						}
+						%>
+						<%
+						}
+						%>
+			</h3>
 			<p>
 				<strong>CNPJ:</strong>
 				<%=agencia.getCnpj()%></p>
