@@ -47,6 +47,10 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
     <style>
+    section {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
         #mapa {
             width: 100%;
             height: 400px;

@@ -46,6 +46,39 @@ body::before {
 		bottom repeat-x;
 	z-index: -1;
 }
+
+.search-container {
+	display: flex;
+	margin: auto;
+	padding-bottom: 20px;
+	max-width: 900px;
+
+}
+
+.search-container input[type="text"] {
+	border: 1px solid #013a6b;
+	padding: 10px;
+	margin: 0;
+	border-radius: 0; /* Define as bordas quadradas */
+	flex-grow: 1; /* Permite que o input ocupe o espaço disponível */
+	font-size: 1rem;
+	border-right: none; /* Remove a borda direita para unir ao botão */
+}
+
+.search-container button {
+	padding: 10px 20px;
+	border: 1px solid #013a6b;
+	background-color: #013a6b;
+	color: white;
+	cursor: pointer;
+	margin: 0;
+	border-radius: 0; /* Define as bordas quadradas */
+	font-size: 1rem;
+}
+
+.search-container button:hover {
+	background-color: #02579b; /* Cor para o efeito hover */
+}
 </style>
 </head>
 
@@ -61,15 +94,17 @@ body::before {
     window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
     window.agenciaEmail = <%= agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null" %>;
 </script>
-		<!--<script src="static/js/header.js"></script>-->
+		
 		<main>
-			<div>
-				<form method="get" action="mapaInterativo.jsp">
-					<input type="text" name="query" placeholder="Buscar por nome...">
+		<script src="static/js/header.js"></script>
+			
+			<div style="position: relative; margin: 9%;">
+			<div class="search-container">
+				<form method="get" action="mapaInterativo.jsp" style="display: flex; width:100%;">
+					<input type="text" name="query" placeholder="Buscar por nome..." style="flex-grow: 1;">
 					<button type="submit">Buscar</button>
 				</form>
 			</div>
-			<div style="position: relative; margin: 9%;">
 				<section class="mapa-container">
 					<div id="map"></div>
 				</section>
@@ -82,44 +117,7 @@ body::before {
 	</div>
 	
 	<script>
-	
-	document.addEventListener('DOMContentLoaded', () => {
-		  const el = document.getElementById("informacoes-login");
-		  const usuario = localStorage.getItem("usuario");
-		  const agencia = localStorage.getItem("agencia");
 
-		  const dados = usuario ? JSON.parse(usuario) : agencia ? JSON.parse(agencia) : null;
-		  const nome = dados?.nome || dados?.nomeEmpresarial;
-		  const email = dados?.email;
-
-		  if (el && nome && email) {
-		    const div = document.createElement("div");
-		    div.className = "usuario-logado";
-
-		    ["Bem-vindo, " + nome, email].forEach(text => {
-		      div.appendChild(document.createTextNode(text));
-		      div.appendChild(document.createElement("br"));
-		    });
-
-		    const btn = document.createElement("button");
-		    btn.textContent = "Sair";
-		    btn.id = "logout-btn";
-		    btn.style.marginTop = "0.5rem";
-		    btn.onclick = () => {
-		      localStorage.removeItem("usuario");
-		      localStorage.removeItem("agencia");
-		      location.reload();
-		    };
-
-		    div.appendChild(btn);
-		    el.replaceWith(div);
-		  }
-		});
-
-		function logout() {
-		  localStorage.removeItem("usuario");
-		  location.reload();
-		}
 
         // Header scroll effect
         window.addEventListener('scroll', () => {

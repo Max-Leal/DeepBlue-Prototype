@@ -84,13 +84,13 @@ public class UsuarioDao {
         }
     }
 
-    public static Usuario getUsuarioById(int id) {
+    public static Usuario getUsuarioById(Long id) {
         Usuario usuario = null;
         try {
             Connection con = ConexaoDB.getConexao();
             String sql = "SELECT * FROM tb_usuario WHERE id = ?";
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setInt(1, id);
+            stm.setLong(1, id);
             ResultSet rs = stm.executeQuery();
 
             if (rs.next()) {
