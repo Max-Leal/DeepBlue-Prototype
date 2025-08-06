@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>FAQ</title>
+    <title>FAQ - DeepBlue</title>
     <link rel="stylesheet" href="static/css/main-styles.css">
     <link rel="stylesheet" href="static/css/faq-styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,122 +54,104 @@
         <main>
             <h1 style="text-align:center; padding-top: 10%; color: white;">Perguntas Frequentes (FAQ)</h1>
             <div class="accordion">
-                <div class="accordion-item">
-                    <input type="checkbox" id="acc1">
-                    <label for="acc1" class="accordion-header">
-                        <span class="accordion-title">O que Ã© a DeepBlue?</span>
-                        <span class="accordion-icon">â–¼</span>
-                    </label>
-                    <div class="accordion-content">
-                        <p>
-                            A DeepBlue SC Ã© uma plataforma que conecta turistas aventureiros, amantes da histÃ³ria e
-                            da
-                            natureza, Ã s melhores agÃªncias de mergulho de FlorianÃ³polis. Nosso foco estÃ¡ na criaÃ§Ã£o
-                            de
-                            experiÃªncias subaquÃ¡ticas memorÃ¡veis em naufrÃ¡gios histÃ³ricos da regiÃ£o.
-                        </p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <input type="checkbox" id="acc2">
-                    <label for="acc2" class="accordion-header">
-                        <span class="accordion-title">Que tipo de experiÃªncias a DeepBlue oferece?</span>
-                        <span class="accordion-icon">â–¼</span>
-                    </label>
-                    <div class="accordion-content">
-                        <p>
-                            Oferecemos experiÃªncias com foco em:
-                            NaufrÃ¡gios histÃ³ricos da BaÃ­a Norte e Sul de FlorianÃ³polis.
-                            Ecoturismo subaquÃ¡tico com observaÃ§Ã£o da fauna e flora marinha.
-                            ExpediÃ§Ãµes temÃ¡ticas voltadas Ã  arqueologia marinha e histÃ³ria local.
-                        </p>
+    <div class="accordion-item">
+        <input type="checkbox" id="acc1">
+        <label for="acc1" class="accordion-header">
+            <span class="accordion-title">O que é a DeepBlue?</span>
+            <span class="accordion-icon">&uarr;</span>
+        </label>
+        <div class="accordion-content">
+            <p>
+                A DeepBlue SC é uma plataforma que conecta turistas aventureiros, amantes da história e da natureza, às melhores agências de mergulho de Florianópolis. Nosso foco está na criação de experiências subaquáticas memoráveis em naufrágios históricos da região.
+            </p>
+        </div>
+    </div>
 
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <input type="checkbox" id="acc3">
-                    <label for="acc3" class="accordion-header">
-                        <span class="accordion-title">Como posso ter uma experiÃªncia com a DeepBlue?
-                        </span>
-                        <span class="accordion-icon">â–¼</span>
-                    </label>
-                    <div class="accordion-content">
-                        <p>
-                            Basta acessar nossa plataforma online e:
-                            Procurar um local desejado.
-                            Procurar agÃªncias que se relacionam com esse local.
-                            Entrar em contato com essa agÃªncia via whatsapp, instagram ou atÃ© mesmo nosso prÃ³prio
-                            chat.
-                        </p>
+    <div class="accordion-item">
+        <input type="checkbox" id="acc2">
+        <label for="acc2" class="accordion-header">
+            <span class="accordion-title">Que tipo de experiências a DeepBlue oferece?</span>
+            <span class="accordion-icon">&uarr;</span>
+        </label>
+        <div class="accordion-content">
+            <p>
+                Oferecemos experiências com foco em:
+                <br>Naufrágios históricos da Baía Norte e Sul de Florianópolis.
+                <br>Ecoturismo subaquático com observação da fauna e flora marinha.
+                <br>Expedições temáticas voltadas à arqueologia marinha e história local.
+            </p>
+        </div>
+    </div>
 
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <input type="checkbox" id="acc4">
-                    <label for="acc4" class="accordion-header">
-                        <span class="accordion-title">Preciso pagar para usar o site?</span>
-                        <span class="accordion-icon">â–¼</span>
-                    </label>
-                    <div class="accordion-content">
-                        <p>
-                            O acesso ao site e Ã  maioria das funcionalidades Ã© gratuito.
-                        </p>
+    <div class="accordion-item">
+        <input type="checkbox" id="acc3">
+        <label for="acc3" class="accordion-header">
+            <span class="accordion-title">Como posso ter uma experiência com a DeepBlue?</span>
+            <span class="accordion-icon">&uarr;</span>
+        </label>
+        <div class="accordion-content">
+            <p>
+                Basta acessar nossa plataforma online e:
+                <br>Procurar um local desejado.
+                <br>Procurar agências que se relacionam com esse local.
+                <br>Entrar em contato com essa agência via WhatsApp, Instagram ou até mesmo nosso próprio chat.
+            </p>
+        </div>
+    </div>
 
-                    </div>
-                </div>
+    <div class="accordion-item">
+        <input type="checkbox" id="acc4">
+        <label for="acc4" class="accordion-header">
+            <span class="accordion-title">Preciso pagar para usar o site?</span>
+            <span class="accordion-icon">&uarr;</span>
+        </label>
+        <div class="accordion-content">
+            <p>
+                O acesso ao site e à maioria das funcionalidades é gratuito.
+            </p>
+        </div>
+    </div>
 
-                <div class="accordion-item">
-                    <input type="checkbox" id="acc5">
-                    <label for="acc5" class="accordion-header">
-                        <span class="accordion-title">Qual a melhor Ã©poca do ano para mergulhar em
-                            FlorianÃ³polis?</span>
-                        <span class="accordion-icon">â–¼</span>
-                    </label>
-                    <div class="accordion-content">
-                        <p>
-                            A temporada ideal vai de outubro a abril, quando a visibilidade subaquÃ¡tica Ã© melhor e
-                            as
-                            Ã¡guas estÃ£o mais quentes.
-                        </p>
+    <div class="accordion-item">
+        <input type="checkbox" id="acc5">
+        <label for="acc5" class="accordion-header">
+            <span class="accordion-title">Qual a melhor época do ano para mergulhar em Florianópolis?</span>
+            <span class="accordion-icon">&uarr;</span>
+        </label>
+        <div class="accordion-content">
+            <p>
+                A temporada ideal vai de outubro a abril, quando a visibilidade subaquática é melhor e as águas estão mais quentes.
+            </p>
+        </div>
+    </div>
 
-                    </div>
-                </div>
+    <div class="accordion-item">
+        <input type="checkbox" id="acc6">
+        <label for="acc6" class="accordion-header">
+            <span class="accordion-title">A DeepBlue é uma agência de mergulho?</span>
+            <span class="accordion-icon">&uarr;</span>
+        </label>
+        <div class="accordion-content">
+            <p>
+                Não. Somos uma plataforma de conexão entre turistas e agências especializadas. Nosso papel é garantir que você encontre a experiência ideal com qualidade, excelência e compromisso histórico.
+            </p>
+        </div>
+    </div>
 
-                <div class="accordion-item">
-                    <input type="checkbox" id="acc6">
-                    <label for="acc6" class="accordion-header">
-                        <span class="accordion-title">A DeepBlue Ã© uma agÃªncia de mergulho?</span>
-                        <span class="accordion-icon">â–¼</span>
-                    </label>
-                    <div class="accordion-content">
-                        <p>
-                            NÃ£o. Somos uma plataforma de conexÃ£o entre turistas e agÃªncias especializadas. Nosso
-                            papel Ã©
-                            garantir que vocÃª encontre a experiÃªncia ideal com qualidade, excelÃªncia e compromisso
-                            histÃ³rico.
-                        </p>
+    <div class="accordion-item">
+        <input type="checkbox" id="acc7">
+        <label for="acc7" class="accordion-header">
+            <span class="accordion-title">Como posso tirar outras dúvidas ou falar com a equipe DeepBlue?</span>
+            <span class="accordion-icon">&uarr;</span>
+        </label>
+        <div class="accordion-content">
+            <p>
+                Você pode entrar em contato conosco pelo nosso formulário de atendimento no site, via WhatsApp ou pelas redes sociais. Estamos sempre prontos para ajudar a planejar sua próxima aventura subaquática!
+            </p>
+        </div>
+    </div>
+</div>
 
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <input type="checkbox" id="acc7">
-                    <label for="acc7" class="accordion-header">
-                        <span class="accordion-title">Como posso tirar outras dÃºvidas ou falar com a equipe
-                            DeepBlue?</span>
-                        <span class="accordion-icon">â–¼</span>
-                    </label>
-                    <div class="accordion-content">
-                        <p>
-                            VocÃª pode entrar em contato conosco pelo nosso formulÃ¡rio de atendimento no site, via
-                            WhatsApp ou pelas redes sociais. Estamos sempre prontos para ajudar a planejar sua
-                            prÃ³xima
-                            aventura subaquÃ¡tica!
-                        </p>
-
-                    </div>
-                </div>
-            </div>
         </main>
         <div style="padding-bottom: 335px"></div>
         <script src="static/js/footer.js"></script>
