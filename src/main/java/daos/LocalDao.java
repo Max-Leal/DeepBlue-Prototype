@@ -158,4 +158,5 @@ public class LocalDao {
             throw new RuntimeException("Erro ao atualizar local: " + e.getMessage());
         }
     }
+
 }
