@@ -5,8 +5,10 @@
 <%@ page
 	import="controllers.AgenciaLocalController,  controllers.AgenciaController, controllers.LocalController, controllers.AvaliacaoAgenciaController, controllers.UsuarioController"%>
 <%@ page import="java.util.List, java.util.ArrayList"%>
-
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
 // ----- LÓGICA DE MENSAGENS E PROCESSAMENTO DO FORMULÁRIO -----
 
 String postMensagem = ""; // Mensagem de erro específica do POST
@@ -299,7 +301,15 @@ section {
 				<%=agencia.getEmail()%></p>
 			<p>
 				<strong>Situação:</strong>
-				<%=agencia.getSituacao().toString().toLowerCase().replace("_", " ")%></p>
+				<%
+				String disponibilidadeAgencia;
+				if (agencia.getSituacao().toString().toLowerCase().replace("_", " ").equals("disponivel")) {
+					disponibilidadeAgencia = "Disponível";
+				} else {
+					disponibilidadeAgencia = "Indisponível";
+				}
+				%>
+				<%=disponibilidadeAgencia%></p>
 
 			<section>
 				<h2>Locais onde esta agência opera</h2>
@@ -308,6 +318,7 @@ section {
 				%>
 				<div class="locais-lista">
 					<%
+					String disponibilidadeLocal;
 					for (AgenciaLocal al : locaisRelacionados) {
 						Local local = localController.getLocalById(al.getIdLocal());
 						if (local != null) {
@@ -321,7 +332,14 @@ section {
 							<%=local.getLocalidade()%></p>
 						<p>
 							<strong>Situação:</strong>
-							<%=local.getSituacao().toString().toLowerCase().replace("_", " ")%></p>
+							<%
+							
+							if (local.getSituacao().toString().toLowerCase().replace("_", " ").equals("disponivel")){
+								disponibilidadeLocal = "Disponível";
+							} else {
+								disponibilidadeLocal = "Indisponível";
+							} %>
+							<%=disponibilidadeLocal%></p>
 						<p>
 							<strong>Servico oferecido:</strong>
 							<%=al.getTipoAtividade()%></p>
@@ -416,7 +434,7 @@ section {
 
 
 					<div class="avaliacao">
-						<strong><%=user.getNome()%></strong> <span><%=av.getDataAvaliacao()%></span>
+						<strong><%=user.getNome()%></strong> <span><%=av.getDataAvaliacao().format(formatter)%></span>
 						<%
 						int nota = av.getEscala();
 						%>
