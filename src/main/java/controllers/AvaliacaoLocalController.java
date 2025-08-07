@@ -7,6 +7,10 @@ import models.AvaliacaoLocal;
 
 public class AvaliacaoLocalController {
 
+	public List<AvaliacaoLocal> getAvaliacoesPorLocal(Long id) {
+		return AvaliacaoLocalDao.getAvaliacoesPorLocal(id);
+	}
+	
     public void adicionarAvaliacao(AvaliacaoLocal avaliacao) {
         AvaliacaoLocalDao.insert(avaliacao);
     }
