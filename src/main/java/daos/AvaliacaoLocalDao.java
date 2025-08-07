@@ -11,6 +11,39 @@ import utils.ConexaoDB;
 
 public class AvaliacaoLocalDao {
 
+	public static List<AvaliacaoLocal> getAvaliacoesPorLocal(Long idLocal) {
+	    List<AvaliacaoLocal> lista = new ArrayList<>();
+
+	    try {
+	        Connection con = ConexaoDB.getConexao();
+	        String sql = "SELECT * FROM tb_avaliacao_local WHERE id_local = ? ORDER BY data_comentario DESC";
+	        PreparedStatement stm = con.prepareStatement(sql);
+	        stm.setLong(1, idLocal);
+	        ResultSet rs = stm.executeQuery();
+
+	        while (rs.next()) {
+	            AvaliacaoLocal avaliacao = new AvaliacaoLocal();
+	            avaliacao.setId(rs.getLong("id"));
+	            avaliacao.setIdLocal(rs.getLong("id_local"));
+	            avaliacao.setIdUsuario(rs.getLong("id_usuario"));
+	            avaliacao.setTexto(rs.getString("texto"));
+	            avaliacao.setEscala(Integer.parseInt(rs.getString("escala")));
+	            avaliacao.setDataComentario(rs.getTimestamp("data_comentario").toLocalDateTime());
+	            lista.add(avaliacao);
+	        }
+
+	        rs.close();
+	        stm.close();
+	        con.close();
+
+	    } catch (Exception e) {
+	        throw new RuntimeException("Erro ao listar avaliações do local: " + e.getMessage());
+	    }
+
+	    return lista;
+	}
+
+	
     public static void insert(AvaliacaoLocal avaliacao) {
         try {
             Connection con = ConexaoDB.getConexao();
