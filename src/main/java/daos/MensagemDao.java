@@ -6,23 +6,23 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import Enums.TipoUsuario;
 import models.Mensagem;
 import utils.ConexaoDB;
 
 public class MensagemDao {
 
     public static void insert(Mensagem m) {
-        try {
-            Connection con = ConexaoDB.getConexao();
-            String sql = "INSERT INTO tb_mensagem (id_usuario, id_agencia, conteudo, remetente) VALUES (?, ?, ?, ?)";
+        try (Connection con = ConexaoDB.getConexao()) {
+            String sql = "INSERT INTO tb_mensagens (remetente_id, remetente_tipo, destinatario_id, destinatario_tipo, conteudo) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setLong(1, m.getIdUsuario());
-            stm.setLong(2, m.getIdAgencia());
-            stm.setString(3, m.getConteudo());
-            stm.setString(4, m.getRemetente());
+            stm.setLong(1, m.getRemetenteId());
+            stm.setString(2, m.getRemetenteTipo().name()); // Enum para String
+            stm.setLong(3, m.getDestinatarioId());
+            stm.setString(4, m.getDestinatarioTipo().name()); // Enum para String
+            stm.setString(5, m.getConteudo());
             stm.execute();
             stm.close();
-            con.close();
         } catch (Exception e) {
             throw new RuntimeException("Erro ao inserir mensagem: " + e.getMessage());
         }
@@ -30,9 +30,8 @@ public class MensagemDao {
 
     public static Mensagem getById(Long id) {
         Mensagem m = null;
-        try {
-            Connection con = ConexaoDB.getConexao();
-            String sql = "SELECT * FROM tb_mensagem WHERE id = ?";
+        try (Connection con = ConexaoDB.getConexao()) {
+            String sql = "SELECT * FROM tb_mensagens WHERE id = ?";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setLong(1, id);
             ResultSet rs = stm.executeQuery();
@@ -40,62 +39,68 @@ public class MensagemDao {
             if (rs.next()) {
                 m = new Mensagem();
                 m.setId(rs.getLong("id"));
-                m.setIdUsuario(rs.getLong("id_usuario"));
-                m.setIdAgencia(rs.getLong("id_agencia"));
+                m.setRemetenteId(rs.getLong("remetente_id"));
+                m.setRemetenteTipo(TipoUsuario.valueOf(rs.getString("remetente_tipo"))); // String para Enum
+                m.setDestinatarioId(rs.getLong("destinatario_id"));
+                m.setDestinatarioTipo(TipoUsuario.valueOf(rs.getString("destinatario_tipo"))); // String para Enum
                 m.setConteudo(rs.getString("conteudo"));
-                m.setRemetente(rs.getString("remetente"));
                 m.setDataEnvio(rs.getTimestamp("data_envio").toLocalDateTime());
             }
 
             rs.close();
             stm.close();
-            con.close();
-            return m;
         } catch (Exception e) {
             throw new RuntimeException("Erro ao buscar mensagem por ID: " + e.getMessage());
         }
+        return m;
     }
 
-    public static List<Mensagem> getConversasEntreUsuarioEAgencia(Long idUsuario, Long idAgencia) {
+    public static List<Mensagem> getConversasEntre(Long idA, TipoUsuario tipoA, Long idB, TipoUsuario tipoB) {
         List<Mensagem> mensagens = new ArrayList<>();
-        try {
-            Connection con = ConexaoDB.getConexao();
-            String sql = "SELECT * FROM tb_mensagem WHERE id_usuario = ? AND id_agencia = ? ORDER BY data_envio ASC";
+        try (Connection con = ConexaoDB.getConexao()) {
+            String sql = "SELECT * FROM tb_mensagens " +
+                         "WHERE (remetente_id = ? AND remetente_tipo = ? AND destinatario_id = ? AND destinatario_tipo = ?) " +
+                         "   OR (remetente_id = ? AND remetente_tipo = ? AND destinatario_id = ? AND destinatario_tipo = ?) " +
+                         "ORDER BY data_envio ASC";
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setLong(1, idUsuario);
-            stm.setLong(2, idAgencia);
-            ResultSet rs = stm.executeQuery();
+            stm.setLong(1, idA);
+            stm.setString(2, tipoA.name());
+            stm.setLong(3, idB);
+            stm.setString(4, tipoB.name());
 
+            stm.setLong(5, idB);
+            stm.setString(6, tipoB.name());
+            stm.setLong(7, idA);
+            stm.setString(8, tipoA.name());
+
+            ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Mensagem m = new Mensagem();
                 m.setId(rs.getLong("id"));
-                m.setIdUsuario(rs.getLong("id_usuario"));
-                m.setIdAgencia(rs.getLong("id_agencia"));
+                m.setRemetenteId(rs.getLong("remetente_id"));
+                m.setRemetenteTipo(TipoUsuario.valueOf(rs.getString("remetente_tipo")));
+                m.setDestinatarioId(rs.getLong("destinatario_id"));
+                m.setDestinatarioTipo(TipoUsuario.valueOf(rs.getString("destinatario_tipo")));
                 m.setConteudo(rs.getString("conteudo"));
-                m.setRemetente(rs.getString("remetente"));
                 m.setDataEnvio(rs.getTimestamp("data_envio").toLocalDateTime());
                 mensagens.add(m);
             }
 
             rs.close();
             stm.close();
-            con.close();
-            return mensagens;
         } catch (Exception e) {
             throw new RuntimeException("Erro ao buscar mensagens da conversa: " + e.getMessage());
         }
+        return mensagens;
     }
 
     public static void deleteById(Long id) {
-        try {
-            Connection con = ConexaoDB.getConexao();
-            String sql = "DELETE FROM tb_mensagem WHERE id = ?";
+        try (Connection con = ConexaoDB.getConexao()) {
+            String sql = "DELETE FROM tb_mensagens WHERE id = ?";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setLong(1, id);
             stm.execute();
-
             stm.close();
-            con.close();
         } catch (Exception e) {
             throw new RuntimeException("Erro ao deletar mensagem: " + e.getMessage());
         }

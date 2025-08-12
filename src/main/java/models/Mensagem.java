@@ -2,79 +2,100 @@ package models;
 
 import java.time.LocalDateTime;
 
+import Enums.TipoUsuario;
+
 public class Mensagem {
-    private Long id;
-    private Long idUsuario;
-    private Long idAgencia;
-    private String conteudo;
-    private LocalDateTime dataEnvio;
-    private String remetente; // "usuario" ou "agencia"
+	private Long id;
+	private Long remetenteId;
+	private TipoUsuario remetenteTipo;
+	private Long destinatarioId;
+	private TipoUsuario destinatarioTipo;
+	private String conteudo;
+	private LocalDateTime dataEnvio;
 
-    public Mensagem() {}
+	public Mensagem() {
+		
+	}
 
-    public Mensagem(Long idUsuario, Long idAgencia, String conteudo, String remetente) {
-        this.idUsuario = idUsuario;
-        this.idAgencia = idAgencia;
-        this.conteudo = conteudo;
-        this.remetente = remetente;
-        this.dataEnvio = LocalDateTime.now();
-    }
+	public Mensagem(Long remetenteId, TipoUsuario remetenteTipo, Long destinatarioId, TipoUsuario destinatarioTipo,
+			String conteudo, LocalDateTime dataEnvio) {
+		super();
+		this.remetenteId = remetenteId;
+		this.remetenteTipo = remetenteTipo;
+		this.destinatarioId = destinatarioId;
+		this.destinatarioTipo = destinatarioTipo;
+		this.conteudo = conteudo;
+		this.dataEnvio = dataEnvio;
+	}
 
-    public Mensagem(Long id, Long idUsuario, Long idAgencia, String conteudo, LocalDateTime dataEnvio, String remetente) {
-        this.id = id;
-        this.idUsuario = idUsuario;
-        this.idAgencia = idAgencia;
-        this.conteudo = conteudo;
-        this.dataEnvio = dataEnvio;
-        this.remetente = remetente;
-    }
+	public Mensagem(Long id, Long remetenteId, TipoUsuario remetenteTipo, Long destinatarioId,
+			TipoUsuario destinatarioTipo, String conteudo, LocalDateTime dataEnvio) {
+		super();
+		this.id = id;
+		this.remetenteId = remetenteId;
+		this.remetenteTipo = remetenteTipo;
+		this.destinatarioId = destinatarioId;
+		this.destinatarioTipo = destinatarioTipo;
+		this.conteudo = conteudo;
+		this.dataEnvio = dataEnvio;
+	}
 
-    // Getters e Setters
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Long getIdUsuario() {
-        return idUsuario;
-    }
+	public Long getRemetenteId() {
+		return remetenteId;
+	}
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
+	public void setRemetenteId(Long remetenteId) {
+		this.remetenteId = remetenteId;
+	}
 
-    public Long getIdAgencia() {
-        return idAgencia;
-    }
+	public TipoUsuario getRemetenteTipo() {
+		return remetenteTipo;
+	}
 
-    public void setIdAgencia(Long idAgencia) {
-        this.idAgencia = idAgencia;
-    }
+	public void setRemetenteTipo(TipoUsuario remetenteTipo) {
+		this.remetenteTipo = remetenteTipo;
+	}
 
-    public String getConteudo() {
-        return conteudo;
-    }
+	public Long getDestinatarioId() {
+		return destinatarioId;
+	}
 
-    public void setConteudo(String conteudo) {
-        this.conteudo = conteudo;
-    }
+	public void setDestinatarioId(Long destinatarioId) {
+		this.destinatarioId = destinatarioId;
+	}
 
-    public LocalDateTime getDataEnvio() {
-        return dataEnvio;
-    }
+	public TipoUsuario getDestinatarioTipo() {
+		return destinatarioTipo;
+	}
 
-    public void setDataEnvio(LocalDateTime dataEnvio) {
-        this.dataEnvio = dataEnvio;
-    }
+	public void setDestinatarioTipo(TipoUsuario destinatarioTipo) {
+		this.destinatarioTipo = destinatarioTipo;
+	}
 
-    public String getRemetente() {
-        return remetente;
-    }
+	public String getConteudo() {
+		return conteudo;
+	}
 
-    public void setRemetente(String remetente) {
-        this.remetente = remetente;
-    }
+	public void setConteudo(String conteudo) {
+		this.conteudo = conteudo;
+	}
+
+	public LocalDateTime getDataEnvio() {
+		return dataEnvio;
+	}
+
+	public void setDataEnvio(LocalDateTime dataEnvio) {
+		this.dataEnvio = dataEnvio;
+	}
+
+	
+	
 }
