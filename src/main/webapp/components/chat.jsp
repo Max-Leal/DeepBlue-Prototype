@@ -1,3 +1,5 @@
+<%@ page import="models.Agencia, models.Usuario, models.Mensagem"%>
+<%@ page import="controllers.AgenciaController, controllers.UsuarioController, controllers.MensagemController"%>
 <div id="chat-widget">
     <div id="chat-header" onclick="toggleChat()">Chat</div>
     <div id="chat-body">
