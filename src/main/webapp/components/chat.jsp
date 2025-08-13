@@ -13,12 +13,14 @@ if (usuarioLogado == null) {
 	idRemetente = agenciaLogada.getId();
 	tipoRemetente = TipoUsuario.agencia;
 } else {
-	idRemetente = agenciaLogada.getId();
+	idRemetente = usuarioLogado.getId();
 	tipoRemetente = TipoUsuario.usuario;
 }
 
 
 MensagemController mc = new MensagemController();
+UsuarioController uc = new UsuarioController();
+AgenciaController ac = new AgenciaController();
 
 List<Mensagem> mensagens = mc.buscarConversas(idRemetente, tipoRemetente);
 List<Mensagem> contatosAdicionados = new ArrayList<>();
@@ -33,11 +35,24 @@ List<Mensagem> contatosAdicionados = new ArrayList<>();
 		contato.setDestinatarioId(m.getDestinatarioId());
 		contato.setDestinatarioTipo(m.getDestinatarioTipo());
 		
-		if (!contatosAdicionados.contains(contato)) {%>
-			<div id="contact">
-			<span class="name-contact"><%=m.getRemetenteId() %></span> <!-- parei aqui -->
-			</div>
+		if (!contatosAdicionados.contains(contato)) {
+			String nomeContato = null;
+			if (m.getDestinatarioTipo().equals(TipoUsuario.usuario)) {
+				Usuario usuario = uc.getUsuarioById(m.getDestinatarioId());
+				nomeContato = usuario.getNome();
+			} else {
+				Agencia agencia = ac.getAgenciaById(m.getDestinatarioId().intValue());
+				nomeContato = agencia.getNomeEmpresarial();
+			}
 			
+		%>
+		
+			<div id="contact">
+			<span class="name-contact"><%=nomeContato %></span> 
+			<span class="type-contact"><%=m.getDestinatarioTipo()%></span>
+			<span class="time-contact"><%=m.getDataEnvio()%></span>
+			</div>
+			<!-- Pensando em colocar um botao aqui para abrir a aba de chat com um determinado contato -->
 			<%contatosAdicionados.add(contato);
 		}
 
