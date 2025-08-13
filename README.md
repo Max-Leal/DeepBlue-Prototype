@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS tb_avaliacao_agencia (
   FOREIGN KEY (tb_agencia_id) REFERENCES tb_agencia(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- CHAT ENTRE USUÁRIO E AGÊNCIA
+-- CHAT
 CREATE TABLE tb_mensagens (
     id INT PRIMARY KEY AUTO_INCREMENT,
     remetente_id INT NOT NULL,
@@ -131,7 +131,7 @@ CREATE TABLE tb_mensagens (
     destinatario_id INT NOT NULL,
     destinatario_tipo ENUM('usuario', 'agencia') NOT NULL,
     conteudo TEXT NOT NULL,
-    data_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    data_envio DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Tabela de comentários para locais, com texto e escala (0 a 5)
