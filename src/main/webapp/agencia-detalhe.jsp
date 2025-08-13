@@ -521,6 +521,7 @@ section {
     });
     </script>
     
+    <jsp:include page="components/chat.jsp" />
     
 </body>
 </html>

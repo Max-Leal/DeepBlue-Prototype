@@ -8,6 +8,10 @@ import models.Mensagem;
 
 public class MensagemController {
 
+	public List<Mensagem> buscarConversas(Long id, TipoUsuario tipo) {
+	    return MensagemDao.getConversas(id, tipo);
+	}
+	
     // Enviar uma nova mensagem
     public void enviarMensagem(Mensagem mensagem) {
         MensagemDao.insert(mensagem);

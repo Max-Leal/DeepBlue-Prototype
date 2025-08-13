@@ -12,6 +12,46 @@ import utils.ConexaoDB;
 
 public class MensagemDao {
 
+	public static List<Mensagem> getConversas(Long id, TipoUsuario tipo) {
+	    List<Mensagem> ultimas = new ArrayList<>();
+	    // SQL para buscar todas as mensagens onde o usuário é o remetente OU o destinatário.
+	    String sql = "SELECT * FROM tb_mensagens " +
+	                 "WHERE (remetente_id = ? AND remetente_tipo = ?) " +
+	                 "ORDER BY data_envio ASC";
+
+	    try (Connection con = ConexaoDB.getConexao()) {
+	        PreparedStatement stm = con.prepareStatement(sql);
+
+	        // Converte o enum para a string esperada no banco ('usuario' ou 'agencia')
+	        String tipoString = tipo.name().toLowerCase();
+
+	        stm.setLong(1, id);
+	        stm.setString(2, tipoString);
+
+	        ResultSet rs = stm.executeQuery();
+
+	        while (rs.next()) {
+	        	Mensagem msg = new Mensagem();
+                msg.setId(rs.getLong("id"));
+                msg.setRemetenteId(rs.getLong("remetente_id"));
+                msg.setRemetenteTipo(TipoUsuario.valueOf(rs.getString("remetente_tipo").toUpperCase()));
+                msg.setDestinatarioId(rs.getLong("destinatario_id"));
+                msg.setDestinatarioTipo(TipoUsuario.valueOf(rs.getString("destinatario_tipo").toUpperCase()));
+                msg.setConteudo(rs.getString("conteudo"));
+                msg.setDataEnvio(rs.getTimestamp("data_envio").toLocalDateTime());
+                
+                ultimas.add(msg);
+	        }
+	        
+	        rs.close();
+	        stm.close();
+	    } catch (Exception e) {
+	        throw new RuntimeException("Erro ao buscar últimas conversas: " + e.getMessage());
+	    }
+	    return ultimas;
+	}
+
+	
     public static void insert(Mensagem m) {
         try (Connection con = ConexaoDB.getConexao()) {
             String sql = "INSERT INTO tb_mensagens (remetente_id, remetente_tipo, destinatario_id, destinatario_tipo, conteudo) VALUES (?, ?, ?, ?, ?)";
