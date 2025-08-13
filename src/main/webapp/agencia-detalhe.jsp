@@ -473,6 +473,7 @@ section {
 
 		</main>
 
+<jsp:include page="/components/chat.jsp" />
 		<script src="static/js/footer.js"></script>
 	</div>
 
