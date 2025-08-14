@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Comentários</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/comentarios-styles.css">
+    <link rel="stylesheet" href="static/css/main-styles.css">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <script src="static/js/header.js"></script>
+        <div class="center-container">
+            <div class="main-box">
+                <div class="post-top">
+                    <div class="post-input-row">
+                        <input type="text" placeholder="O que você está pensando?">
+                    </div>
+                    <div class="post-actions">
+                        <div class="post-action"><i class="fas fa-image"></i> Foto/Vídeo</div>
+                    </div>
+                </div>
+                <div class="example-post" id="post1">
+                    <span class="user-name">Maria Silva</span>
+                    <span class="post-text">Hoje o mar estava incrível! Recomendo muito a praia do Forte para quem gosta
+                        de
+                        águas claras.</span>
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+                        alt="Exemplo de praia">
+                    <div class="comments-toggle" onclick="toggleComments('comments1')">
+                        <i class="fa-regular fa-comment"></i>
+                        <span id="count1">2</span> Comentários
+                    </div>
+                    <div class="comments-section" id="comments1" style="display:none;">
+                        <div class="comments-title">Comentários</div>
+                        <div class="comments-list">
+                            <div class="comment-item">
+                                <span class="comment-user"><b>Lucas Lima</b></span>
+                                <span class="comment-text">Que fotos lindas! Quero conhecer também.</span>
+                            </div>
+                            <div class="comment-item">
+                                <span class="comment-user"><b>Fernanda Souza</b></span>
+                                <span class="comment-text">A praia do Forte é realmente maravilhosa!</span>
+                            </div>
+                        </div>
+                        <form class="comment-form" autocomplete="off" onsubmit="return false;">
+                            <input type="text" class="comment-input" placeholder="Escreva um comentário..." />
+                            <button type="submit" class="comment-btn">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="example-post" id="post2">
+                    <span class="user-name">João Pereira</span>
+                    <span class="post-text">Fiz um passeio de barco sensacional hoje! A vista do pôr do sol foi
+                        inesquecível.</span>
+                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=600&q=80"
+                        alt="Passeio de barco">
+                    <div class="comments-toggle" onclick="toggleComments('comments2')">
+                        <i class="fa-regular fa-comment"></i>
+                        <span id="count2"></span> Comentário
+                    </div>
+                    <div class="comments-section" id="comments2" style="display:none;">
+                        <div class="comments-title">Comentários</div>
+                        <div class="comments-list">
+
+                        </div>
+                        <form class="comment-form" autocomplete="off" onsubmit="return false;">
+                            <input type="text" class="comment-input" placeholder="Escreva um comentário..." />
+                            <button type="submit" class="comment-btn">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="example-post" id="post3">
+                    <span class="user-name">Ana Costa</span>
+                    <span class="post-text">Primeira vez mergulhando e já quero voltar! A vida marinha é
+                        maravilhosa.</span>
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+                        alt="Mergulho">
+                    <div class="comments-toggle" onclick="toggleComments('comments3')">
+                        <i class="fa-regular fa-comment"></i>
+                        <span id="count3">3</span> Comentários
+                    </div>
+                    <div class="comments-section" id="comments3" style="display:none;">
+                        <div class="comments-title">Comentários</div>
+                        <div class="comments-list">
+                            <div class="comment-item">
+                                <span class="comment-user"><b>Marina Dias</b></span>
+                                <span class="comment-text">Mergulhar é uma experiência única mesmo!</span>
+                            </div>
+                            <div class="comment-item">
+                                <span class="comment-user"><b>Rafael Torres</b></span>
+                                <span class="comment-text">Parabéns pela coragem, Ana!</span>
+                            </div>
+                            <div class="comment-item">
+                                <span class="comment-user"><b>Bianca Melo</b></span>
+                                <span class="comment-text">Amo ver a vida marinha de perto!</span>
+                            </div>
+                        </div>
+                        <form class="comment-form" autocomplete="off" onsubmit="return false;">
+                            <input type="text" class="comment-input" placeholder="Escreva um comentário..." />
+                            <button type="submit" class="comment-btn">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="static/js/footer.js"></script>
+    </div>
+    
+    <script>
+        function toggleComments(id) {
+            var section = document.getElementById(id);
+            if (section.style.display === "none" || section.style.display === "") {
+                section.style.display = "block";
+            } else {
+                section.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>
