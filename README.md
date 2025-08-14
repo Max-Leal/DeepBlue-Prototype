@@ -123,16 +123,15 @@ CREATE TABLE IF NOT EXISTS tb_avaliacao_agencia (
   FOREIGN KEY (tb_agencia_id) REFERENCES tb_agencia(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- CHAT ENTRE USUÁRIO E AGÊNCIA
-CREATE TABLE tb_mensagem (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  id_usuario INT NOT NULL,
-  id_agencia INT NOT NULL,
-  conteudo TEXT NOT NULL,
-  data_envio DATETIME DEFAULT CURRENT_TIMESTAMP,
-  remetente ENUM('usuario', 'agencia') NOT NULL,
-  FOREIGN KEY (id_usuario) REFERENCES tb_usuario(id),
-  FOREIGN KEY (id_agencia) REFERENCES tb_agencia(id)
+-- CHAT
+CREATE TABLE tb_mensagens (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    remetente_id INT NOT NULL,
+    remetente_tipo ENUM('usuario', 'agencia') NOT NULL,
+    destinatario_id INT NOT NULL,
+    destinatario_tipo ENUM('usuario', 'agencia') NOT NULL,
+    conteudo TEXT NOT NULL,
+    data_envio DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Tabela de comentários para locais, com texto e escala (0 a 5)
@@ -162,17 +161,17 @@ CREATE TABLE IF NOT EXISTS tb_avaliacao_foto_local (
 ### tb_usuario
 
 ```sql
-INSERT INTO tb_usuario (id, nome, data_nascimento, cpf, email, senha, tipo) VALUES
-(1, 'Ana Souza', '1990-05-12', '123.456.789-00', 'ana@email.com', 'senha123', 'cliente'),
-(2, 'Carlos Lima', '1985-08-22', '987.654.321-00', 'carlos@email.com', 'abc12345', 'adm');
+INSERT INTO tb_usuario (id, nome, email, senha, foto) VALUES
+(1, 'Ana Souza', 'ana@email.com', 'senha123', NULL),
+(2, 'Carlos Lima', 'carlos@email.com', 'abc12345', NULL);
 ```
 
 ### tb_agencia
 
 ```sql
-INSERT INTO tb_agencia (nome_empresarial, cnpj, email, senha, situacao) VALUES
-('Agência ViagensSol', '12.345.678/0001-99', 'contato@viagenssol.com', 'sol123', 'disponivel'),
-('Mundo Aventuras', '98.765.432/0001-11', 'aventura@mundo.com', 'aventura@2024', 'disponivel');
+INSERT INTO tb_agencia (id, nome_empresarial, cnpj, email, senha, situacao, descricao, cep, telefone, whatsapp, instagram) VALUES
+(1, 'Agência ViagensSol', '12.345.678/0001-99', 'contato@viagenssol.com', 'sol123', 'disponivel', NULL, NULL, NULL, NULL, NULL),
+(2, 'Mundo Aventuras', '98.765.432/0001-11', 'aventura@mundo.com', 'aventura@2024', 'disponivel', NULL, NULL, NULL, NULL, NULL);
 ```
 
 ### tb_local
@@ -195,3 +194,13 @@ INSERT INTO tb_local (
 ('Santa Catarina', 'disponivel', 'Febo', 'Barca italiana', 'Barca', NULL, NULL, '-27.22718', '-48.42557');
 ```
 
+### tb_mensagens
+
+```sql
+INSERT INTO tb_mensagens (remetente_id, remetente_tipo, destinatario_id, destinatario_tipo, conteudo) VALUES
+(1, 'usuario', 1, 'agencia', 'Olá, gostaria de saber mais sobre os pacotes disponíveis.'),
+(1, 'agencia', 1, 'usuario', 'Claro! Temos promoções especiais neste mês.'),
+(2, 'usuario', 2, 'agencia', 'Vocês oferecem pacotes para mergulho em naufrágios?'),
+(2, 'agencia', 2, 'usuario', 'Sim! Temos pacotes completos com guia e equipamentos.');
+
+```

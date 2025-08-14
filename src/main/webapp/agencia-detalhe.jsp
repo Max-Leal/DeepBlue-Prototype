@@ -5,7 +5,7 @@
 <%@ page
 	import="controllers.AgenciaLocalController,  controllers.AgenciaController, controllers.LocalController, controllers.AvaliacaoAgenciaController, controllers.UsuarioController"%>
 <%@ page import="java.util.List, java.util.ArrayList"%>
-<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.time.format.DateTimeFormatter"%>
 <%
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
@@ -273,25 +273,25 @@ section {
 			if (agencia != null) {
 			%>
 			<h1 style="margin: 0px; padding: 0px"><%=agencia.getNomeEmpresarial()%></h1>
-			<h3 style="margin: 0px	; margin-bottom: 10px">
-		
-						<%
-						for (int i = 1; i <= 5; i++) {
-						%>
-						<%
-						if (i <= escalaAgencia) {
-						%>
-						<span style="color: gold;">&#9733;</span>
-						<%
-						} else {
-						%>
-						<span style="color: #ccc;">&#9733;</span>
-						<%
-						}
-						%>
-						<%
-						}
-						%>
+			<h3 style="margin: 0px; margin-bottom: 10px">
+
+				<%
+				for (int i = 1; i <= 5; i++) {
+				%>
+				<%
+				if (i <= escalaAgencia) {
+				%>
+				<span style="color: gold;">&#9733;</span>
+				<%
+				} else {
+				%>
+				<span style="color: #ccc;">&#9733;</span>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
 			</h3>
 			<p>
 				<strong>CNPJ:</strong>
@@ -333,12 +333,12 @@ section {
 						<p>
 							<strong>Situação:</strong>
 							<%
-							
-							if (local.getSituacao().toString().toLowerCase().replace("_", " ").equals("disponivel")){
+							if (local.getSituacao().toString().toLowerCase().replace("_", " ").equals("disponivel")) {
 								disponibilidadeLocal = "Disponível";
 							} else {
 								disponibilidadeLocal = "Indisponível";
-							} %>
+							}
+							%>
 							<%=disponibilidadeLocal%></p>
 						<p>
 							<strong>Servico oferecido:</strong>
@@ -520,5 +520,8 @@ section {
         }
     });
     </script>
+    
+    <jsp:include page="components/chat.jsp" />
+    
 </body>
 </html>
