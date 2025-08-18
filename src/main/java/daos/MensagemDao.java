@@ -4,51 +4,110 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import Enums.TipoUsuario;
 import models.Mensagem;
 import utils.ConexaoDB;
 
 public class MensagemDao {
-
-	public static List<Mensagem> getConversas(Long id, TipoUsuario tipo) {
-	    List<Mensagem> ultimas = new ArrayList<>();
-	    // SQL para buscar todas as mensagens onde o usuário é o remetente OU o destinatário.
-	    String sql = "SELECT * FROM tb_mensagens " +
-	                 "WHERE (remetente_id = ? AND remetente_tipo = ?) " +
-	                 "ORDER BY data_envio ASC";
+	
+	public static List<Mensagem> getTodasAsMensagensDoUsuario(Long id, TipoUsuario tipo) {
+	    List<Mensagem> mensagens = new ArrayList<>();
+	    String sql = "SELECT * FROM tb_mensagens WHERE (remetente_id = ? AND remetente_tipo = ?) " +
+	                 "OR (destinatario_id = ? AND destinatario_tipo = ?) ORDER BY data_envio ASC";
 
 	    try (Connection con = ConexaoDB.getConexao()) {
 	        PreparedStatement stm = con.prepareStatement(sql);
-
-	        // Converte o enum para a string esperada no banco ('usuario' ou 'agencia')
 	        String tipoString = tipo.name().toLowerCase();
-
 	        stm.setLong(1, id);
 	        stm.setString(2, tipoString);
+	        stm.setLong(3, id);
+	        stm.setString(4, tipoString);
 
 	        ResultSet rs = stm.executeQuery();
-
 	        while (rs.next()) {
-	        	Mensagem msg = new Mensagem();
-                msg.setId(rs.getLong("id"));
-                msg.setRemetenteId(rs.getLong("remetente_id"));
-                msg.setRemetenteTipo(TipoUsuario.valueOf(rs.getString("remetente_tipo").toUpperCase()));
-                msg.setDestinatarioId(rs.getLong("destinatario_id"));
-                msg.setDestinatarioTipo(TipoUsuario.valueOf(rs.getString("destinatario_tipo").toUpperCase()));
-                msg.setConteudo(rs.getString("conteudo"));
-                msg.setDataEnvio(rs.getTimestamp("data_envio").toLocalDateTime());
-                
-                ultimas.add(msg);
+	            Mensagem m = new Mensagem();
+	            m.setId(rs.getLong("id"));
+	            m.setRemetenteId(rs.getLong("remetente_id"));
+	            m.setRemetenteTipo(TipoUsuario.valueOf(rs.getString("remetente_tipo")));
+	            m.setDestinatarioId(rs.getLong("destinatario_id"));
+	            m.setDestinatarioTipo(TipoUsuario.valueOf(rs.getString("destinatario_tipo")));
+	            m.setConteudo(rs.getString("conteudo"));
+	            m.setDataEnvio(rs.getTimestamp("data_envio").toLocalDateTime());
+	            mensagens.add(m);
 	        }
-	        
 	        rs.close();
 	        stm.close();
 	    } catch (Exception e) {
-	        throw new RuntimeException("Erro ao buscar últimas conversas: " + e.getMessage());
+	        throw new RuntimeException("Erro ao buscar todas as mensagens do usuário: " + e.getMessage());
 	    }
-	    return ultimas;
+	    return mensagens;
+	}
+
+	public static List<Mensagem> getConversas(Long id, TipoUsuario tipo) {
+		List<Mensagem> conversas = new ArrayList<>();
+        // Este Set vai garantir que não adicionemos o mesmo "par" de conversa duas vezes
+        Set<String> participantesUnicos = new HashSet<>(); 
+
+        // SQL CORRIGIDO: Busca mensagens onde o usuário é remetente OU destinatário
+        String sql = "SELECT * FROM tb_mensagens " +
+                     "WHERE (remetente_id = ? AND remetente_tipo = ?) OR (destinatario_id = ? AND destinatario_tipo = ?) " +
+                     "ORDER BY data_envio DESC"; // DESC para pegar as mais recentes primeiro
+
+        try (Connection con = ConexaoDB.getConexao()) {
+            PreparedStatement stm = con.prepareStatement(sql);
+
+            String tipoString = tipo.name().toLowerCase();
+
+            stm.setLong(1, id);
+            stm.setString(2, tipoString);
+            stm.setLong(3, id);
+            stm.setString(4, tipoString);
+
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                long remetenteId = rs.getLong("remetente_id");
+                String remetenteTipo = rs.getString("remetente_tipo");
+                long destinatarioId = rs.getLong("destinatario_id");
+                String destinatarioTipo = rs.getString("destinatario_tipo");
+
+                // Lógica para identificar o "outro" participante da conversa
+                long outroId;
+                String outroTipo;
+
+                if (remetenteId == id && remetenteTipo.equalsIgnoreCase(tipoString)) {
+                    outroId = destinatarioId;
+                    outroTipo = destinatarioTipo;
+                } else {
+                    outroId = remetenteId;
+                    outroTipo = remetenteTipo;
+                }
+
+                String parUnico = outroId + "-" + outroTipo;
+                if (!participantesUnicos.contains(parUnico)) {
+                    Mensagem msg = new Mensagem();
+                    msg.setId(rs.getLong("id"));
+                    msg.setRemetenteId(remetenteId);
+                    msg.setRemetenteTipo(TipoUsuario.valueOf(remetenteTipo));
+                    msg.setDestinatarioId(destinatarioId);
+                    msg.setDestinatarioTipo(TipoUsuario.valueOf(destinatarioTipo));
+                    msg.setConteudo(rs.getString("conteudo"));
+                    msg.setDataEnvio(rs.getTimestamp("data_envio").toLocalDateTime());
+                    
+                    conversas.add(msg);
+                    participantesUnicos.add(parUnico);
+                }
+            }
+            rs.close();
+            stm.close();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar lista de conversas: " + e.getMessage());
+        }
+        return conversas;
 	}
 
 	
