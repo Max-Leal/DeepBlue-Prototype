@@ -13,6 +13,39 @@ import models.Mensagem;
 import utils.ConexaoDB;
 
 public class MensagemDao {
+	
+	public static List<Mensagem> getTodasAsMensagensDoUsuario(Long id, TipoUsuario tipo) {
+	    List<Mensagem> mensagens = new ArrayList<>();
+	    String sql = "SELECT * FROM tb_mensagens WHERE (remetente_id = ? AND remetente_tipo = ?) " +
+	                 "OR (destinatario_id = ? AND destinatario_tipo = ?) ORDER BY data_envio ASC";
+
+	    try (Connection con = ConexaoDB.getConexao()) {
+	        PreparedStatement stm = con.prepareStatement(sql);
+	        String tipoString = tipo.name().toLowerCase();
+	        stm.setLong(1, id);
+	        stm.setString(2, tipoString);
+	        stm.setLong(3, id);
+	        stm.setString(4, tipoString);
+
+	        ResultSet rs = stm.executeQuery();
+	        while (rs.next()) {
+	            Mensagem m = new Mensagem();
+	            m.setId(rs.getLong("id"));
+	            m.setRemetenteId(rs.getLong("remetente_id"));
+	            m.setRemetenteTipo(TipoUsuario.valueOf(rs.getString("remetente_tipo")));
+	            m.setDestinatarioId(rs.getLong("destinatario_id"));
+	            m.setDestinatarioTipo(TipoUsuario.valueOf(rs.getString("destinatario_tipo")));
+	            m.setConteudo(rs.getString("conteudo"));
+	            m.setDataEnvio(rs.getTimestamp("data_envio").toLocalDateTime());
+	            mensagens.add(m);
+	        }
+	        rs.close();
+	        stm.close();
+	    } catch (Exception e) {
+	        throw new RuntimeException("Erro ao buscar todas as mensagens do usuário: " + e.getMessage());
+	    }
+	    return mensagens;
+	}
 
 	public static List<Mensagem> getConversas(Long id, TipoUsuario tipo) {
 		List<Mensagem> conversas = new ArrayList<>();

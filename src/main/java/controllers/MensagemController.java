@@ -22,9 +22,9 @@ public class MensagemController {
         return MensagemDao.getById(id);
     }
 
-    // Buscar conversa entre dois participantes (independente de serem usuários ou agências)
-    public List<Mensagem> buscarConversas(Long idA, TipoUsuario tipoA, Long idB, TipoUsuario tipoB) {
-        return MensagemDao.getConversasEntre(idA, tipoA, idB, tipoB);
+    // Buscar conversa do usuario logado
+    public List<Mensagem> buscarTodasAsMensagensDoUsuario(Long idUsuario, TipoUsuario tipoUsuario) {
+        return MensagemDao.getTodasAsMensagensDoUsuario(idUsuario, tipoUsuario);
     }
 
     // Deletar mensagem por ID
