@@ -216,6 +216,7 @@ if (logado) {
 
 <script>
 	// --- Variáveis Globais do Chat ---
+	let chaveConversaAtiva = null; // Armazena a chave da conversa atualmente aberta
 	const idUsuarioLogadoJS = <%= idUsuarioLogado %>;
 	const todasAsConversas = JSON.parse('<%= conversasJson.replace("'", "\\'") %>');
 	
@@ -232,44 +233,79 @@ if (logado) {
 	}
 
 	function abrirChat(elemento) {
-		const chave = elemento.dataset.chave;
-		const nome = elemento.dataset.nome;
+	    const chave = elemento.dataset.chave;
+	    const nome = elemento.dataset.nome;
+	    
+	    chaveConversaAtiva = chave;
 
-		contactsList.style.display = 'none';
-		chatBody.style.display = 'flex';
+	    contactsList.style.display = 'none';
+	    chatBody.style.display = 'flex';
 
-		document.getElementById('chat-contact-name').innerText = nome;
-		
-		const messagesContainer = document.getElementById('chat-messages');
-		messagesContainer.innerHTML = ''; 
+	    document.getElementById('chat-contact-name').innerText = nome;
+	    
+	    const messagesContainer = document.getElementById('chat-messages');
+	    messagesContainer.innerHTML = ''; 
 
-		const mensagens = todasAsConversas[chave] || [];
-		
-		mensagens.forEach(msg => {
-			const messageDiv = document.createElement('div');
-			messageDiv.classList.add('message');
-			
-			if (msg.remetenteId === idUsuarioLogadoJS) {
-				messageDiv.classList.add('sent');
-			} else {
-				messageDiv.classList.add('received');
-			}
-			
-			messageDiv.innerText = msg.conteudo;
-			messagesContainer.appendChild(messageDiv);
-		});
-		
-		messagesContainer.scrollTop = messagesContainer.scrollHeight;
+	    const mensagens = todasAsConversas[chave] || [];
+	    
+	    mensagens.forEach(msg => {
+	        const messageDiv = document.createElement('div');
+	        messageDiv.classList.add('message');
+	        
+	        if (msg.remetenteId === idUsuarioLogadoJS) {
+	            messageDiv.classList.add('sent');
+	        } else {
+	            messageDiv.classList.add('received');
+	        }
+	        
+	        messageDiv.innerText = msg.conteudo;
+	        messagesContainer.appendChild(messageDiv);
+	    });
+	    
+	    messagesContainer.scrollTop = messagesContainer.scrollHeight;
 	}
 
-	function sendMessage() {
+	async function sendMessage() {
 		const input = document.getElementById("chat-input");
-		const msg = input.value.trim();
-		if (msg) {
+		const conteudoMensagem = input.value.trim();
+
+		if (!conteudoMensagem || !chaveConversaAtiva) {
+			return; 
+		}
+
+		const dadosMensagem = {
+			conteudo: conteudoMensagem,
+			chaveDestinatario: chaveConversaAtiva 
+		};
+
+		input.value = "";
+
+		try {
+			const response = await fetch('components/enviarMensagem.jsp', { // O alvo da nossa requisição
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(dadosMensagem)
+			});
+
+			if (!response.ok) {
+				throw new Error('Falha ao enviar mensagem. Status: ' + response.status);
+			}
+			
+			const mensagemSalva = await response.json();
+
 			const messagesContainer = document.getElementById("chat-messages");
-			messagesContainer.innerHTML += `<div class="message sent"><b>Você:</b> ${msg}</div>`;
-			input.value = "";
+			const messageDiv = document.createElement('div');
+			messageDiv.classList.add('message', 'sent');
+			messageDiv.innerText = mensagemSalva.conteudo;
+			messagesContainer.appendChild(messageDiv);
+			
 			messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+		} catch (error) {
+			console.error('Erro ao enviar mensagem:', error);
+			// Aqui você pode adicionar um feedback visual de erro, se desejar
 		}
 	}
 </script>
