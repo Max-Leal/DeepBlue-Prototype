@@ -1,12 +1,16 @@
-<%@ page import="models.Agencia, models.Usuario, models.Mensagem, Enums.TipoUsuario"%>
-<%@ page import="controllers.AgenciaController, controllers.UsuarioController, controllers.MensagemController"%>
-<%@ page import="java.util.List, java.util.Set, java.util.HashSet, java.util.Map, java.util.HashMap, java.util.ArrayList"%>
-<%@ page import="java.time.LocalDateTime" %>
+<%@ page
+	import="models.Agencia, models.Usuario, models.Mensagem, Enums.TipoUsuario"%>
+<%@ page
+	import="controllers.AgenciaController, controllers.UsuarioController, controllers.MensagemController"%>
+<%@ page
+	import="java.util.List, java.util.Set, java.util.HashSet, java.util.Map, java.util.HashMap, java.util.ArrayList"%>
+<%@ page import="java.time.LocalDateTime"%>
 
 <%-- Importações necessárias para o Gson e o novo adaptador --%>
-<%@ page import="com.google.gson.Gson" %>
-<%@ page import="com.google.gson.GsonBuilder" %>
-<%@ page import="utils.LocalDateTimeAdapter" %> <%-- Certifique-se que o pacote está correto --%>
+<%@ page import="com.google.gson.Gson"%>
+<%@ page import="com.google.gson.GsonBuilder"%>
+<%@ page import="utils.LocalDateTimeAdapter"%>
+<%-- Certifique-se que o pacote está correto --%>
 
 <%
 // --- Bloco de Autenticação (sem alterações) ---
@@ -42,19 +46,17 @@ if (logado) {
 	for (Mensagem msg : todasAsMensagens) {
 		String chaveConversa;
 		if (!msg.getRemetenteId().equals(idUsuarioLogado)) {
-			chaveConversa = msg.getRemetenteTipo().toString() + "-" + msg.getRemetenteId().toString();
+	chaveConversa = msg.getRemetenteTipo().toString() + "-" + msg.getRemetenteId().toString();
 		} else {
-			chaveConversa = msg.getDestinatarioTipo().toString() + "-" + msg.getDestinatarioId().toString();
+	chaveConversa = msg.getDestinatarioTipo().toString() + "-" + msg.getDestinatarioId().toString();
 		}
 		conversasMap.computeIfAbsent(chaveConversa, k -> new ArrayList<>()).add(msg);
 	}
-	
+
 	// --- CORREÇÃO APLICADA AQUI ---
 	// Cria uma instância do Gson registrando o adaptador para LocalDateTime
-	Gson gson = new GsonBuilder()
-	    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
-	    .create();
-	
+	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
+
 	// Converte o mapa de conversas para uma string JSON para ser usada no JavaScript
 	String conversasJson = gson.toJson(conversasMap);
 	Set<String> conversasProcessadas = new HashSet<>();
@@ -62,59 +64,63 @@ if (logado) {
 <div id="chat-widget">
 	<!-- Cabeçalho principal que mostra/esconde a lista de contatos -->
 	<div id="chat-header" onclick="toggleContacts()">Mensagens</div>
-	
+
 	<!-- Lista de contatos recentes -->
 	<div id="chat-contacts">
-	<%
-	for (Mensagem m : ultimasMensagens) {
-		Long idContato = null;
-		TipoUsuario tipoContato = null;
-
-		if (!m.getRemetenteId().equals(idUsuarioLogado)) {
-			idContato = m.getRemetenteId();
-			tipoContato = m.getRemetenteTipo();
-		} else {
-			idContato = m.getDestinatarioId();
-			tipoContato = m.getDestinatarioTipo();
-		}
-
-		String chaveConversa = tipoContato.toString() + "-" + idContato.toString();
-
-		if (!conversasProcessadas.contains(chaveConversa)) {
-			String nomeContato = "Contato desconhecido";
-			if (tipoContato.equals(TipoUsuario.usuario)) {
-				Usuario usuario = uc.getUsuarioById(idContato);
-				if (usuario != null) nomeContato = usuario.getNome();
-			} else if (tipoContato.equals(TipoUsuario.agencia)) {
-				Agencia agencia = ac.getAgenciaById(idContato.intValue());
-				if (agencia != null) nomeContato = agencia.getNomeEmpresarial();
-			}
-		%>
-			<!-- Cada contato agora é clicável e carrega os dados necessários para abrir o chat -->
-			<div class="contact" onclick="abrirChat(this)" 
-				 data-chave="<%= chaveConversa %>" 
-				 data-nome="<%= nomeContato %>">
-				<span class="name-contact"><%= nomeContato %></span> 
-				<span class="time-contact"><%= m.getDataEnvio() %></span>
-			</div>
 		<%
-			conversasProcessadas.add(chaveConversa);
+		for (Mensagem m : ultimasMensagens) {
+			Long idContato = null;
+			TipoUsuario tipoContato = null;
+
+			if (!m.getRemetenteId().equals(idUsuarioLogado)) {
+				idContato = m.getRemetenteId();
+				tipoContato = m.getRemetenteTipo();
+			} else {
+				idContato = m.getDestinatarioId();
+				tipoContato = m.getDestinatarioTipo();
+			}
+
+			String chaveConversa = tipoContato.toString() + "-" + idContato.toString();
+
+			if (!conversasProcessadas.contains(chaveConversa)) {
+				String nomeContato = "Contato desconhecido";
+				if (tipoContato.equals(TipoUsuario.usuario)) {
+			Usuario usuario = uc.getUsuarioById(idContato);
+			if (usuario != null)
+				nomeContato = usuario.getNome();
+				} else if (tipoContato.equals(TipoUsuario.agencia)) {
+			Agencia agencia = ac.getAgenciaById(idContato.intValue());
+			if (agencia != null)
+				nomeContato = agencia.getNomeEmpresarial();
+				}
+		%>
+		<!-- Cada contato agora é clicável e carrega os dados necessários para abrir o chat -->
+		<div class="contact" onclick="abrirChat('<%= chaveConversa %>', '<%= nomeContato %>')" 
+     data-chave="<%= chaveConversa %>" 
+     data-nome="<%= nomeContato %>">
+			<span class="name-contact"><%=nomeContato%></span> <span
+				class="time-contact"><%=m.getDataEnvio()%></span>
+		</div>
+		<%
+		conversasProcessadas.add(chaveConversa);
 		}
-	}
-	%>
+		}
+		%>
 	</div>
-	
+
 	<!-- Corpo do Chat (inicialmente escondido) -->
 	<div id="chat-body">
-        <div id="chat-body-header">
-			<span id="chat-contact-name"></span>
-			<span id="close-chat" onclick="toggleChat()">X</span>
+		<div id="chat-body-header">
+			<span id="chat-contact-name"></span> <span id="close-chat"
+				onclick="toggleChat()">X</span>
 		</div>
-        <div id="chat-messages"></div>
+		<div id="chat-messages"></div>
 		<div id="chat-input-container">
-        	<input type="text" id="chat-input" placeholder="Digite sua mensagem..." onkeypress="if(event.key==='Enter') sendMessage()"> 
+			<input type="text" id="chat-input"
+				placeholder="Digite sua mensagem..."
+				onkeypress="if(event.key==='Enter') sendMessage()">
 		</div>
-    </div>
+	</div>
 </div>
 
 <style>
@@ -125,7 +131,7 @@ if (logado) {
 	width: 320px;
 	font-family: Arial, sans-serif;
 	border-radius: 8px;
-	box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 	overflow: hidden; /* Garante que os filhos respeitem o border-radius */
 }
 
@@ -152,9 +158,20 @@ if (logado) {
 	justify-content: space-between;
 	align-items: center;
 }
-.contact:hover { background-color: #f9f9f9; }
-.name-contact { font-weight: bold; color: #333; }
-.time-contact { font-size: 0.75em; color: #999; }
+
+.contact:hover {
+	background-color: #f9f9f9;
+}
+
+.name-contact {
+	font-weight: bold;
+	color: #333;
+}
+
+.time-contact {
+	font-size: 0.75em;
+	color: #999;
+}
 
 #chat-body {
 	display: none; /* Começa escondido */
@@ -172,7 +189,13 @@ if (logado) {
 	align-items: center;
 	border-bottom: 1px solid #ddd;
 }
-#close-chat { cursor: pointer; padding: 0 5px; font-size: 1.2em; color: #888; }
+
+#close-chat {
+	cursor: pointer;
+	padding: 0 5px;
+	font-size: 1.2em;
+	color: #888;
+}
 
 #chat-messages {
 	flex: 1;
@@ -191,12 +214,14 @@ if (logado) {
 	max-width: 75%;
 	line-height: 1.4;
 }
+
 .sent {
 	background-color: #007bff;
 	color: white;
 	align-self: flex-end; /* Alinha à direita */
 	border-bottom-right-radius: 4px;
 }
+
 .received {
 	background-color: #e9e9eb;
 	color: black;
@@ -204,21 +229,27 @@ if (logado) {
 	border-bottom-left-radius: 4px;
 }
 
-#chat-input-container { border-top: 1px solid #ccc; }
+#chat-input-container {
+	border-top: 1px solid #ccc;
+}
+
 #chat-input {
 	border: none;
 	padding: 12px;
 	width: 100%;
 	box-sizing: border-box;
 }
-#chat-input:focus { outline: none; }
+
+#chat-input:focus {
+	outline: none;
+}
 </style>
 
 <script>
 	// --- Variáveis Globais do Chat ---
 	let chaveConversaAtiva = null; // Armazena a chave da conversa atualmente aberta
-	const idUsuarioLogadoJS = <%= idUsuarioLogado %>;
-	const todasAsConversas = JSON.parse('<%= conversasJson.replace("'", "\\'") %>');
+	const idUsuarioLogadoJS = <%=idUsuarioLogado%>;
+	const todasAsConversas = JSON.parse('<%=conversasJson.replace("'", "\\'")%>');
 	
 	const contactsList = document.getElementById("chat-contacts");
 	const chatBody = document.getElementById("chat-body");
@@ -232,32 +263,33 @@ if (logado) {
 		contactsList.style.display = 'block'; 
 	}
 
-	function abrirChat(elemento) {
-	    const chave = elemento.dataset.chave;
-	    const nome = elemento.dataset.nome;
-	    
+	// Função 2: A função principal que abre a interface do chat (versão corrigida)
+	function abrirChat(chave, nome) {
+	    // Define a conversa ativa para que 'sendMessage' saiba para quem enviar
 	    chaveConversaAtiva = chave;
 
+	    // Lógica para mostrar a janela do chat e esconder a lista de contatos
+	    const contactsList = document.getElementById("chat-contacts");
+	    const chatBody = document.getElementById("chat-body");
 	    contactsList.style.display = 'none';
 	    chatBody.style.display = 'flex';
 
+	    // Coloca o nome do contato no cabeçalho
 	    document.getElementById('chat-contact-name').innerText = nome;
 	    
+	    // Limpa mensagens antigas e carrega as da conversa atual
 	    const messagesContainer = document.getElementById('chat-messages');
 	    messagesContainer.innerHTML = ''; 
-
 	    const mensagens = todasAsConversas[chave] || [];
 	    
 	    mensagens.forEach(msg => {
 	        const messageDiv = document.createElement('div');
 	        messageDiv.classList.add('message');
-	        
 	        if (msg.remetenteId === idUsuarioLogadoJS) {
 	            messageDiv.classList.add('sent');
 	        } else {
 	            messageDiv.classList.add('received');
 	        }
-	        
 	        messageDiv.innerText = msg.conteudo;
 	        messagesContainer.appendChild(messageDiv);
 	    });
@@ -305,8 +337,19 @@ if (logado) {
 
 		} catch (error) {
 			console.error('Erro ao enviar mensagem:', error);
-			// Aqui você pode adicionar um feedback visual de erro, se desejar
 		}
 	}
+	
+	function iniciarChatComAgencia(botaoElemento) {
+	    // Pega os dados do botão clicado
+	    const chave = botaoElemento.dataset.chave;
+	    const nome = botaoElemento.dataset.nome;
+
+	    // Apenas chama a função principal para abrir a interface
+	    abrirChat(chave, nome);
+	}
+	
 </script>
-<% } %>
+<%
+}
+%>
