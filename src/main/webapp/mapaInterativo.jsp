@@ -52,7 +52,6 @@ body::before {
 	margin: auto;
 	padding-bottom: 20px;
 	max-width: 900px;
-
 }
 
 .search-container input[type="text"] {
@@ -94,17 +93,19 @@ body::before {
     window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
     window.agenciaEmail = <%= agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null" %>;
 </script>
-		
+
 		<main>
-		<script src="static/js/header.js"></script>
-			
+			<script src="static/js/header.js"></script>
+
 			<div style="position: relative; margin: 9%;">
-			<div class="search-container">
-				<form method="get" action="mapaInterativo.jsp" style="display: flex; width:100%;">
-					<input type="text" name="query" placeholder="Buscar por nome..." style="flex-grow: 1;">
-					<button type="submit">Buscar</button>
-				</form>
-			</div>
+				<div class="search-container">
+					<form method="get" action="mapaInterativo.jsp"
+						style="display: flex; width: 100%;">
+						<input type="text" name="query" placeholder="Buscar por nome..."
+							style="flex-grow: 1;">
+						<button type="submit">Buscar</button>
+					</form>
+				</div>
 				<section class="mapa-container">
 					<div id="map"></div>
 				</section>
@@ -115,7 +116,7 @@ body::before {
 			<p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
 		</footer>
 	</div>
-	
+
 	<script>
 
 
@@ -166,10 +167,11 @@ body::before {
             L.marker([<%= local.getLatitude() %>, <%= local.getLongitude() %>])
                 .addTo(map)
                 .bindPopup('<b><%= local.getNome() %></b><br><%= local.getDescricao() %><br><a href="local-detalhe.jsp?id=<%= local.getId() %>">Ver detalhes</a>');
-        <% } %>
+        <%}%>
 
     </script>
 
+	<jsp:include page="components/chat.jsp" />
 </body>
 
 </html>

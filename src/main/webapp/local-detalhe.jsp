@@ -564,5 +564,6 @@ section {
 	<footer class="footer"> &copy; 2025 DeepBlue. Todos os
 		direitos reservados. </footer>
 
+	<jsp:include page="components/chat.jsp" />
 </body>
 </html>
