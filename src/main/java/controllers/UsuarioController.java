@@ -19,7 +19,7 @@ public class UsuarioController {
     }
 
     // Buscar por ID
-    public Usuario getUsuarioById(int id) {
+    public Usuario getUsuarioById(Long id) {
         return UsuarioDao.getUsuarioById(id);
     }
 

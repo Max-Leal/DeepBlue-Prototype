@@ -1,10 +1,16 @@
 package controllers;
 
+import java.util.List;
+
 import daos.AvaliacaoAgenciaDao;
 import models.AvaliacaoAgencia;
 
 public class AvaliacaoAgenciaController {
 
+	public List<AvaliacaoAgencia> getAvaliacoesPorAgencia(Long id){
+		return AvaliacaoAgenciaDao.getAvaliacoesPorAgencia(id);
+	}
+	
     // Cadastrar uma nova avaliação
     public void registrarAvaliacao(AvaliacaoAgencia avaliacao) {
         AvaliacaoAgenciaDao.insert(avaliacao);
