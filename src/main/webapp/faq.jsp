@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
@@ -52,7 +52,7 @@
 </script>
         <script src="static/js/header.js"></script>
         <main>
-            <h1 style="text-align:center; padding-top: 10%; color: white;">Perguntas Frequentes (FAQ)</h1>
+            <h1 style="text-align:center; padding-top: 7%; color: white;">Perguntas Frequentes (FAQ)</h1>
             <div class="accordion">
                 <div class="accordion-item">
                     <input type="checkbox" id="acc1">
@@ -171,7 +171,7 @@
                 </div>
             </div>
         </main>
-        <div style="padding-bottom: 335px"></div>
+        <div style="padding-bottom: 10px"></div>
         <script src="static/js/footer.js"></script>
     </div>
     <script src="static/js/whatsapp-widget.js"></script>
