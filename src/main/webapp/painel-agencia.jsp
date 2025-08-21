@@ -1,4 +1,4 @@
-<%@ page import="models.Agencia, models.Usuario" %>
+<%@ page import="models.Agencia" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -143,22 +143,17 @@
 
 <body>
 
-	<div class="page-wrapper">
+	<script src="static/js/header.js"></script>
 	<%
-    Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+
     Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
 %>
 <script>
-    window.usuarioLogado = <%= usuarioLogado != null ? "\"" + usuarioLogado.getNome() + "\"" : "null" %>;
-    window.usuarioEmail = <%= usuarioLogado != null ? "\"" + usuarioLogado.getEmail() + "\"" : "null" %>;
     window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
     window.agenciaEmail = <%= agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null" %>;
 </script>
 	
-        <script src="static/js/header.js"></script>
-
-		<section class="accordion-wrapper">
-			<div class="accordion">
+       
 				<div class="accordion-item">
 					<input type="checkbox" id="formToggle"> <label for="formToggle" class="accordion-header"> <span
 							class="accordion-title"><i class="fas fa-plus-circle"></i>
@@ -224,6 +219,7 @@
 
 
 							<input type="hidden" id="idAgencia" name="idAgencia">
+		
 
 							<div style="text-align: center;">
 								<button type="submit" class="btn-primario">
@@ -233,77 +229,31 @@
 						</form>
 					</div>
 				</div>
-			</div>
-		</section>
+
+         <h1>Seus Dados</h1>
+
+      <p><strong>Nome:</strong> ${sessionScope.agenciaLogada.nomeEmpresarial}</p>
+      <p><strong>CNPJ:</strong> ${sessionScope.agenciaLogada.cnpj}</p>
+      <p><strong>Email:</strong> ${sessionScope.agenciaLogada.email}</p>
+      <p><strong>Senha:</strong> ${sessionScope.agenciaLogada.senha}</p>
+      <p><strong>Situação:</strong> ${sessionScope.agenciaLogada.situacao}</p>
+      <p><strong>Descrição:</strong> ${sessionScope.agenciaLogada.descricao}</p>
+      <p><strong>CEP:</strong> ${sessionScope.agenciaLogada.cep}</p>
+      <p><strong>Telefone:</strong> ${sessionScope.agenciaLogada.telefone}</p>
+      <p><strong>WhatsApp:</strong> ${sessionScope.agenciaLogada.whatsapp}</p>
+      <p><strong>Instagram:</strong> ${sessionScope.agenciaLogada.instagram}</p>
+      <button onclick="window.location.href='editar-agencia.jsp'" class="btn-primario">Editar Dados</button>
+      
+      <div>
+      <button onclick="window.location.href='cadastrar-local.jsp'" class="btn-primario">Cadastrar Local</button>
+       </div>
+
+		
 		<!--<footer class="footer">
 			<p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
 		</footer>-->
-	</div>
+	
 
-
-	<script>
-
-
-		document.addEventListener('DOMContentLoaded', () => {
-			const el = document.getElementById("informacoes-login");
-			const usuario = localStorage.getItem("usuario");
-			const agencia = localStorage.getItem("agencia");
-
-			const dados = usuario ? JSON.parse(usuario) : agencia ? JSON.parse(agencia) : null;
-			const nome = dados?.nome || dados?.nomeEmpresarial;
-			const email = dados?.email;
-
-			if (el && nome && email) {
-				const div = document.createElement("div");
-				div.className = "usuario-logado";
-
-				["Bem-vindo, " + nome, email].forEach(text => {
-					div.appendChild(document.createTextNode(text));
-					div.appendChild(document.createElement("br"));
-				});
-
-				const btn = document.createElement("button");
-				btn.textContent = "Sair";
-				btn.id = "logout-btn";
-				btn.style.marginTop = "0.5rem";
-				btn.onclick = () => {
-					localStorage.removeItem("usuario");
-					localStorage.removeItem("agencia");
-					location.reload();
-				};
-
-				div.appendChild(btn);
-				el.replaceWith(div);
-			}
-		});
-
-
-
-		function logout() {
-			localStorage.removeItem("usuario");
-			localStorage.removeItem("agencia");
-			location.reload();
-		}
-
-		document.addEventListener('DOMContentLoaded', () => {
-			const agenciaStorage = localStorage.getItem('agencia');
-			if (agenciaStorage) {
-				try {
-					const agenciaObj = JSON.parse(agenciaStorage);
-					const agenciaId = agenciaObj.id;
-					if (agenciaId) {
-						document.getElementById('idAgencia').value = agenciaId;
-					} else {
-						alert("Erro: ID da agência não encontrado no objeto.");
-					}
-				} catch (e) {
-					alert("Erro ao interpretar os dados da agência.");
-				}
-			} else {
-				alert("Erro: Objeto 'Agencia' não encontrado no localStorage.");
-			}
-		});
-	</script>
 
 </body>
 
