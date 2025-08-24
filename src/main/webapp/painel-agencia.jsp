@@ -1,4 +1,6 @@
 <%@ page import="models.Agencia" %>
+<%@ page import="java.util.List" %>
+<%@ page import="models.Local" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -147,6 +149,9 @@
 	<%
 
     Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
+	
+	
+
 %>
 <script>
     window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
@@ -154,81 +159,7 @@
 </script>
 	
        
-				<div class="accordion-item">
-					<input type="checkbox" id="formToggle"> <label for="formToggle" class="accordion-header"> <span
-							class="accordion-title"><i class="fas fa-plus-circle"></i>
-							Cadastrar Novo Local</span> <span class="accordion-icon">▼</span>
-					</label>
-					<div class="accordion-content">
-						<form action="painel-adicionar-local.jsp" method="post" autocomplete="off"
-							style="max-width: 600px; margin: auto;">
-							<div class="form-group">
-								<label for="localidade"><i class="fas fa-location-dot"></i>
-									Localidade:</label> <input type="text" id="localidade" name="localidade"
-									class="input-padrao" required>
-							</div>
-
-							<div class="form-group">
-								<label for="situacao"><i class="fas fa-flag"></i>
-									Situação:</label> <select id="situacao" name="situacao" class="select-padrao"
-									required>
-									<option value="INDISPONÍVEL" selected>INDISPONÍVEL</option>
-									<option value="DISPONÍVEL">DISPONÍVEL</option>
-								</select>
-							</div>
-
-							<div class="form-group">
-								<label for="nome"><i class="fas fa-map-marker-alt"></i>
-									Nome do Local:</label> <input type="text" id="nome" name="nome" class="input-padrao"
-									required>
-							</div>
-
-							<div class="form-group">
-								<label for="descricao"><i class="fas fa-align-left"></i>
-									Descrição:</label>
-								<textarea id="descricao" name="descricao" rows="2" class="input-padrao"
-									required></textarea>
-							</div>
-
-							<div class="form-group">
-								<label for="latitude"><i class="fas fa-arrows-alt-v"></i>
-									Latitude:</label> <input type="text" id="latitude" name="latitude"
-									class="input-padrao" required>
-							</div>
-
-							<div class="form-group">
-								<label for="longitude"><i class="fas fa-arrows-alt-h"></i>
-									Longitude:</label> <input type="text" id="longitude" name="longitude"
-									class="input-padrao" required>
-							</div>
-
-							<div class="form-group">
-								<label><i class="fas fa-water"></i> Serviços oferecidos:</label>
-								<div
-									style="display: flex; gap: 1.5rem; flex-wrap: wrap; padding-left: 0.3rem; align-items: center;">
-									<label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-										<input type="checkbox" id="oferecePasseio" name="oferecePasseio">
-										Passeio
-									</label>
-									<label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-										<input type="checkbox" id="ofereceMergulho" name="ofereceMergulho">
-										Mergulho
-									</label>
-								</div>
-							</div>
-
-
-							<input type="hidden" id="idAgencia" name="idAgencia">
-		
-
-							<div style="text-align: center;">
-								<button type="submit" class="btn-primario">
-									<i class="fas fa-plus"></i> Cadastrar Local
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
+				
 
          <h1>Seus Dados</h1>
 
@@ -247,7 +178,49 @@
       <div>
       <button onclick="window.location.href='cadastrar-local.jsp'" class="btn-primario">Cadastrar Local</button>
        </div>
+       
+      <%
+@SuppressWarnings("unchecked")
+List<Local> locais = (List<Local>) request.getAttribute("locais");
 
+if (locais != null && !locais.isEmpty()) {
+%>
+<table border="1">
+    <tr>
+        <th>Nome</th>
+        <th>Localidade</th>
+        <th>Descrição</th>
+        <th>Tipo Embarcação</th>
+        <th>Ano Afundamento</th>
+        <th>Profundidade</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+    </tr>
+    <%
+        for (Local l : locais) {
+    %>
+    <tr>
+        <td><%= l.getNome() %></td>
+        <td><%= l.getLocalidade() %></td>
+        <td><%= l.getDescricao() %></td>
+        <td><%= l.getTipoEmbarcacao() %></td>
+        <td><%= l.getAnoAfundamento() %></td>
+        <td><%= l.getProfundidade() %></td>
+        <td><%= l.getLatitude() %></td>
+        <td><%= l.getLongitude() %></td>
+    </tr>
+    <%
+        }
+    %>
+</table>
+<%
+} else {
+%>
+<p>Nenhum local cadastrado.</p>
+<%
+}
+%>
+      
 		
 		<!--<footer class="footer">
 			<p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
