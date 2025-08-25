@@ -17,6 +17,7 @@ import models.Local;
 public class ListarLocaisAgenciaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -24,7 +25,7 @@ public class ListarLocaisAgenciaServlet extends HttpServlet {
         Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
 
         if (agenciaLogada == null) {
-            response.sendRedirect("login-agencia.jsp");
+            response.sendRedirect(request.getContextPath() + "/login-agencia.jsp");
             return;
         }
 
@@ -33,7 +34,10 @@ public class ListarLocaisAgenciaServlet extends HttpServlet {
         LocalDao localDao = new LocalDao();
         List<Local> locais = localDao.listarPorAgencia(idAgencia);
 
+        // joga a lista no request
         request.setAttribute("locais", locais);
+
+        // encaminha pro painel
         request.getRequestDispatcher("painel-agencia.jsp").forward(request, response);
     }
 }

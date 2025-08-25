@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ page import="models.Agencia" %>
-    <%@ page import="Enums.Situacao" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="models.Agencia" %>
+<%@ page import="Enums.Situacao" %>
+<%@ page import="java.util.List" %>
+<%@ page import="models.Local" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,9 +35,29 @@
 		input[type="checkbox"] {
 			display: none;
 		}
-
 		
-
+    .page-wrapper {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--azul-profundo);
+    color: white;
+    z-index: 1000;
+    height: 100px; 
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+}
+   
 		input[type="checkbox"]:checked~.accordion-content {
 			max-height: 1000px;
 			padding: 20px;
@@ -93,7 +114,6 @@
 	</style>
 </head>
 <body>
-     <script src="static/js/header.js"></script>
 <%
     Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
     if (agenciaLogada == null) {
@@ -101,6 +121,13 @@
         return;
     }
 %>
+
+<script>
+    window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
+    window.agenciaEmail = <%= agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null" %>;
+    </script>
+    
+    <script src="static/js/header.js"></script>
 
 <section style="max-width: 700px; margin: 40px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
     <h2 style="text-align:center; margin-bottom: 20px;">Editar Dados da Agência</h2>
