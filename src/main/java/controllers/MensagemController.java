@@ -2,11 +2,16 @@ package controllers;
 
 import java.util.List;
 
+import Enums.TipoUsuario;
 import daos.MensagemDao;
 import models.Mensagem;
 
 public class MensagemController {
 
+	public List<Mensagem> buscarConversas(Long id, TipoUsuario tipo) {
+	    return MensagemDao.getConversas(id, tipo);
+	}
+	
     // Enviar uma nova mensagem
     public void enviarMensagem(Mensagem mensagem) {
         MensagemDao.insert(mensagem);
@@ -17,13 +22,14 @@ public class MensagemController {
         return MensagemDao.getById(id);
     }
 
-    // Buscar conversa entre um usuário e uma agência (ordenada por data)
-    public List<Mensagem> buscarConversas(Long idUsuario, Long idAgencia) {
-        return MensagemDao.getConversasEntreUsuarioEAgencia(idUsuario, idAgencia);
+    // Buscar conversa do usuario logado
+    public List<Mensagem> buscarTodasAsMensagensDoUsuario(Long idUsuario, TipoUsuario tipoUsuario) {
+        return MensagemDao.getTodasAsMensagensDoUsuario(idUsuario, tipoUsuario);
     }
 
-    // Deletar mensagem por ID (opcional, se for necessário no sistema)
+    // Deletar mensagem por ID
     public void deletarMensagem(Long id) {
         MensagemDao.deleteById(id);
     }
+    
 }
