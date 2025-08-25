@@ -5,6 +5,7 @@
 <%@ page import="java.util.*"%>
 
 <%
+// A instância do controller é criada aqui para ser usada no corpo da página
 AvaliacaoAgenciaController aac = new AvaliacaoAgenciaController();
 %>
 <!DOCTYPE html>
@@ -23,60 +24,62 @@ AvaliacaoAgenciaController aac = new AvaliacaoAgenciaController();
 	rel="stylesheet">
 
 <style>
+/* ====== 1. ESTILOS GLOBAIS E VARIÁVEIS ====== */
 :root {
 	--azul-profundo: #01203a;
 	--azul-escuro: #1e3a8a;
 	--azul-medio: #3b82f6;
 	--azul-agua: #60a5fa;
 	--azul-claro: #93c5fd;
-	--fundo-dashboard: #eef2f9; /* Cor de fundo do painel principal */
+	--fundo-pagina: #eef2f9;
+	--cor-card: #ffffff;
+	--cor-texto: #333;
+	--cor-borda-suave: #eee;
+}
+
+/* Boa prática para um controle de layout mais previsível */
+*, *::before, *::after {
+	box-sizing: border-box;
 }
 
 body {
 	font-family: 'Poppins', sans-serif;
 	margin: 0;
 	padding: 0;
-	background-color: var(--fundo-dashboard);
-	/* Alterado para a cor de fundo do dashboard */
+	background-color: var(--fundo-pagina);
+	color: var(--cor-texto);
 	min-height: 100vh;
 }
 
-/* NOVO: Container principal do dashboard */
+/* ====== 2. LAYOUT DO DASHBOARD COM CSS GRID ====== */
 .dashboard-container {
-	display: flex;
-	gap: 30px;
-	padding: 30px;
-	margin: 120px auto 40px auto; /* Margem superior para o header */
-	max-width: 1400px;
-	width: 95%;
+	display: grid;
+	grid-template-columns: 2fr 5fr 3fr;
+	gap: 30px; 
+	align-items: start;
+	margin: 7.5% 2.5%; 
 }
 
-/* NOVO: Estilo genérico para todos os painéis (cards) */
+/* ====== 3. ESTILOS DOS CARDS ====== */
 .dashboard-card {
-	background-color: #fff;
+	background-color: var(--cor-card);
 	padding: 30px;
 	border-radius: 12px;
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
 }
 
-.dashboard-card h2 {
+.dashboard-card h1, .dashboard-card h2 {
 	color: var(--azul-profundo);
 	margin-top: 0;
+	margin-bottom: 25px;
 	padding-bottom: 15px;
-	border-bottom: 1px solid #eee;
-	font-size: 1.2rem;
+	border-bottom: 1px solid var(--cor-borda-suave);
+	font-size: 1.3rem;
 }
 
-/* Coluna do Perfil (esquerda) */
+/* Card de perfil específico */
 .profile-card {
-	flex: 0 0 320px; /* Não cresce, não encolhe, largura base de 320px */
 	text-align: center;
-}
-
-.profile-card h1 {
-	color: var(--azul-profundo);
-	margin-bottom: 30px;
-	font-size: 1.5rem;
 }
 
 .profile-picture {
@@ -90,7 +93,6 @@ body {
 
 .profile-details p {
 	font-size: 1rem;
-	color: #333;
 	margin: 10px 0;
 	text-align: left;
 }
@@ -101,44 +103,33 @@ body {
 	display: inline-block;
 }
 
-/* Coluna de Comentários (central) */
-.comments-card {
-	flex: 1; /* Ocupa o espaço restante */
-}
-
-.comment-item {
-	border-bottom: 1px solid #f0f0f0;
-	padding: 15px 0;
-	margin-bottom: 10px;
-}
-
-.comment-item:last-child {
-	border-bottom: none;
-	margin-bottom: 0;
-	padding-bottom: 0;
-}
-
-.comment-header, .comment-body, .comment-footer {
-	margin: 0;
-	padding: 2px 0;
-}
-
-.comment-body {
-	color: #333;
-}
-
-.comment-footer small {
-	color: #888;
-}
-
-/* NOVO: Wrapper para as colunas da direita */
+/* Coluna da direita e seus cards */
 .right-column {
-	flex: 0 0 320px; /* Largura fixa igual à do perfil */
 	display: flex;
 	flex-direction: column;
 	gap: 30px;
 }
 
+/* Itens de comentário */
+.comment-item {
+	border-bottom: 1px solid var(--cor-borda-suave);
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+}
+.comment-item:last-child {
+	border-bottom: none;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+.comment-header, .comment-body, .comment-footer {
+	margin: 0;
+	padding: 4px 0;
+}
+.comment-footer small {
+	color: #888;
+}
+
+/* Botão primário */
 .btn-primario {
 	background: linear-gradient(45deg, var(--azul-medio), var(--azul-agua));
 	color: white;
@@ -152,9 +143,27 @@ body {
 	margin-top: 20px;
 	width: 100%;
 }
-
 .btn-primario:hover {
 	background: linear-gradient(45deg, var(--azul-claro), var(--azul-medio));
+}
+
+
+/* ====== 4. DESIGN RESPONSIVO (MOBILE) ====== */
+@media (max-width: 1200px) {
+	/* Para tablets e telas menores, ajusta as colunas fixas */
+	.dashboard-container {
+		grid-template-columns: 280px 1fr 280px;
+		width: calc(100% - 40px);
+		gap: 20px;
+	}
+}
+
+@media (max-width: 992px) {
+	/* Para celulares, o layout vira uma coluna única */
+	.dashboard-container {
+		grid-template-columns: 1fr; /* Apenas uma coluna */
+		margin-top: 90px;
+	}
 }
 </style>
 </head>
@@ -171,13 +180,8 @@ body {
 	%>
 
 	<script>
-		// Passa dados para o JavaScript, se necessário (ex: para o header)
-		window.usuarioLogado =
-	<%=usuarioLogado != null ? "\"" + usuarioLogado.getNome() + "\"" : "null"%>
-		;
-		window.usuarioEmail =
-	<%=usuarioLogado != null ? "\"" + usuarioLogado.getEmail() + "\"" : "null"%>
-		;
+		window.usuarioLogado = <%=usuarioLogado != null ? "\"" + usuarioLogado.getNome() + "\"" : "null"%>;
+		window.usuarioEmail = <%=usuarioLogado != null ? "\"" + usuarioLogado.getEmail() + "\"" : "null"%>;
 	</script>
 
 	<script src="static/js/header.js"></script>
@@ -203,92 +207,45 @@ body {
 
 		<div class="dashboard-card comments-card">
 			<h2>Últimos comentários sobre agências</h2>
-
 			<%
-			// Busca as últimas 5 avaliações. O número 5 pode ser ajustado conforme sua necessidade.
-			List<AvaliacaoAgencia> ultimasAvaliacoes = aac.getUltimasAvaliacoes(5);
-			// Define um formato para exibir a data de forma amigável
+			List<AvaliacaoAgencia> ultimasAvaliacoes = aac.getUltimasAvaliacoes(4);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			%>
-
-			<%-- Verifica se a lista de avaliações está vazia --%>
-			<%
+			
 			if (ultimasAvaliacoes == null || ultimasAvaliacoes.isEmpty()) {
 			%>
-
-			<p>Nenhum comentário recente para exibir.</p>
-
+				<p>Nenhum comentário recente para exibir.</p>
 			<%
 			} else {
+				for (AvaliacaoAgencia avaliacao : ultimasAvaliacoes) {
 			%>
-
-			<%-- Inicia o loop para exibir cada avaliação --%>
+					<div class="comment-item">
+						<p class="comment-header">
+							<% for (int i = 1; i <= 5; i++) { %>
+								<span style="color: <%= (i <= avaliacao.getEscala()) ? "gold" : "#ccc" %>;">&#9733;</span>
+							<% } %><br>
+							<strong><%=avaliacao.getNomeUsuario()%></strong> avaliou a agência <strong><%=avaliacao.getNomeAgencia()%></strong>
+						</p>
+						<p class="comment-body">
+							<em>"<%=avaliacao.getSugestao()%>"</em>
+						</p>
+						<p class="comment-footer">
+							<small><%=avaliacao.getDataAvaliacao().format(formatter)%></small>
+						</p>
+					</div>
 			<%
-			for (AvaliacaoAgencia avaliacao : ultimasAvaliacoes) {
+				} // Fim do for
+			} // Fim do else
 			%>
-
-			<div class="comment-item">
-				<p class="comment-header">
-					<%-- Exibe o nome do usuário e da agência --%>
-					<%
-						int nota = avaliacao.getEscala();
-						%>
-						<%
-						for (int i = 1; i <= 5; i++) {
-						%>
-						<%
-						if (i <= nota) {
-						%>
-						<span style="color: gold;">&#9733;</span>
-						<%
-						} else {
-						%>
-						<span style="color: #ccc;">&#9733;</span>
-						<%
-						}
-						%>
-						<%
-						}
-						%>
-						<br>
-					<strong><%=avaliacao.getNomeUsuario()%></strong> enviou uma avaliação sobre a agência <strong><%=avaliacao.getNomeAgencia()%></strong>
-				</p>
-				<p class="comment-body">
-					<%-- Exibe a sugestão/comentário --%>
-					<em>"<%=avaliacao.getSugestao()%>"
-					</em>
-				</p>
-				<p class="comment-footer">
-					<%-- Exibe a data formatada --%>
-					<small><%=avaliacao.getDataAvaliacao().format(formatter)%></small>
-				</p>
-			</div>
-
-			<%
-			}
-			%>
-			<%-- Fim do loop for --%>
-
-			<%
-			}
-			%>
-			<%-- Fim do else --%>
-
 		</div>
 
 		<div class="right-column">
 			<div class="dashboard-card agencies-card">
 				<h2>TOP 5 AGENCIAS</h2>
-
 				<p>Nenhuma agência no ranking.</p>
-
 			</div>
-
 			<div class="dashboard-card places-card">
 				<h2>TOP 5 LUGARES</h2>
-
 				<p>Nenhum lugar no ranking.</p>
-
 			</div>
 		</div>
 
