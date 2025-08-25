@@ -22,7 +22,7 @@
                 UsuarioController userControl = new UsuarioController();
                 userControl.registerUsuario(usuario);
 
-                response.sendRedirect("login-usuario.html");
+                response.sendRedirect("login-usuario.jsp");
                 return;
 
             } catch (Exception e) {

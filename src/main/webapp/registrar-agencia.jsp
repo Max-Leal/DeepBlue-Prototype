@@ -42,7 +42,7 @@
                 AgenciaController agenciaControl = new AgenciaController();
                 agenciaControl.registerAgencia(agencia);
 
-                response.sendRedirect("login-agencia.html");
+                response.sendRedirect("login-agencia.jsp");
                 return;
 
             } catch (Exception e) {
