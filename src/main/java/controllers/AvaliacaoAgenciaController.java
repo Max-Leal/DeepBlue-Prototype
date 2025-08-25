@@ -4,11 +4,16 @@ import java.util.List;
 
 import daos.AvaliacaoAgenciaDao;
 import models.AvaliacaoAgencia;
+import models.AvaliacaoLocal;
 
 public class AvaliacaoAgenciaController {
 
 	public List<AvaliacaoAgencia> getAvaliacoesPorAgencia(Long id){
 		return AvaliacaoAgenciaDao.getAvaliacoesPorAgencia(id);
+	}
+	
+	public List<AvaliacaoAgencia> getUltimasAvaliacoes(int limit) {
+		return AvaliacaoAgenciaDao.getUltimasAvaliacoes(limit);
 	}
 	
     // Cadastrar uma nova avaliação
