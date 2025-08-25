@@ -1,4 +1,6 @@
-<%@ page import="models.Agencia, models.Usuario" %>
+<%@ page import="models.Agencia" %>
+<%@ page import="java.util.List" %>
+<%@ page import="models.Local" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -143,167 +145,88 @@
 
 <body>
 
-	<div class="page-wrapper">
+	<script src="static/js/header.js"></script>
 	<%
-    Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+
     Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
+	
+	
+
 %>
 <script>
-    window.usuarioLogado = <%= usuarioLogado != null ? "\"" + usuarioLogado.getNome() + "\"" : "null" %>;
-    window.usuarioEmail = <%= usuarioLogado != null ? "\"" + usuarioLogado.getEmail() + "\"" : "null" %>;
     window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
     window.agenciaEmail = <%= agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null" %>;
 </script>
 	
-        <script src="static/js/header.js"></script>
+       
+				
 
-		<section class="accordion-wrapper">
-			<div class="accordion">
-				<div class="accordion-item">
-					<input type="checkbox" id="formToggle"> <label for="formToggle" class="accordion-header"> <span
-							class="accordion-title"><i class="fas fa-plus-circle"></i>
-							Cadastrar Novo Local</span> <span class="accordion-icon">▼</span>
-					</label>
-					<div class="accordion-content">
-						<form action="painel-adicionar-local.jsp" method="post" autocomplete="off"
-							style="max-width: 600px; margin: auto;">
-							<div class="form-group">
-								<label for="localidade"><i class="fas fa-location-dot"></i>
-									Localidade:</label> <input type="text" id="localidade" name="localidade"
-									class="input-padrao" required>
-							</div>
+         <h1>Seus Dados</h1>
 
-							<div class="form-group">
-								<label for="situacao"><i class="fas fa-flag"></i>
-									Situação:</label> <select id="situacao" name="situacao" class="select-padrao"
-									required>
-									<option value="INDISPONÍVEL" selected>INDISPONÍVEL</option>
-									<option value="DISPONÍVEL">DISPONÍVEL</option>
-								</select>
-							</div>
+      <p><strong>Nome:</strong> ${sessionScope.agenciaLogada.nomeEmpresarial}</p>
+      <p><strong>CNPJ:</strong> ${sessionScope.agenciaLogada.cnpj}</p>
+      <p><strong>Email:</strong> ${sessionScope.agenciaLogada.email}</p>
+      <p><strong>Senha:</strong> ${sessionScope.agenciaLogada.senha}</p>
+      <p><strong>Situação:</strong> ${sessionScope.agenciaLogada.situacao}</p>
+      <p><strong>Descrição:</strong> ${sessionScope.agenciaLogada.descricao}</p>
+      <p><strong>CEP:</strong> ${sessionScope.agenciaLogada.cep}</p>
+      <p><strong>Telefone:</strong> ${sessionScope.agenciaLogada.telefone}</p>
+      <p><strong>WhatsApp:</strong> ${sessionScope.agenciaLogada.whatsapp}</p>
+      <p><strong>Instagram:</strong> ${sessionScope.agenciaLogada.instagram}</p>
+      <button onclick="window.location.href='editar-agencia.jsp'" class="btn-primario">Editar Dados</button>
+      
+      <div>
+      <button onclick="window.location.href='cadastrar-local.jsp'" class="btn-primario">Cadastrar Local</button>
+       </div>
+       
+      <%
+@SuppressWarnings("unchecked")
+List<Local> locais = (List<Local>) request.getAttribute("locais");
 
-							<div class="form-group">
-								<label for="nome"><i class="fas fa-map-marker-alt"></i>
-									Nome do Local:</label> <input type="text" id="nome" name="nome" class="input-padrao"
-									required>
-							</div>
-
-							<div class="form-group">
-								<label for="descricao"><i class="fas fa-align-left"></i>
-									Descrição:</label>
-								<textarea id="descricao" name="descricao" rows="2" class="input-padrao"
-									required></textarea>
-							</div>
-
-							<div class="form-group">
-								<label for="latitude"><i class="fas fa-arrows-alt-v"></i>
-									Latitude:</label> <input type="text" id="latitude" name="latitude"
-									class="input-padrao" required>
-							</div>
-
-							<div class="form-group">
-								<label for="longitude"><i class="fas fa-arrows-alt-h"></i>
-									Longitude:</label> <input type="text" id="longitude" name="longitude"
-									class="input-padrao" required>
-							</div>
-
-							<div class="form-group">
-								<label><i class="fas fa-water"></i> Serviços oferecidos:</label>
-								<div
-									style="display: flex; gap: 1.5rem; flex-wrap: wrap; padding-left: 0.3rem; align-items: center;">
-									<label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-										<input type="checkbox" id="oferecePasseio" name="oferecePasseio">
-										Passeio
-									</label>
-									<label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-										<input type="checkbox" id="ofereceMergulho" name="ofereceMergulho">
-										Mergulho
-									</label>
-								</div>
-							</div>
-
-
-							<input type="hidden" id="idAgencia" name="idAgencia">
-
-							<div style="text-align: center;">
-								<button type="submit" class="btn-primario">
-									<i class="fas fa-plus"></i> Cadastrar Local
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</section>
+if (locais != null && !locais.isEmpty()) {
+%>
+<table border="1">
+    <tr>
+        <th>Nome</th>
+        <th>Localidade</th>
+        <th>Descrição</th>
+        <th>Tipo Embarcação</th>
+        <th>Ano Afundamento</th>
+        <th>Profundidade</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+    </tr>
+    <%
+        for (Local l : locais) {
+    %>
+    <tr>
+        <td><%= l.getNome() %></td>
+        <td><%= l.getLocalidade() %></td>
+        <td><%= l.getDescricao() %></td>
+        <td><%= l.getTipoEmbarcacao() %></td>
+        <td><%= l.getAnoAfundamento() %></td>
+        <td><%= l.getProfundidade() %></td>
+        <td><%= l.getLatitude() %></td>
+        <td><%= l.getLongitude() %></td>
+    </tr>
+    <%
+        }
+    %>
+</table>
+<%
+} else {
+%>
+<p>Nenhum local cadastrado.</p>
+<%
+}
+%>
+      
+		
 		<!--<footer class="footer">
 			<p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
 		</footer>-->
-	</div>
+	
 
-
-	<script>
-
-
-		document.addEventListener('DOMContentLoaded', () => {
-			const el = document.getElementById("informacoes-login");
-			const usuario = localStorage.getItem("usuario");
-			const agencia = localStorage.getItem("agencia");
-
-			const dados = usuario ? JSON.parse(usuario) : agencia ? JSON.parse(agencia) : null;
-			const nome = dados?.nome || dados?.nomeEmpresarial;
-			const email = dados?.email;
-
-			if (el && nome && email) {
-				const div = document.createElement("div");
-				div.className = "usuario-logado";
-
-				["Bem-vindo, " + nome, email].forEach(text => {
-					div.appendChild(document.createTextNode(text));
-					div.appendChild(document.createElement("br"));
-				});
-
-				const btn = document.createElement("button");
-				btn.textContent = "Sair";
-				btn.id = "logout-btn";
-				btn.style.marginTop = "0.5rem";
-				btn.onclick = () => {
-					localStorage.removeItem("usuario");
-					localStorage.removeItem("agencia");
-					location.reload();
-				};
-
-				div.appendChild(btn);
-				el.replaceWith(div);
-			}
-		});
-
-
-
-		function logout() {
-			localStorage.removeItem("usuario");
-			localStorage.removeItem("agencia");
-			location.reload();
-		}
-
-		document.addEventListener('DOMContentLoaded', () => {
-			const agenciaStorage = localStorage.getItem('agencia');
-			if (agenciaStorage) {
-				try {
-					const agenciaObj = JSON.parse(agenciaStorage);
-					const agenciaId = agenciaObj.id;
-					if (agenciaId) {
-						document.getElementById('idAgencia').value = agenciaId;
-					} else {
-						alert("Erro: ID da agência não encontrado no objeto.");
-					}
-				} catch (e) {
-					alert("Erro ao interpretar os dados da agência.");
-				}
-			} else {
-				alert("Erro: Objeto 'Agencia' não encontrado no localStorage.");
-			}
-		});
-	</script>
 
 </body>
 

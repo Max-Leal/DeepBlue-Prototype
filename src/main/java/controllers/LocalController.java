@@ -33,7 +33,7 @@ public class LocalController {
 	}
 	
 	public int cadastrarLocalRetornandoId(Local local) {
-	    return LocalDao.insertAndReturnId(local);
+	    return LocalDao.inserirERetornarId(local);
 	}
 
 }
