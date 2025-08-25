@@ -11,6 +11,51 @@ import utils.ConexaoDB;
 
 public class AvaliacaoAgenciaDao {
 	
+	public static List<AvaliacaoAgencia> getUltimasAvaliacoes(int limit) {
+        List<AvaliacaoAgencia> avaliacoes = new ArrayList<>();
+        
+        // Consulta SQL com JOINs para buscar nomes e ordenação por data
+        String sql = "SELECT ava.*, usu.nome AS nome_usuario, age.nome_empresarial AS nome_agencia " +
+                     "FROM tb_avaliacao_agencia ava " +
+                     "JOIN tb_usuario usu ON ava.tb_usuario_id = usu.id " +
+                     "JOIN tb_agencia age ON ava.tb_agencia_id = age.id " +
+                     "ORDER BY ava.data_avaliacao DESC " +
+                     "LIMIT ?";
+
+        try (Connection con = ConexaoDB.getConexao();
+             PreparedStatement stm = con.prepareStatement(sql)) {
+
+            stm.setInt(1, limit);
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    AvaliacaoAgencia a = new AvaliacaoAgencia();
+                    
+                    // Populando dados da tabela tb_avaliacao_agencia
+                    a.setId(rs.getLong("id"));
+                    a.setEscala(rs.getInt("escala"));
+                    a.setSugestao(rs.getString("sugestao"));
+                    a.setUsuarioId(rs.getLong("tb_usuario_id"));
+                    a.setAgenciaId(rs.getLong("tb_agencia_id"));
+                    if (rs.getTimestamp("data_avaliacao") != null) {
+                        a.setDataAvaliacao(rs.getTimestamp("data_avaliacao").toLocalDateTime());
+                    }
+
+                    // Populando dados obtidos com os JOINs
+                    a.setNomeUsuario(rs.getString("nome_usuario"));
+                    a.setNomeAgencia(rs.getString("nome_agencia"));
+
+                    avaliacoes.add(a);
+                }
+            }
+        } catch (Exception e) {
+            // Lança uma exceção de runtime para sinalizar um erro grave na camada de dados
+            throw new RuntimeException("Erro ao buscar as últimas avaliações: " + e.getMessage(), e);
+        }
+
+        return avaliacoes;
+    }
+
+	
 	public static List<AvaliacaoAgencia> getAvaliacoesPorAgencia(Long id) {
 	    List<AvaliacaoAgencia> avaliacoes = new ArrayList<>();
 	    try {
