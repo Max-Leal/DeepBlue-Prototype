@@ -245,6 +245,11 @@ body {
 </head>
 
 <body>
+
+	<script>
+    window.usuarioLogado = <%= usuarioLogado != null ? "\"" + usuarioLogado.getNome() + "\"" : "null" %>;
+    window.usuarioEmail = <%= usuarioLogado != null ? "\"" + usuarioLogado.getEmail() + "\"" : "null" %>;
+	</script>
 	<script src="static/js/header.js"></script>
 
 	<div class="form-container">
