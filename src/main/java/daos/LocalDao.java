@@ -12,7 +12,7 @@ import utils.ConexaoDB;
 
 public class LocalDao {
 
-    public static int insertAndReturnId(Local local) {
+    public static int inserirERetornarId(Local local) {
         int id = -1;
         try (Connection conn = ConexaoDB.getConexao()) {
             String sql = "INSERT INTO tb_local (nome, localidade, descricao, tipo_embarcacao, ano_afundamento, profundidade, situacao, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -41,6 +41,60 @@ public class LocalDao {
         }
         return id;
     }
+    
+    public void vincularAgenciaLocal(Long idLocal, Long idAgencia) {
+        try {
+            Connection con = ConexaoDB.getConexao();
+            String sql = "INSERT INTO tb_agencia_local (id_local, id_agencia) VALUES (?, ?)";
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setLong(1, idLocal);
+            stm.setLong(2, idAgencia);
+            stm.executeUpdate();
+            stm.close();
+            con.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+    
+    public List<Local> listarPorAgencia(long idAgencia) {
+        List<Local> locais = new ArrayList<>();
+        try (Connection con = ConexaoDB.getConexao()) {
+            String sql = "SELECT l.id, l.nome, l.localidade, l.descricao, l.tipo_embarcacao, " +
+                         "l.ano_afundamento, l.profundidade, l.situacao, l.latitude, l.longitude " +
+                         "FROM tb_local l " +
+                         "INNER JOIN tb_agencia_local la ON l.id = la.id_local " +
+                         "WHERE la.id_agencia = ?";
+            
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setLong(1, idAgencia);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                Local local = new Local();
+                local.setId(rs.getLong("id"));
+                local.setNome(rs.getString("nome"));
+                local.setLocalidade(rs.getString("localidade"));
+                local.setDescricao(rs.getString("descricao"));
+                local.setTipoEmbarcacao(rs.getString("tipo_embarcacao"));
+                local.setAnoAfundamento(rs.getInt("ano_afundamento"));
+                local.setProfundidade(rs.getDouble("profundidade"));
+                local.setSituacao(Situacao.valueOf(rs.getString("situacao").toUpperCase()));
+                local.setLatitude(rs.getString("latitude"));
+                local.setLongitude(rs.getString("longitude"));
+
+                locais.add(local);
+            }
+
+            rs.close();
+            stm.close();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao listar locais: " + e.getMessage());
+        }
+
+        return locais;
+    }
+
 
     public static List<Local> getLista() {
         List<Local> lista = new ArrayList<>();
