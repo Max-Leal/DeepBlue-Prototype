@@ -106,6 +106,36 @@ escalaAgencia = escalaAgencia / avaliacoes.size();
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+.agency-contact-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem; /* Adiciona um espaço antes das estrelas */
+}
+
+.agency-name {
+	margin: 0;
+	font-size: 2.5rem; /* Mantém o tamanho original do seu H1 */
+	color: var(--azul-escuro);
+}
+
+.chat-button {
+	padding: 10px 18px;
+	font-size: 1em;
+	font-weight: bold;
+	color: white;
+	background-color: var(--azul-escuro); /* Usa a cor do seu tema */
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	white-space: nowrap; /* Impede que o texto quebre linha */
+}
+
+.chat-button:hover {
+	background-color: var(--azul-medio); /* Usa a cor do seu tema */
+}
+
 section {
 	margin-top: 2rem;
 	margin-bottom: 2rem;
@@ -272,7 +302,14 @@ section {
 			<%
 			if (agencia != null) {
 			%>
-			<h1 style="margin: 0px; padding: 0px"><%=agencia.getNomeEmpresarial()%></h1>
+			<div class="agency-contact-container">
+				<h1 class="agency-name"><%=agencia.getNomeEmpresarial()%></h1>
+				<button class="chat-button"
+					data-chave="agencia-<%=agencia.getId()%>"
+					data-nome="<%=agencia.getNomeEmpresarial()%>"
+					onclick="iniciarChatComAgencia(this)">Iniciar Conversa</button>
+			</div>
+
 			<h3 style="margin: 0px; margin-bottom: 10px">
 
 				<%
@@ -519,9 +556,11 @@ section {
             header.classList.remove('scrolled');
         }
     });
+    
+    
     </script>
-    
-    <jsp:include page="components/chat.jsp" />
-    
+
+	<jsp:include page="components/chat.jsp" />
+
 </body>
 </html>
