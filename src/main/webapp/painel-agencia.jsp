@@ -1,6 +1,7 @@
 <%@ page import="models.Agencia" %>
 <%@ page import="java.util.List" %>
 <%@ page import="models.Local" %>
+<%@ page import="daos.LocalDao" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -14,159 +15,190 @@
 		rel="stylesheet">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<head>
 
 	<style>
-		:root {
-			--azul-profundo: #01203a;
-			--azul-escuro: #1e3a8a;
-			--azul-medio: #3b82f6;
-			--azul-agua: #60a5fa;
-			--azul-claro: #93c5fd;
-		}
+	:root {
+    --azul-profundo: #01203a;
+    --azul-escuro: #1e3a8a;
+    --azul-medio: #3b82f6;
+    --azul-agua: #60a5fa;
+    --azul-claro: #93c5fd;
+    --cinza-fundo: #f4f6f9;
+    --cinza-claro: #e5e7eb;
+    --cinza-texto: #374151;
+}
 
-		body {
-			font-family: 'Poppins', sans-serif;
-			margin: 0;
-			padding: 0;
-			background-color: #f4f6f9;
-		}
 
-		.accordion-wrapper {
-			margin-top: 120px;
-		}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-		.accordion {
-			max-width: 700px;
-			margin: 40px auto;
-			background-color: #fff;
-			border-radius: 8px;
-			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-		}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--cinza-fundo);
+    color: var(--cinza-texto);
+    line-height: 1.6;
+}
 
-		.accordion-item {
-			border-bottom: 1px solid #ddd;
-		}
 
-		input[type="checkbox"] {
-			display: none;
-		}
+.page-wrapper {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
 
-		.accordion-header {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding: 15px 20px;
-			cursor: pointer;
-			background-color: #f8f9fa;
-			transition: background-color 0.3s ease;
-		}
+p {
+    margin: 0.3rem 0;
+}
 
-		.accordion-header:hover {
-			background-color: #e9ecef;
-		}
 
-		.accordion-title {
-			font-size: 16px;
-			color: #212529;
-		}
+h1{
+    color: var(--azul-profundo);
+    margin-bottom: 1rem;
+    text-align: center;
+}
 
-		.accordion-icon {
-			transition: transform 0.3s ease;
-			font-size: 18px;
-		}
 
-		input[type="checkbox"]:checked+label .accordion-icon {
-			transform: rotate(180deg);
-		}
 
-		.accordion-content {
-			max-height: 0;
-			overflow: hidden;
-			background-color: white;
-			padding: 0 20px;
-			transition: max-height 0.4s ease, padding 0.4s ease;
-		}
+.btn-primario {
+    background: linear-gradient(45deg, var(--azul-medio), var(--azul-agua));
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.05rem;
+    box-shadow: 0 3px 6px rgba(59,130,246,0.2);
+    display: flex;
+    text-align: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
 
-		input[type="checkbox"]:checked~.accordion-content {
-			max-height: 1000px;
-			padding: 20px;
-		}
+.btn-primario:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(45deg, var(--azul-claro), var(--azul-medio));
+    box-shadow: 0 5px 12px rgba(59,130,246,0.3);
+}
 
-		.form-group {
-			margin-bottom: 1.5rem;
-			display: flex;
-			flex-direction: column;
-		}
 
-		.input-padrao,
-		.select-padrao {
-			padding: 0.6rem 1rem;
-			border: 1px solid var(--azul-claro);
-			border-radius: 8px;
-			font-size: 1rem;
-			outline: none;
-			transition: 0.3s;
-			font-family: 'Poppins', sans-serif;
-		}
 
-		.input-padrao:focus,
-		.select-padrao:focus {
-			border-color: var(--azul-medio);
-			box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
-		}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
 
-		.btn-primario {
-			background: linear-gradient(45deg, var(--azul-medio), var(--azul-agua));
-			color: white;
-			border: none;
-			padding: 0.8rem 2rem;
-			border-radius: 30px;
-			font-weight: 600;
-			cursor: pointer;
-			transition: background 0.3s ease;
-			font-size: 1rem;
-		}
+table th {
+    background-color: var(--azul-profundo);
+    color: #fff;
+    text-align: left;
+    padding: 0.9rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
 
-		.btn-primario:hover {
-			background: linear-gradient(45deg, var(--azul-claro), var(--azul-medio));
-		}
+table td {
+    padding: 0.9rem;
+    border-bottom: 1px solid var(--cinza-claro);
+    font-size: 0.9rem;
+}
 
-		/* Garante checkbox visível e com tamanho padrão */
-		input[type="checkbox"] {
-			appearance: auto !important;
-			-webkit-appearance: checkbox !important;
-			width: 1rem;
-			height: 1rem;
-			margin-right: 0.5rem;
-			vertical-align: middle;
-		}
+table tr:hover td {
+    background-color: var(--azul-claro);
+    color: #fff;
+    transition: 0.2s;
+}
+
+
+.page-wrapper > p strong {
+    color: var(--azul-medio);
+}
+
+@media (max-width: 768px) {
+    .page-wrapper {
+        padding: 1rem;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    table tr {
+        margin-bottom: 1rem;
+        border: 1px solid var(--cinza-claro);
+        border-radius: 12px;
+        padding: 0.8rem;
+        background: #fff;
+    }
+
+    table td {
+        border: none;
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--azul-escuro);
+    }
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--azul-profundo);
+    color: white;
+    z-index: 1000;
+    height: 100px; 
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.page-wrapper {
+    padding-top: 90px; 
+}
 	</style>
 </head>
 
 <body>
 
-	<script src="static/js/header.js"></script>
+	
 	<%
 
     Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
 	
-	
-
 %>
 <script>
     window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
     window.agenciaEmail = <%= agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null" %>;
-</script>
-	
-       
-				
+    </script>
+    
+    <script src="static/js/header.js"></script>
 
+
+	<div class="page-wrapper">
          <h1>Seus Dados</h1>
 
       <p><strong>Nome:</strong> ${sessionScope.agenciaLogada.nomeEmpresarial}</p>
       <p><strong>CNPJ:</strong> ${sessionScope.agenciaLogada.cnpj}</p>
       <p><strong>Email:</strong> ${sessionScope.agenciaLogada.email}</p>
-      <p><strong>Senha:</strong> ${sessionScope.agenciaLogada.senha}</p>
       <p><strong>Situação:</strong> ${sessionScope.agenciaLogada.situacao}</p>
       <p><strong>Descrição:</strong> ${sessionScope.agenciaLogada.descricao}</p>
       <p><strong>CEP:</strong> ${sessionScope.agenciaLogada.cep}</p>
@@ -175,53 +207,63 @@
       <p><strong>Instagram:</strong> ${sessionScope.agenciaLogada.instagram}</p>
       <button onclick="window.location.href='editar-agencia.jsp'" class="btn-primario">Editar Dados</button>
       
-      <div>
-      <button onclick="window.location.href='cadastrar-local.jsp'" class="btn-primario">Cadastrar Local</button>
-       </div>
+      
        
-      <%
-@SuppressWarnings("unchecked")
-List<Local> locais = (List<Local>) request.getAttribute("locais");
-
-if (locais != null && !locais.isEmpty()) {
+   <%
+    @SuppressWarnings("unchecked")
+    List<Local> locais = (List<Local>) request.getAttribute("locais");
+    if (locais == null) {
+        LocalDao dao = new LocalDao();
+        locais = dao.listarPorAgencia(agenciaLogada.getId());
+        request.setAttribute("locais", locais);
+    }
 %>
-<table border="1">
-    <tr>
-        <th>Nome</th>
-        <th>Localidade</th>
-        <th>Descrição</th>
-        <th>Tipo Embarcação</th>
-        <th>Ano Afundamento</th>
-        <th>Profundidade</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
-    </tr>
+
+<h1>Locais cadastrados</h1>
+
+<%
+    if (locais != null && !locais.isEmpty()) {
+%>
+    <table border="1">
+        <tr>
+            <th>Nome</th>
+            <th>Localidade</th>
+            <th>Descrição</th>
+            <th>Tipo Embarcação</th>
+            <th>Ano Afundamento</th>
+            <th>Profundidade</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+        </tr>
     <%
         for (Local l : locais) {
     %>
-    <tr>
-        <td><%= l.getNome() %></td>
-        <td><%= l.getLocalidade() %></td>
-        <td><%= l.getDescricao() %></td>
-        <td><%= l.getTipoEmbarcacao() %></td>
-        <td><%= l.getAnoAfundamento() %></td>
-        <td><%= l.getProfundidade() %></td>
-        <td><%= l.getLatitude() %></td>
-        <td><%= l.getLongitude() %></td>
-    </tr>
+        <tr>
+            <td><%= l.getNome() %></td>
+            <td><%= l.getLocalidade() %></td>
+            <td><%= l.getDescricao() %></td>
+            <td><%= l.getTipoEmbarcacao() %></td>
+            <td><%= l.getAnoAfundamento() %></td>
+            <td><%= l.getProfundidade() %></td>
+            <td><%= l.getLatitude() %></td>
+            <td><%= l.getLongitude() %></td>
+        </tr>
     <%
         }
     %>
-</table>
+    </table>
 <%
-} else {
+    } else {
 %>
-<p>Nenhum local cadastrado.</p>
+    <p>Nenhum local cadastrado.</p>
 <%
-}
-%>
-      
-		
+    }
+%>		
+       <div>
+      <button onclick="window.location.href='cadastrar-local.jsp'" class="btn-primario">Cadastrar Local</button>
+       </div>
+       </div>
+       
 		<!--<footer class="footer">
 			<p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
 		</footer>-->
