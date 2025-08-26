@@ -1,275 +1,409 @@
-<%@ page import="models.Agencia" %>
-<%@ page import="java.util.List" %>
-<%@ page import="models.Local" %>
-<%@ page import="daos.LocalDao" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ page
+	import="models.Agencia, java.util.List, models.Local, daos.LocalDao"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Painel Agência - Cadastrar Locais</title>
-	<link rel="stylesheet" href="static/css/main-styles.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-		rel="stylesheet">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<head>
+<meta charset="UTF-8">
+<title>Painel Agência - Seus Dados e Locais</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<style>
-	:root {
-    --azul-profundo: #01203a;
-    --azul-escuro: #1e3a8a;
-    --azul-medio: #3b82f6;
-    --azul-agua: #60a5fa;
-    --azul-claro: #93c5fd;
-    --cinza-fundo: #f4f6f9;
-    --cinza-claro: #e5e7eb;
-    --cinza-texto: #374151;
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+	rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+	rel="stylesheet">
+
+<style>
+/* Paleta de Cores e Variáveis Globais */
+:root {
+	--azul-profundo: #01203a;
+	--azul-escuro: #1e3a8a;
+	--azul-medio: #3b82f6;
+	--azul-agua: #60a5fa;
+	--azul-claro: #EBF3FF; /* Cor mais suave para fundos e hovers */
+	--cinza-fundo: #f4f6f9;
+	--cinza-borda: #e5e7eb;
+	--cinza-texto: #374151;
+	--branco: #ffffff;
+	--sombra-leve: 0 4px 12px rgba(0, 0, 0, 0.06);
+	--sombra-media: 0 8px 30px rgba(0, 0, 0, 0.1);
+	--raio-borda: 12px;
 }
 
-
+/* Estilos Base */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--cinza-fundo);
-    color: var(--cinza-texto);
-    line-height: 1.6;
+	font-family: 'Poppins', sans-serif;
+	background-color: var(--cinza-fundo);
+	color: var(--cinza-texto);
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
-
+/* Container Principal */
 .page-wrapper {
-    max-width: 1100px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+	max-width: 1200px;
+	margin: 2rem auto;
+	padding: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 2.5rem;
 }
 
-p {
-    margin: 0.3rem 0;
+/* Títulos */
+h1, h2 {
+	color: var(--azul-profundo);
+	font-weight: 700;
 }
 
-
-h1{
-    color: var(--azul-profundo);
-    margin-bottom: 1rem;
-    text-align: center;
+h1 {
+	font-size: 2.2rem;
+	text-align: center;
+	margin-bottom: 0.5rem;
 }
 
+h2 {
+	font-size: 1.8rem;
+	padding-bottom: 0.8rem;
+	border-bottom: 2px solid var(--azul-medio);
+	margin-bottom: 1.5rem;
+}
 
+/* Card de Informações da Agência */
+.info-card {
+	background: var(--branco);
+	border-radius: var(--raio-borda);
+	padding: 2rem;
+	box-shadow: var(--sombra-leve);
+	transition: box-shadow 0.3s ease;
+	margin-top: 12.5%;
+}
+
+.info-card:hover {
+	box-shadow: var(--sombra-media);
+}
+
+.info-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 1.5rem;
+}
+
+.info-item {
+	display: flex;
+	flex-direction: column;
+}
+
+.info-item strong {
+	font-weight: 600;
+	color: var(--azul-escuro);
+	font-size: 0.9rem;
+	margin-bottom: 0.2rem;
+}
+
+.info-item span {
+	font-size: 1rem;
+}
+
+/* Botões */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
+	padding: 0.8rem 1.8rem;
+	border: none;
+	border-radius: 50px;
+	font-weight: 600;
+	font-size: 1rem;
+	cursor: pointer;
+	text-decoration: none;
+	transition: all 0.3s ease;
+}
 
 .btn-primario {
-    background: linear-gradient(45deg, var(--azul-medio), var(--azul-agua));
-    color: white;
-    border: none;
-    padding: 0.8rem 2rem;
-    border-radius: 50px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1.05rem;
-    box-shadow: 0 3px 6px rgba(59,130,246,0.2);
-    display: flex;
-    text-align: center;
-    gap: 1.5rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+	background: linear-gradient(45deg, var(--azul-medio), var(--azul-escuro));
+	color: white;
+	box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25);
 }
 
 .btn-primario:hover {
-    transform: translateY(-2px);
-    background: linear-gradient(45deg, var(--azul-claro), var(--azul-medio));
-    box-shadow: 0 5px 12px rgba(59,130,246,0.3);
+	transform: translateY(-3px);
+	box-shadow: 0 6px 15px rgba(59, 130, 246, 0.35);
 }
 
-
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1.5rem;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+.card-actions {
+	margin-top: 2rem;
+	text-align: right;
 }
 
-table th {
-    background-color: var(--azul-profundo);
-    color: #fff;
-    text-align: left;
-    padding: 0.9rem;
-    font-weight: 600;
-    font-size: 0.95rem;
+/* Container da Tabela */
+.table-container {
+	background-color: var(--branco);
+	border-radius: var(--raio-borda);
+	box-shadow: var(--sombra-leve);
+	padding: 2rem;
+	overflow-x: auto;
+	/* Garante que a tabela não quebre o layout em telas menores */
 }
 
-table td {
-    padding: 0.9rem;
-    border-bottom: 1px solid var(--cinza-claro);
-    font-size: 0.9rem;
+.table-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1.5rem;
+	flex-wrap: wrap;
+	gap: 1rem;
 }
 
-table tr:hover td {
-    background-color: var(--azul-claro);
-    color: #fff;
-    transition: 0.2s;
+.table-header h2 {
+	margin: 0;
+	border: none;
 }
 
-
-.page-wrapper > p strong {
-    color: var(--azul-medio);
+/* Tabela */
+.data-table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
-@media (max-width: 768px) {
-    .page-wrapper {
-        padding: 1rem;
-    }
-
-    table, thead, tbody, th, td, tr {
-        display: block;
-    }
-
-    table tr {
-        margin-bottom: 1rem;
-        border: 1px solid var(--cinza-claro);
-        border-radius: 12px;
-        padding: 0.8rem;
-        background: #fff;
-    }
-
-    table td {
-        border: none;
-        display: flex;
-        justify-content: space-between;
-        padding: 0.5rem 0;
-    }
-
-    table td::before {
-        content: attr(data-label);
-        font-weight: 600;
-        color: var(--azul-escuro);
-    }
-}
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: var(--azul-profundo);
-    color: white;
-    z-index: 1000;
-    height: 100px; 
-    display: flex;
-    align-items: center;
-    padding: 0 2rem;
+.data-table th, .data-table td {
+	padding: 1rem;
+	text-align: left;
+	vertical-align: middle;
+	border-bottom: 1px solid var(--cinza-borda);
 }
 
-.page-wrapper {
-    padding-top: 90px; 
+.data-table thead th {
+	background-color: var(--azul-profundo);
+	color: var(--branco);
+	font-weight: 600;
+	font-size: 0.9rem;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
 }
-	</style>
+
+/* Estilo para cantos arredondados do cabeçalho */
+.data-table thead th:first-child {
+	border-top-left-radius: 8px;
+}
+
+.data-table thead th:last-child {
+	border-top-right-radius: 8px;
+}
+
+.data-table tbody tr {
+	transition: background-color 0.2s ease;
+}
+
+/* Efeito Zebra-striping */
+.data-table tbody tr:nth-child(even) {
+	background-color: var(--cinza-fundo);
+}
+
+.data-table tbody tr:hover {
+	background-color: var(--azul-claro);
+}
+
+.data-table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+.no-data-message {
+	text-align: center;
+	padding: 2rem;
+	font-style: italic;
+	color: #6c757d;
+}
+
+/* Responsividade */
+@media ( max-width : 768px) {
+	.page-wrapper {
+		padding: 1rem;
+		margin: 1rem auto;
+	}
+	h1 {
+		font-size: 1.8rem;
+	}
+	h2 {
+		font-size: 1.5rem;
+	}
+	.info-card, .table-container {
+		padding: 1.5rem;
+	}
+	.info-grid {
+		grid-template-columns: 1fr; /* Coluna única em telas menores */
+		gap: 1rem;
+	}
+	.card-actions {
+		text-align: center;
+	}
+
+	/* Transforma a tabela em lista de cards */
+	.data-table thead {
+		display: none;
+	}
+	.data-table, .data-table tbody, .data-table tr, .data-table td {
+		display: block;
+		width: 100%;
+	}
+	.data-table tr {
+		margin-bottom: 1rem;
+		border: 1px solid var(--cinza-borda);
+		border-radius: var(--raio-borda);
+		padding: 1rem;
+	}
+	.data-table td {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border: none;
+		padding: 0.6rem 0;
+	}
+	.data-table td::before {
+		content: attr(data-label);
+		font-weight: 600;
+		color: var(--azul-escuro);
+		padding-right: 1rem;
+	}
+}
+</style>
 </head>
 
 <body>
 
-	
 	<%
+	Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
+	%>
+	<script>
+		window.agenciaLogada =
+	<%=agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null"%>
+		;
+		window.agenciaEmail =
+	<%=agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null"%>
+		;
+	</script>
 
-    Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
-	
-%>
-<script>
-    window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
-    window.agenciaEmail = <%= agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null" %>;
-    </script>
-    
-    <script src="static/js/header.js"></script>
-
-
+	<script src="static/js/header.js"></script>
 	<div class="page-wrapper">
-         <h1>Seus Dados</h1>
 
-      <p><strong>Nome:</strong> ${sessionScope.agenciaLogada.nomeEmpresarial}</p>
-      <p><strong>CNPJ:</strong> ${sessionScope.agenciaLogada.cnpj}</p>
-      <p><strong>Email:</strong> ${sessionScope.agenciaLogada.email}</p>
-      <p><strong>Situação:</strong> ${sessionScope.agenciaLogada.situacao}</p>
-      <p><strong>Descrição:</strong> ${sessionScope.agenciaLogada.descricao}</p>
-      <p><strong>CEP:</strong> ${sessionScope.agenciaLogada.cep}</p>
-      <p><strong>Telefone:</strong> ${sessionScope.agenciaLogada.telefone}</p>
-      <p><strong>WhatsApp:</strong> ${sessionScope.agenciaLogada.whatsapp}</p>
-      <p><strong>Instagram:</strong> ${sessionScope.agenciaLogada.instagram}</p>
-      <button onclick="window.location.href='editar-agencia.jsp'" class="btn-primario">Editar Dados</button>
-      
-      
-       
-   <%
-    @SuppressWarnings("unchecked")
-    List<Local> locais = (List<Local>) request.getAttribute("locais");
-    if (locais == null) {
-        LocalDao dao = new LocalDao();
-        locais = dao.listarPorAgencia(agenciaLogada.getId());
-        request.setAttribute("locais", locais);
-    }
-%>
+		<section class="info-card">
+			<h2>
+				<i class="fas fa-building"></i> Seus Dados
+			</h2>
+			<div class="info-grid">
+				<div class="info-item">
+					<strong>Nome Empresarial:</strong> <span>${sessionScope.agenciaLogada.nomeEmpresarial}</span>
+				</div>
+				<div class="info-item">
+					<strong>CNPJ:</strong> <span>${sessionScope.agenciaLogada.cnpj}</span>
+				</div>
+				<div class="info-item">
+					<strong>Email:</strong> <span>${sessionScope.agenciaLogada.email}</span>
+				</div>
+				<div class="info-item">
+					<strong>Situação:</strong> <span>${sessionScope.agenciaLogada.situacao}</span>
+				</div>
+				<div class="info-item">
+					<strong>CEP:</strong> <span>${sessionScope.agenciaLogada.cep}</span>
+				</div>
+				<div class="info-item">
+					<strong>Telefone:</strong> <span>${sessionScope.agenciaLogada.telefone}</span>
+				</div>
+				<div class="info-item">
+					<strong>WhatsApp:</strong> <span>${sessionScope.agenciaLogada.whatsapp}</span>
+				</div>
+				<div class="info-item">
+					<strong>Instagram:</strong> <span>${sessionScope.agenciaLogada.instagram}</span>
+				</div>
+				<div class="info-item" style="grid-column: 1/-1;">
+					<strong>Descrição:</strong> <span>${sessionScope.agenciaLogada.descricao}</span>
+				</div>
+			</div>
+			<div class="card-actions">
+				<a href="editar-agencia.jsp" class="btn btn-primario"> <i
+					class="fas fa-pencil-alt"></i> Editar Dados
+				</a>
+			</div>
+		</section>
 
-<h1>Locais cadastrados</h1>
+		<div class="table-container">
+			<div class="table-header">
+				<h2>
+					<i class="fas fa-map-marker-alt"></i> Locais Vinculados
+				</h2>
+				<a href="vincular-local.jsp" class="btn btn-primario"> <i
+					class="fas fa-plus"></i> Vincular-se a um local
+				</a>
+			</div>
 
-<%
-    if (locais != null && !locais.isEmpty()) {
-%>
-    <table border="1">
-        <tr>
-            <th>Nome</th>
-            <th>Localidade</th>
-            <th>Descrição</th>
-            <th>Tipo Embarcação</th>
-            <th>Ano Afundamento</th>
-            <th>Profundidade</th>
-            <th>Latitude</th>
-            <th>Longitude</th>
-        </tr>
-    <%
-        for (Local l : locais) {
-    %>
-        <tr>
-            <td><%= l.getNome() %></td>
-            <td><%= l.getLocalidade() %></td>
-            <td><%= l.getDescricao() %></td>
-            <td><%= l.getTipoEmbarcacao() %></td>
-            <td><%= l.getAnoAfundamento() %></td>
-            <td><%= l.getProfundidade() %></td>
-            <td><%= l.getLatitude() %></td>
-            <td><%= l.getLongitude() %></td>
-        </tr>
-    <%
-        }
-    %>
-    </table>
-<%
-    } else {
-%>
-    <p>Nenhum local cadastrado.</p>
-<%
-    }
-%>		
-       <div>
-      <button onclick="window.location.href='cadastrar-local.jsp'" class="btn-primario">Cadastrar Local</button>
-       </div>
-       </div>
-       
-		<!--<footer class="footer">
-			<p>&copy; 2025 DeepBlue. Todos os direitos reservados.</p>
-		</footer>-->
-	
+			<%
+			@SuppressWarnings("unchecked")
+			List<Local> locais = (List<Local>) request.getAttribute("locais");
+			if (locais == null) {
+				LocalDao dao = new LocalDao();
+				locais = dao.listarPorAgencia(agenciaLogada.getId());
+				request.setAttribute("locais", locais);
+			}
 
+			if (locais != null && !locais.isEmpty()) {
+			%>
+			<table class="data-table">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Localidade</th>
+						<th>Embarcação</th>
+						<th>Profundidade</th>
+						<th>Latitude</th>
+						<th>Longitude</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%
+					for (Local l : locais) {
+					%>
+					<tr>
+						<td data-label="Nome"><%=l.getNome()%></td>
+						<td data-label="Localidade"><%=l.getLocalidade()%></td>
+						<td data-label="Embarcação"><%=l.getTipoEmbarcacao()%> (<%=l.getAnoAfundamento()%>)</td>
+						<td data-label="Profundidade"><%=l.getProfundidade()%>m</td>
+						<td data-label="Latitude"><%=l.getLatitude()%></td>
+						<td data-label="Longitude"><%=l.getLongitude()%></td>
+					</tr>
+					<%
+					}
+					%>
+				</tbody>
+			</table>
+			<%
+			} else {
+			%>
+			<div class="no-data-message">
+				<p>Nenhum local vínculado no momento.</p>
+			</div>
+			<%
+			}
+			%>
+		</div>
 
+	</div>
+	<jsp:include page="components/chat.jsp" />
 </body>
-
 </html>
