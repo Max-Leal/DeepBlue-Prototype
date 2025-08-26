@@ -118,8 +118,7 @@ body::before {
 	</div>
 
 	<script>
-
-
+	
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
@@ -162,13 +161,12 @@ body::before {
                 locais = todosLocais;
             }
         %>
-
+        
         <% for (Local local : locais) { %>
             L.marker([<%= local.getLatitude() %>, <%= local.getLongitude() %>])
                 .addTo(map)
                 .bindPopup('<b><%= local.getNome() %></b><br><%= local.getDescricao() %><br><a href="local-detalhe.jsp?id=<%= local.getId() %>">Ver detalhes</a>');
         <%}%>
-
     </script>
 
 	<jsp:include page="components/chat.jsp" />
