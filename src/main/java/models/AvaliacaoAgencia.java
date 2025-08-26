@@ -10,6 +10,8 @@ public class AvaliacaoAgencia {
     private Long usuarioId;
     private Long agenciaId;
     private LocalDateTime dataAvaliacao;
+    private String nomeUsuario;
+    private String nomeAgencia;
 
     public AvaliacaoAgencia() {
     }
@@ -30,7 +32,24 @@ public class AvaliacaoAgencia {
         this.dataAvaliacao = dataAvaliacao;
     }
 
-    // Getters e Setters
+    
+	// Getters e Setters
+    public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
+	}
+
+	public String getNomeAgencia() {
+		return nomeAgencia;
+	}
+
+	public void setNomeAgencia(String nomeAgencia) {
+		this.nomeAgencia = nomeAgencia;
+	}
+
     public Long getId() {
         return id;
     }

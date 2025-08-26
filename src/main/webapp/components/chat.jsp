@@ -5,6 +5,7 @@
 <%@ page
 	import="java.util.List, java.util.Set, java.util.HashSet, java.util.Map, java.util.HashMap, java.util.ArrayList"%>
 <%@ page import="java.time.LocalDateTime"%>
+<%@ page import="java.time.format.DateTimeFormatter"%>
 
 <%-- Importações necessárias para o Gson e o novo adaptador --%>
 <%@ page import="com.google.gson.Gson"%>
@@ -13,6 +14,7 @@
 <%-- Certifique-se que o pacote está correto --%>
 
 <%
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 // --- Bloco de Autenticação (sem alterações) ---
 Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
 Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
@@ -99,7 +101,7 @@ if (logado) {
      data-chave="<%= chaveConversa %>" 
      data-nome="<%= nomeContato %>">
 			<span class="name-contact"><%=nomeContato%></span> <span
-				class="time-contact"><%=m.getDataEnvio()%></span>
+				class="time-contact"><%=m.getDataEnvio().format(formatter)%></span>
 		</div>
 		<%
 		conversasProcessadas.add(chaveConversa);
