@@ -1,14 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page
-	import="models.Usuario, models.AvaliacaoAgencia, models.RankingLocal"%>
+	import="models.Usuario, models.AvaliacaoAgencia, models.RankingLocal, models.RankingAgencia"%>
 <%@ page
-	import="controllers.AvaliacaoAgenciaController, controllers.RankingLocalController"%>
+	import="controllers.AvaliacaoAgenciaController, controllers.RankingLocalController, controllers.RankingAgenciaController"%>
 <%@ page import="java.time.format.DateTimeFormatter"%>
 <%@ page import="java.util.*"%>
 
 <%
 AvaliacaoAgenciaController aac = new AvaliacaoAgenciaController();
 RankingLocalController rl = new RankingLocalController();
+RankingAgenciaController ra = new RankingAgenciaController();
 %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -295,12 +296,36 @@ body {
 		<div class="right-column">
 			<div class="dashboard-card agencies-card">
 				<h2>TOP 5 AGENCIAS</h2>
-				<p>Nenhuma agência no ranking.</p>
+				<%
+				
+				List<RankingAgencia> rankingAgencia = ra.getRankingAgencia(5);
+
+				if (rankingAgencia == null || rankingAgencia.isEmpty()) {
+				%>
+				<p>Nenhuma agência no ranking ainda.</p>
+				<%
+				} else {
+				%>
+				<ol class="ranking-list">
+					<%
+					for (RankingAgencia ranka : rankingAgencia) {
+					%>
+					<li><a href="agencia-detalhe.jsp?id=<%=ranka.getIdAgencia()%>"><span
+							class="ranking-name"><%=ranka.getNomeAgencia()%></span></a> <span
+						class="ranking-score"><%=String.format("%.1f", ranka.getMediaEscala())%></span>
+					</li>
+					<%
+					} 
+					%>
+				</ol>
+				<%
+				} 
+				%>
 			</div>
 			<div class="dashboard-card places-card">
 				<h2>TOP 5 LOCAIS</h2>
 				<%
-				// Supondo que 'rl' seja seu controller e 'getRankingLocal' o método
+				
 				List<RankingLocal> rankingLocal = rl.getRankingLocal(5);
 
 				if (rankingLocal == null || rankingLocal.isEmpty()) {
@@ -318,11 +343,11 @@ body {
 						class="ranking-score"><%=String.format("%.1f", rankl.getMediaEscala())%></span>
 					</li>
 					<%
-					} // Fim do for
+					} 
 					%>
 				</ol>
 				<%
-				} // Fim do else
+				} 
 				%>
 			</div>
 		</div>

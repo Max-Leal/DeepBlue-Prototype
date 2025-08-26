@@ -7,7 +7,7 @@ import models.RankingAgencia;
 
 public class RankingAgenciaController {
 
-	public List<RankingAgencia> getRankingLocal(int limit) {
+	public List<RankingAgencia> getRankingAgencia(int limit) {
 		return RankingAgenciaDao.getRankingAgencia(limit);
 	}
 }
