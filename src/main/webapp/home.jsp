@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ page import="models.Usuario, models.AvaliacaoAgencia"%>
-<%@ page import="controllers.AvaliacaoAgenciaController"%>
+<%@ page import="models.Usuario, models.AvaliacaoAgencia, models.RankingLocal"%>
+<%@ page import="controllers.AvaliacaoAgenciaController, controllers.RankingLocalController"%>
 <%@ page import="java.time.format.DateTimeFormatter"%>
 <%@ page import="java.util.*"%>
 
 <%
-// A instância do controller é criada aqui para ser usada no corpo da página
 AvaliacaoAgenciaController aac = new AvaliacaoAgenciaController();
+RankingLocalController rl = new RankingLocalController();
 %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -245,7 +245,17 @@ body {
 			</div>
 			<div class="dashboard-card places-card">
 				<h2>TOP 5 LUGARES</h2>
-				<p>Nenhum lugar no ranking.</p>
+				<%
+				List<RankingLocal> rankingLocal = rl.getRankingLocal(5);
+						for (RankingLocal rankl : rankingLocal) {
+							%>
+							<div>
+								<span><%=rankl.getNomeLocal() %></span>
+							</div>
+							<%
+						}
+				%>
+				
 			</div>
 		</div>
 
