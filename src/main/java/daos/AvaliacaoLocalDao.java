@@ -10,7 +10,7 @@ import models.AvaliacaoLocal;
 import utils.ConexaoDB;
 
 public class AvaliacaoLocalDao {
-
+	
 	public static List<AvaliacaoLocal> getAvaliacoesPorLocal(Long idLocal) {
 	    List<AvaliacaoLocal> lista = new ArrayList<>();
 
@@ -52,7 +52,7 @@ public class AvaliacaoLocalDao {
             stm.setLong(1, avaliacao.getIdLocal());
             stm.setLong(2, avaliacao.getIdUsuario());
             stm.setString(3, avaliacao.getTexto());
-            stm.setString(4, String.valueOf(avaliacao.getEscala())); // ENUM armazenado como String
+            stm.setString(4, String.valueOf(avaliacao.getEscala()));
             stm.execute();
             stm.close();
             con.close();
@@ -89,7 +89,7 @@ public class AvaliacaoLocalDao {
             throw new RuntimeException("Erro ao buscar avaliação por ID: " + e.getMessage());
         }
     }
-
+    
     public static List<AvaliacaoLocal> getAll() {
         List<AvaliacaoLocal> lista = new ArrayList<>();
         try {

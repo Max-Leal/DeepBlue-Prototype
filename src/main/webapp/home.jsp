@@ -1,12 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ page import="models.Usuario, models.AvaliacaoAgencia"%>
-<%@ page import="controllers.AvaliacaoAgenciaController"%>
+<%@ page
+	import="models.Usuario, models.AvaliacaoAgencia, models.RankingLocal, models.RankingAgencia"%>
+<%@ page
+	import="controllers.AvaliacaoAgenciaController, controllers.RankingLocalController, controllers.RankingAgenciaController"%>
 <%@ page import="java.time.format.DateTimeFormatter"%>
 <%@ page import="java.util.*"%>
 
 <%
-// A instância do controller é criada aqui para ser usada no corpo da página
 AvaliacaoAgenciaController aac = new AvaliacaoAgenciaController();
+RankingLocalController rl = new RankingLocalController();
+RankingAgenciaController ra = new RankingAgenciaController();
 %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -55,9 +58,9 @@ body {
 .dashboard-container {
 	display: grid;
 	grid-template-columns: 2fr 5fr 3fr;
-	gap: 30px; 
+	gap: 30px;
 	align-items: start;
-	margin: 7.5% 2.5%; 
+	margin: 7.5% 2.5%;
 }
 
 /* ====== 3. ESTILOS DOS CARDS ====== */
@@ -116,15 +119,18 @@ body {
 	padding-bottom: 15px;
 	margin-bottom: 15px;
 }
+
 .comment-item:last-child {
 	border-bottom: none;
 	margin-bottom: 0;
 	padding-bottom: 0;
 }
+
 .comment-header, .comment-body, .comment-footer {
 	margin: 0;
 	padding: 4px 0;
 }
+
 .comment-footer small {
 	color: #888;
 }
@@ -143,13 +149,51 @@ body {
 	margin-top: 20px;
 	width: 100%;
 }
+
 .btn-primario:hover {
 	background: linear-gradient(45deg, var(--azul-claro), var(--azul-medio));
 }
 
+.ranking-list {
+	list-style: none; /* Remove os números padrão */
+	padding-left: 0;
+	counter-reset: ranking-counter; /* Inicia um contador */
+}
+
+.ranking-list li {
+	counter-increment: ranking-counter;
+	/* Incrementa o contador a cada item */
+	margin-bottom: 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 1rem;
+	padding-bottom: 10px;
+	border-bottom: 1px solid var(--cor-borda-suave);
+}
+
+.ranking-list li:last-child {
+	border-bottom: none;
+}
+
+.ranking-list li::before {
+	content: "#" counter(ranking-counter); /* Exibe o contador */
+	font-weight: 600;
+	color: var(--azul-medio);
+	margin-right: 15px;
+	min-width: 25px; /* Alinha os números */
+}
+
+.ranking-score {
+	font-weight: 700;
+	color: var(--azul-escuro);
+	background-color: var(--fundo-pagina);
+	padding: 4px 8px;
+	border-radius: 6px;
+}
 
 /* ====== 4. DESIGN RESPONSIVO (MOBILE) ====== */
-@media (max-width: 1200px) {
+@media ( max-width : 1200px) {
 	/* Para tablets e telas menores, ajusta as colunas fixas */
 	.dashboard-container {
 		grid-template-columns: 280px 1fr 280px;
@@ -158,7 +202,7 @@ body {
 	}
 }
 
-@media (max-width: 992px) {
+@media ( max-width : 992px) {
 	/* Para celulares, o layout vira uma coluna única */
 	.dashboard-container {
 		grid-template-columns: 1fr; /* Apenas uma coluna */
@@ -180,8 +224,12 @@ body {
 	%>
 
 	<script>
-		window.usuarioLogado = <%=usuarioLogado != null ? "\"" + usuarioLogado.getNome() + "\"" : "null"%>;
-		window.usuarioEmail = <%=usuarioLogado != null ? "\"" + usuarioLogado.getEmail() + "\"" : "null"%>;
+		window.usuarioLogado =
+	<%=usuarioLogado != null ? "\"" + usuarioLogado.getNome() + "\"" : "null"%>
+		;
+		window.usuarioEmail =
+	<%=usuarioLogado != null ? "\"" + usuarioLogado.getEmail() + "\"" : "null"%>
+		;
 	</script>
 
 	<script src="static/js/header.js"></script>
@@ -210,42 +258,97 @@ body {
 			<%
 			List<AvaliacaoAgencia> ultimasAvaliacoes = aac.getUltimasAvaliacoes(4);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			
+
 			if (ultimasAvaliacoes == null || ultimasAvaliacoes.isEmpty()) {
 			%>
-				<p>Nenhum comentário recente para exibir.</p>
+			<p>Nenhum comentário recente para exibir.</p>
 			<%
 			} else {
-				for (AvaliacaoAgencia avaliacao : ultimasAvaliacoes) {
+			for (AvaliacaoAgencia avaliacao : ultimasAvaliacoes) {
 			%>
-					<div class="comment-item">
-						<p class="comment-header">
-							<% for (int i = 1; i <= 5; i++) { %>
-								<span style="color: <%= (i <= avaliacao.getEscala()) ? "gold" : "#ccc" %>;">&#9733;</span>
-							<% } %><br>
-							<strong><%=avaliacao.getNomeUsuario()%></strong> avaliou a agência <strong><%=avaliacao.getNomeAgencia()%></strong>
-						</p>
-						<p class="comment-body">
-							<em>"<%=avaliacao.getSugestao()%>"</em>
-						</p>
-						<p class="comment-footer">
-							<small><%=avaliacao.getDataAvaliacao().format(formatter)%></small>
-						</p>
-					</div>
+			<div class="comment-item">
+				<p class="comment-header">
+					<%
+					for (int i = 1; i <= 5; i++) {
+					%>
+					<span
+						style="color: <%=(i <= avaliacao.getEscala()) ? "gold" : "#ccc"%>;">&#9733;</span>
+					<%
+					}
+					%><br> <strong><%=avaliacao.getNomeUsuario()%></strong>
+					avaliou a agência <strong><%=avaliacao.getNomeAgencia()%></strong>
+				</p>
+				<p class="comment-body">
+					<em>"<%=avaliacao.getSugestao()%>"
+					</em>
+				</p>
+				<p class="comment-footer">
+					<small><%=avaliacao.getDataAvaliacao().format(formatter)%></small>
+				</p>
+			</div>
 			<%
-				} // Fim do for
-			} // Fim do else
+			} 
+			} 
 			%>
 		</div>
 
+
 		<div class="right-column">
 			<div class="dashboard-card agencies-card">
-				<h2>TOP 5 AGENCIAS</h2>
-				<p>Nenhuma agência no ranking.</p>
+				<h2>TOP 5 AGÊNCIAS</h2>
+				<%
+				
+				List<RankingAgencia> rankingAgencia = ra.getRankingAgencia(5);
+
+				if (rankingAgencia == null || rankingAgencia.isEmpty()) {
+				%>
+				<p>Nenhuma agência no ranking ainda.</p>
+				<%
+				} else {
+				%>
+				<ol class="ranking-list">
+					<%
+					for (RankingAgencia ranka : rankingAgencia) {
+					%>
+					<li><a href="agencia-detalhe.jsp?id=<%=ranka.getIdAgencia()%>"><span
+							class="ranking-name"><%=ranka.getNomeAgencia()%></span></a> <span
+						class="ranking-score"><%=String.format("%.1f", ranka.getMediaEscala())%></span>
+					</li>
+					<%
+					} 
+					%>
+				</ol>
+				<%
+				} 
+				%>
 			</div>
 			<div class="dashboard-card places-card">
-				<h2>TOP 5 LUGARES</h2>
-				<p>Nenhum lugar no ranking.</p>
+				<h2>TOP 5 LOCAIS</h2>
+				<%
+				
+				List<RankingLocal> rankingLocal = rl.getRankingLocal(5);
+
+				if (rankingLocal == null || rankingLocal.isEmpty()) {
+				%>
+				<p>Nenhum local no ranking ainda.</p>
+				<%
+				} else {
+				%>
+				<ol class="ranking-list">
+					<%
+					for (RankingLocal rankl : rankingLocal) {
+					%>
+					<li><a href="local-detalhe.jsp?id=<%=rankl.getIdLocal()%>"><span
+							class="ranking-name"><%=rankl.getNomeLocal()%></span></a> <span
+						class="ranking-score"><%=String.format("%.1f", rankl.getMediaEscala())%></span>
+					</li>
+					<%
+					} 
+					%>
+				</ol>
+				<%
+				} 
+				%>
 			</div>
 		</div>
 

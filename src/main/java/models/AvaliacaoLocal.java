@@ -9,6 +9,7 @@ public class AvaliacaoLocal {
     private String texto;
     private int escala; 
     private LocalDateTime dataComentario;
+    private String nomeLocal;
 
     public AvaliacaoLocal() {}
 
@@ -35,11 +36,21 @@ public class AvaliacaoLocal {
 
 	// Getters e Setters
 
+		
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public String getNomeLocal() {
+		return nomeLocal;
+	}
+
+
+	public void setNomeLocal(String nomeLocal) {
+		this.nomeLocal = nomeLocal;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 
