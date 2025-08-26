@@ -1,13 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page import="controllers.LocalController"%>
-<%@ page import="models.Local, models.Agencia, models.Usuario"%>
+<%@ page import="models.Local, models.Agencia"%>
 <%@ page import="java.util.*"%>
-
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Mapa Interativo - DeepBlue</title>
 <link rel="stylesheet" href="static/css/main-styles.css">
 <link rel="stylesheet" href="static/css/mapa-styles.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,6 +22,7 @@
 	href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 	crossorigin=""></script>
+<title>Vincular local - DeepBlue</title>
 <style>
 body {
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -59,9 +59,9 @@ body::before {
 	padding: 10px;
 	margin: 0;
 	border-radius: 0; /* Define as bordas quadradas */
-	flex-grow: 1; /* Permite que o input ocupe o espaÁo disponÌvel */
+	flex-grow: 1; /* Permite que o input ocupe o espa√ßo dispon√≠vel */
 	font-size: 1rem;
-	border-right: none; /* Remove a borda direita para unir ao bot„o */
+	border-right: none; /* Remove a borda direita para unir ao bot√£o */
 }
 
 .search-container button {
@@ -78,18 +78,15 @@ body::before {
 .search-container button:hover {
 	background-color: #02579b; /* Cor para o efeito hover */
 }
+
 </style>
 </head>
-
 <body>
 	<div class="page-wrapper">
 		<%
-    Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
     Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
 %>
 		<script>
-    window.usuarioLogado = <%= usuarioLogado != null ? "\"" + usuarioLogado.getNome() + "\"" : "null" %>;
-    window.usuarioEmail = <%= usuarioLogado != null ? "\"" + usuarioLogado.getEmail() + "\"" : "null" %>;
     window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
     window.agenciaEmail = <%= agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null" %>;
 </script>
@@ -106,7 +103,7 @@ body::before {
 						<button type="submit">Buscar</button>
 					</form>
 				</div>
-				<section class="mapa-container">
+				<section class="mapa-container" style="max-height: 10% !Override;">
 					<div id="map"></div>
 				</section>
 			</div>
@@ -168,8 +165,5 @@ body::before {
                 .bindPopup('<b><%= local.getNome() %></b><br><%= local.getDescricao() %><br><a href="local-detalhe.jsp?id=<%= local.getId() %>">Ver detalhes</a>');
         <%}%>
     </script>
-
-	<jsp:include page="components/chat.jsp" />
 </body>
-
 </html>
