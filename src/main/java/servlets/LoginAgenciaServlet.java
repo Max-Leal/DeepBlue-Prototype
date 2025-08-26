@@ -15,10 +15,10 @@ import models.Agencia;
 public class LoginAgenciaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	
-    	
+
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
 
@@ -29,7 +29,9 @@ public class LoginAgenciaServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("agenciaLogada", agencia);
             session.setAttribute("tipo", "agencia");
-            response.sendRedirect("painel-agencia.jsp");
+
+            // redireciona para o servlet de listagem
+            response.sendRedirect(request.getContextPath() + "/ListarLocaisServlet");
         } else {
             request.setAttribute("erroLogin", "E-mail ou senha inválidos.");
             request.getRequestDispatcher("login-agencia.jsp").forward(request, response);
