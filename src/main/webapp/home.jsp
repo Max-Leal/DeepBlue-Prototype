@@ -287,15 +287,15 @@ body {
 				</p>
 			</div>
 			<%
-			} // Fim do for
-			} // Fim do else
+			} 
+			} 
 			%>
 		</div>
 
 
 		<div class="right-column">
 			<div class="dashboard-card agencies-card">
-				<h2>TOP 5 AGENCIAS</h2>
+				<h2>TOP 5 AGÊNCIAS</h2>
 				<%
 				
 				List<RankingAgencia> rankingAgencia = ra.getRankingAgencia(5);
