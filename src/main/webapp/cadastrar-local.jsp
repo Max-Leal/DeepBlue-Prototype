@@ -9,235 +9,263 @@
 <meta charset="UTF-8">
 <title>Cadastro de Locais</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="static/css/main-styles.css">
+	<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+	rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
 :root {
-    --azul-profundo: #01203a;
-    --azul-escuro: #1e3a8a;
-    --azul-medio: #3b82f6;
-    --azul-agua: #60a5fa;
-    --azul-claro: #93c5fd;
-    --cinza-fundo: #f4f6f9;
-    --cinza-texto: #374151;
-    --erro: #dc2626;
-    --sucesso: #16a34a;
+	--azul-profundo: #01203a;
+	--azul-escuro: #1e3a8a;
+	--azul-medio: #3b82f6;
+	--azul-agua: #60a5fa;
+	--cinza-fundo: #f4f6f9;
+	--cinza-borda: #d1d5db;
+	--cinza-texto: #374151;
+	--branco: #ffffff;
+	--sombra-leve: 0 4px BRL12px rgba(0, 0, 0, 0.06);
+	--raio-borda: 12px;
 }
 
-/* Reset básico */
+/* Estilos Base */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background: var(--cinza-fundo);
-    color: var(--cinza-texto);
-    padding-top: 70px; /* altura do header */
+	font-family: 'Poppins', sans-serif;
+	background-color: var(--cinza-fundo);
+	color: var(--cinza-texto);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	padding: 2rem 1rem;
+	margin:30px;
 }
 
-/* Header fixo */
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: var(--azul-profundo);
-    color: white;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 600;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-    z-index: 1000;
+/* Container do Formulário */
+.form-container {
+	width: 100%;
+	max-width: 800px;
+	background: var(--branco);
+	padding: 2.5rem;
+	border-radius: var(--raio-borda);
+	box-shadow: var(--sombra-leve);
+	margin-top: 10%;
 }
 
-/* Container central */
-.container {
-    max-width: 1000px;
-    margin: 2rem auto;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+.form-header {
+	text-align: center;
+	margin-bottom: 2rem;
 }
 
-/* Card dados da agência */
-.agencia-card {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-    text-align: center;
+.form-header h2 {
+	font-size: 1.8rem;
+	color: var(--azul-profundo);
+	font-weight: 700;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.8rem;
 }
 
-.agencia-card p {
-    margin-bottom: 0.5rem;
+/* Layout em Grade para os Campos */
+.form-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1.5rem;
 }
 
-.agencia-card strong {
-    color: var(--azul-escuro);
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }
 
-/* Botão editar e cadastrar */
-.agencia-card button,
-.cadastrar-btn {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.8rem 2rem;
-    border: none;
-    border-radius: 50px;
-    background: linear-gradient(45deg, var(--azul-medio), var(--azul-agua));
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    text-align: center;
+/* Classe para campos que ocupam a largura total */
+.form-group.full-width {
+	grid-column: 1/-1;
 }
 
-.agencia-card button:hover,
-.cadastrar-btn:hover {
-    transform: translateY(-3px); /* leve "elevação" */
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    background: linear-gradient(45deg, var(--azul-agua), var(--azul-medio)); /* gradiente invertido */
+label {
+	font-weight: 600;
+	font-size: 0.9rem;
+	color: var(--azul-escuro);
 }
 
-
-/* Tabela locais */
-.table-wrapper {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+.input-padrao, .select-padrao, textarea.input-padrao {
+	width: 100%;
+	padding: 0.75rem 1rem;
+	border: 1px solid var(--cinza-borda);
+	border-radius: 8px;
+	font-size: 1rem;
+	font-family: 'Poppins', sans-serif;
+	transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.table-wrapper h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
+.input-padrao:focus, .select-padrao:focus {
+	outline: none;
+	border-color: var(--azul-medio);
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
-h2 {
-    text-align: center;
-    margin-bottom: 2.5rem;
-}
-.table-wrapper table {
-    width: 70%;
-    border-collapse: collapse;
-    border-radius: 16px;
-    overflow: hidden;
+textarea.input-padrao {
+	min-height: 80px;
+	resize: vertical;
 }
 
-th, td {
-    padding: 0.8rem 1rem;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
+/* Botão */
+.form-actions {
+	text-align: center;
+	margin-top: 2rem;
 }
 
-th {
-    background: var(--azul-profundo);
-    color: white;
+.btn {
+	border: none;
+	padding: 0.8rem 2rem;
+	border-radius: 30px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	font-size: 1rem;
+	text-decoration: none;
+	text-align: center;
 }
 
-tr:nth-child(even) {
-    background: #f9f9f9;
+.btn-primario {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
+	background: linear-gradient(45deg, var(--azul-medio), var(--azul-escuro));
+	color: white;
+	border: none;
+	padding: 0.9rem 2.2rem;
+	border-radius: 50px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	font-size: 1.05rem;
+	box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25);
 }
 
-/* Mensagens */
-.mensagem-erro,
-.mensagem-sucesso {
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1rem;
+.btn-primario:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 6px 15px rgba(59, 130, 246, 0.35);
 }
 
+.btn-secundario {
+	background-color: transparent;
+	color: var(--azul-medio);
+	border: 2px solid var(--azul-medio);
+}
 
+.btn-secundario:hover {
+	background-color: var(--azul-medio);
+	color: white;
+}
+
+/* Responsividade */
+@media ( max-width : 768px) {
+	.form-grid {
+		grid-template-columns: 1fr; /* Coluna única */
+	}
+	.form-container {
+		padding: 1.5rem;
+	}
+}
 </style>
 </head>
 <body>
-<script src="static/js/header.js"></script>
 
+ <div class="page-wrapper">
 <%
 Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
-if (agenciaLogada == null) {
-    response.sendRedirect("login-agencia.jsp");
-    return;
-}
-
 %>
-<script>
+	<script>
 window.agenciaLogada = <%= agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null" %>;
 window.agenciaEmail = <%= agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null" %>;
 </script>
 
-<% 
-@SuppressWarnings("unchecked")
-List<Local> locais = (List<Local>) request.getAttribute("locais");
-if (locais == null) {
-    LocalDao dao = new LocalDao();
-    locais = dao.listarPorAgencia(agenciaLogada.getId());
-    request.setAttribute("locais", locais);
-}
-%>
+  <script src="static/js/header.js"></script>
 
-<% if(request.getAttribute("erro") != null) { %>
-<p class="mensagem-erro"><%= request.getAttribute("erro") %></p>
-<% } %>
+    <main class="form-container">
+		<div class="form-header">
+			<h2>
+				<i class="fas fa-plus"></i> Cadastrar novo local
+			</h2>
+		</div>
 
-<% if(request.getAttribute("mensagemSucesso") != null) { %>
-<p class="mensagem-sucesso"><%= request.getAttribute("mensagemSucesso") %></p>
-<% } %>
+		<form action="CadastrarLocalServlet" method="post" autocomplete="off">
+			
 
-<div class="container">
-    
-    <div class="agencia-card">
-    
-        <h2>Seus Dados</h2>
-        
-        <p><strong>Nome:</strong> <%= agenciaLogada.getNomeEmpresarial() %></p>
-        <p><strong>CNPJ:</strong> <%= agenciaLogada.getCnpj() %></p>
-        <p><strong>Email:</strong> <%= agenciaLogada.getEmail() %></p>
-        <p><strong>Situação:</strong> <%= agenciaLogada.getSituacao() %></p>
-        <p><strong>Descrição:</strong> <%= agenciaLogada.getDescricao() %></p>
-        <p><strong>CEP:</strong> <%= agenciaLogada.getCep() %></p>
-        <p><strong>Telefone:</strong> <%= agenciaLogada.getTelefone() %></p>
-        <p><strong>WhatsApp:</strong> <%= agenciaLogada.getWhatsapp() %></p>
-        <p><strong>Instagram:</strong> <%= agenciaLogada.getInstagram() %></p>
-        <button onclick="window.location.href='editar-agencia.jsp'">Editar Dados</button>
-    </div>
+			<div class="form-grid">
+				<div class="form-group full-width">
+					<label for="nome">Nome:</label> <input
+						type="text" id="nome" name="nome"
+						class="input-padrao"required>
+				</div>
 
-    <!-- Tabela de Locais -->
-    <div class="table-wrapper">
-        <h2>Locais Cadastrados</h2>
-        <% if(locais != null && !locais.isEmpty()) { %>
-        <table>
-            <tr>
-                <th>Nome</th>
-                <th>Localidade</th>
-                <th>Descrição</th>
-                <th>Tipo Embarcação</th>
-                <th>Ano Afundamento</th>
-                <th>Profundidade</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-            </tr>
-            <% for(Local l : locais) { %>
-            <tr>
-                <td><%= l.getNome() %></td>
-                <td><%= l.getLocalidade() %></td>
-                <td><%= l.getDescricao() %></td>
-                <td><%= l.getTipoEmbarcacao() %></td>
-                <td><%= l.getAnoAfundamento() %></td>
-                <td><%= l.getProfundidade() %></td>
-                <td><%= l.getLatitude() %></td>
-                <td><%= l.getLongitude() %></td>
-            </tr>
-            <% } %>
-        </table>
-        <% } else { %>
-        <p style="text-align:center;">Nenhum local cadastrado.</p>
-        <% } %>
-        <button class="cadastrar-btn" onclick="window.location.href='cadastrar-local.jsp'">Cadastrar Local</button>
-    </div>
+				<div class="form-group full-width">
+					<label for="localidade">Localidade:</label> <input type="text" id="localidade"
+						name="localidade" class="input-padrao" required>
+				</div>
+
+				<div class="form-group">
+					<label for="descricao">Descrição:</label> <input type="text" id="descricao"
+						name="descricao" class="input-padrao"required>
+				</div>
+
+				<div class="form-group">
+					<label for="TipoEmbarcacao">Tipo de Embarcação:</label> <input type="text" id="TipoEmbarcacao"
+						name="TipoEmbarcacao" class="input-padrao" required>
+				</div>
+
+				<div class="form-group">
+					<label for="anoAfundamento">Ano de Afundamento:</label> <input type="number" id="anoAfundamento"
+						name="anoAfundamento" class="input-padrao">
+				</div>
+				<div class="form-group">
+					<label for="profundidade">Profundidade (m):</label> <input type="number" id="profundidade"
+						name="profundidade" class="input-padrao">
+				</div>
+
+				<div class="form-group">
+				
+					 <label for="situacao">Situação:</label>
+					 <select id="situacao" name="situacao" class="input-padrao"required>
+               <option value="">Selecione</option>
+                <option value="DISPONIVEL">Disponível</option>
+                 <option value="INDIPONIVEL">Indisponível</option>
+                 </select>
+				</div>
+
+				<div class="form-group">
+					<label for="latitude">Latitude:</label> <input type="text"
+						id="latitude" name="latitude" class="input-padrao">
+				</div>
+
+				<div class="form-group">
+					<label for="longitude">Longitude:</label> <input type="text"
+						id="longitude" name="longitude" class="input-padrao">
+				</div>
+			<div class="form-actions">
+			    <a href="painel-agencia.jsp" class="btn btn-secundario">Cancelar</a>
+				<button type="submit" class="btn-primario">
+					<i class="fas fa-plus"></i> Cadastrar
+				</button>
+			</div>
+		</div>
+	</form>
+ </main>
 </div>
+			
+
+
 
 </body>
 </html>
