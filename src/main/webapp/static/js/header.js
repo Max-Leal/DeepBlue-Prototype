@@ -45,11 +45,20 @@
     header.innerHTML = `
         <header class="header" id="header">
             <div class="logo">DeepBlue</div>
-            <nav>
-                <a href="index.html"><i class="fas fa-home"></i> Início</a>
+            
+            <!-- Botão hamburguer -->
+            <div class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <div class="nav-links" id="nav-links">
+                <a href="index.html"><i class="fas fa-water"></i> Início</a>
                 <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
                 <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
                 <a href="faq.jsp"><i class="fas fa-comments"></i> FAQ</a>
+            </div>
+
+            <nav>
                 ${menuLoginHTML}
             </nav>
         </header>`;
@@ -102,13 +111,15 @@
             text-shadow: 0 0 30px rgba(96, 165, 250, 0.5);
         }
 
-        nav {
+        /* Centraliza os links principais */
+        .nav-links {
             display: flex;
             gap: 2rem;
-            align-items: center;
+            justify-content: center;
+            flex: 1;
         }
 
-        nav a {
+        .nav-links a {
             color: white;
             text-decoration: none;
             font-weight: 500;
@@ -119,7 +130,7 @@
             overflow: hidden;
         }
 
-        nav a::before {
+        .nav-links a::before {
             content: '';
             position: absolute;
             top: 0;
@@ -131,13 +142,21 @@
             z-index: -1;
         }
 
-        nav a:hover::before {
+        .nav-links a:hover::before {
             left: 0;
         }
 
-        nav a:hover {
+        .nav-links a:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(96, 165, 250, 0.4);
+        }
+
+        /* Botão hamburguer */
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: white;
         }
 
         /* Estilo para usuário/agência logado */
@@ -191,8 +210,52 @@
             background-color: var(--vermelho);
             color: white;
         }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(1, 32, 58, 0.98);
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+                align-items: center;
+                display: none;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .header {
+                justify-content: space-between;
+            }
+        }
     `;
 
     document.head.appendChild(style);
     document.body.prepend(header);
+
+    // Script para abrir/fechar menu no mobile
+    setTimeout(() => {
+        const toggle = document.getElementById("menu-toggle");
+        const nav = document.getElementById("nav-links");
+
+        if (toggle && nav) {
+            toggle.addEventListener("click", () => {
+                nav.classList.toggle("show");
+            });
+        }
+    }, 100);
 })();
