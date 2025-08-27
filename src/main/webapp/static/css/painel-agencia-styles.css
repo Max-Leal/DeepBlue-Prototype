@@ -1,0 +1,275 @@
+@charset "UTF-8";
+
+:root {
+	--azul-profundo: #01203a;
+	--azul-escuro: #1e3a8a;
+	--azul-medio: #3b82f6;
+	--azul-agua: #60a5fa;
+	--azul-claro: #EBF3FF; /* Cor mais suave para fundos e hovers */
+	--cinza-fundo: #f4f6f9;
+	--cinza-borda: #e5e7eb;
+	--cinza-texto: #374151;
+	--branco: #ffffff;
+	--sombra-leve: 0 4px 12px rgba(0, 0, 0, 0.06);
+	--sombra-media: 0 8px 30px rgba(0, 0, 0, 0.1);
+	--raio-borda: 12px;
+}
+
+/* Estilos Base */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+	background-color: var(--cinza-fundo);
+	color: var(--cinza-texto);
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Container Principal */
+.page-wrapper {
+	margin: 2rem auto;
+	padding: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 2.5rem;
+}
+
+/* Títulos */
+h1, h2 {
+	color: var(--azul-profundo);
+	font-weight: 700;
+}
+
+h1 {
+	font-size: 2.2rem;
+	text-align: center;
+	margin-bottom: 0.5rem;
+}
+
+h2 {
+	font-size: 1.8rem;
+	padding-bottom: 0.8rem;
+	border-bottom: 2px solid var(--azul-medio);
+	margin-bottom: 1.5rem;
+}
+
+/* Card de Informações da Agência */
+.info-card {
+	background: var(--branco);
+	border-radius: var(--raio-borda);
+	padding: 2rem;
+	box-shadow: var(--sombra-leve);
+	transition: box-shadow 0.3s ease;
+	margin-top: 12.5%;
+}
+
+.info-card:hover {
+	box-shadow: var(--sombra-media);
+}
+
+.info-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 1.5rem;
+}
+
+.info-item {
+	display: flex;
+	flex-direction: column;
+}
+
+.info-item strong {
+	font-weight: 600;
+	color: var(--azul-escuro);
+	font-size: 0.9rem;
+	margin-bottom: 0.2rem;
+}
+
+.info-item span {
+	font-size: 1rem;
+}
+
+/* Botões */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
+	padding: 0.8rem 1.8rem;
+	border: none;
+	border-radius: 50px;
+	font-weight: 600;
+	font-size: 1rem;
+	cursor: pointer;
+	text-decoration: none;
+	transition: all 0.3s ease;
+}
+
+.btn-primario {
+	background: linear-gradient(45deg, var(--azul-medio), var(--azul-escuro));
+	color: white;
+	box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25);
+	margin: 20px;
+}
+
+.btn-primario:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 6px 15px rgba(59, 130, 246, 0.35);
+}
+
+.card-actions {
+	margin-top: 2rem;
+	text-align: right;
+}
+
+/* Container da Tabela */
+.table-container {
+	background-color: var(--branco);
+	border-radius: var(--raio-borda);
+	box-shadow: var(--sombra-leve);
+	padding: 2rem;
+	overflow-x: auto;
+	/* Garante que a tabela não quebre o layout em telas menores */
+}
+
+.table-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1.5rem;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+
+.table-header h2 {
+	margin: 0;
+	border: none;
+}
+
+/* Tabela */
+.data-table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.data-table th, .data-table td {
+	padding: 1rem;
+	text-align: left;
+	vertical-align: middle;
+	border-bottom: 1px solid var(--cinza-borda);
+}
+
+.data-table thead th {
+	background-color: var(--azul-profundo);
+	color: var(--branco);
+	font-weight: 600;
+	font-size: 0.9rem;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+/* Estilo para cantos arredondados do cabeçalho */
+.data-table thead th:first-child {
+	border-top-left-radius: 8px;
+}
+
+.data-table thead th:last-child {
+	border-top-right-radius: 8px;
+}
+
+.data-table tbody tr {
+	transition: background-color 0.2s ease;
+}
+
+/* Efeito Zebra-striping */
+.data-table tbody tr:nth-child(even) {
+	background-color: var(--cinza-fundo);
+}
+
+.data-table tbody tr:hover {
+	background-color: var(--azul-claro);
+}
+
+.data-table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+.no-data-message {
+	text-align: center;
+	padding: 2rem;
+	font-style: italic;
+	color: #6c757d;
+}
+
+/* Responsividade */
+@media ( max-width : 768px) {
+	.page-wrapper {
+		padding: 1rem;
+		margin: 1rem auto;
+	}
+	h1 {
+		font-size: 1.8rem;
+	}
+	h2 {
+		font-size: 1.5rem;
+	}
+	.info-card, .table-container {
+		padding: 1.5rem;
+	}
+	.info-grid {
+		grid-template-columns: 1fr; /* Coluna única em telas menores */
+		gap: 1rem;
+	}
+	.card-actions {
+		text-align: center;
+	}
+
+	/* Transforma a tabela em lista de cards */
+	.data-table thead {
+		display: none;
+	}
+	.data-table, .data-table tbody, .data-table tr, .data-table td {
+		display: block;
+		width: 100%;
+	}
+	.data-table tr {
+		margin-bottom: 1rem;
+		border: 1px solid var(--cinza-borda);
+		border-radius: var(--raio-borda);
+		padding: 1rem;
+	}
+	.data-table td {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border: none;
+		padding: 0.6rem 0;
+	}
+	.data-table td::before {
+		content: attr(data-label);
+		font-weight: 600;
+		color: var(--azul-escuro);
+		padding-right: 1rem;
+	}
+}
+
+.mensagem-sucesso {
+	background: #16a34a;
+	color: white;
+	padding: 12px;
+	border-radius: 8px;
+	margin-bottom: 15px;
+	text-align: center;
+	font-weight: bold;
+}

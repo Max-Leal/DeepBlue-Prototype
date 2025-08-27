@@ -22,7 +22,7 @@ public class AgenciaLocalController {
         return AgenciaLocalDao.getAgenciasByLocalId(idLocal);
     }
 
-    public List<AgenciaLocal> getLocaisPorAgencia(int idAgencia) {
+    public List<AgenciaLocal> getLocaisPorAgencia(Long idAgencia) {
         return AgenciaLocalDao.getLocaisByAgenciaId(idAgencia);
     }
 }
