@@ -127,6 +127,15 @@ h2 {
 	box-shadow: 0 6px 15px rgba(59, 130, 246, 0.35);
 }
 
+.btn-red {
+	background: linear-gradient(45deg, var(--azul-medio), var(--azul-escuro));
+	color: white;
+	box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25);
+	margin: 20px;
+
+}
+
+
 .card-actions {
 	margin-top: 2rem;
 	text-align: right;

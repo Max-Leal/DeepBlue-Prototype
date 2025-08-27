@@ -96,12 +96,12 @@ public class AgenciaLocalDao {
         return lista;
     }
 
-    public static void delete(int idAgencia, int idLocal) {
+    public static void delete(Long idAgencia, Long idLocal) {
         try (Connection con = ConexaoDB.getConexao()) {
             String sql = "DELETE FROM tb_agencia_local WHERE id_agencia = ? AND id_local = ?";
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setInt(1, idAgencia);
-            stm.setInt(2, idLocal);
+            stm.setLong(1, idAgencia);
+            stm.setLong(2, idLocal);
             stm.execute();
             stm.close();
         } catch (Exception e) {

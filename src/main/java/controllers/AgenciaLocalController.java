@@ -14,7 +14,7 @@ public class AgenciaLocalController {
         return AgenciaLocalDao.getAll();
     }
 
-    public void remover(int idAgencia, int idLocal) {
+    public void remover(Long idAgencia, Long idLocal) {
         AgenciaLocalDao.delete(idAgencia, idLocal);
     }
 

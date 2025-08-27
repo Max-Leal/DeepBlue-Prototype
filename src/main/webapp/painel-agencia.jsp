@@ -136,6 +136,7 @@
 						<th>Profundidade</th>
 						<th>Latitude</th>
 						<th>Longitude</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -149,6 +150,7 @@
 						<td data-label="Profundidade"><%=l.getProfundidade()%>m</td>
 						<td data-label="Latitude"><%=l.getLatitude()%></td>
 						<td data-label="Longitude"><%=l.getLongitude()%></td>
+						<td data-label="remover-vinculo"><a href="remover-vinculo.jsp?id=<%= l.getId() %>">Remover vinculo</a></td>				
 					</tr>
 					<%
 					}
@@ -177,5 +179,6 @@
 
 	</div>
 	<jsp:include page="components/chat.jsp" />
+	
 </body>
 </html>
