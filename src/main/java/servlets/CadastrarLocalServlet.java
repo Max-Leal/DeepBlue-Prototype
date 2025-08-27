@@ -17,6 +17,7 @@ import models.Local;
 public class CadastrarLocalServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -28,42 +29,51 @@ public class CadastrarLocalServlet extends HttpServlet {
         if (agenciaLogada == null) {
             response.sendRedirect("login-agencia.jsp");
             return;
-        }
-
-        long idAgencia = agenciaLogada.getId();
-
-        
-        String nome = request.getParameter("nome");
-        String localidade = request.getParameter("localidade");
-        String descricao = request.getParameter("descricao");
-        String tipoEmbarcacao = request.getParameter("tipo_embarcacao");
-        String anoStr = request.getParameter("ano_afundamento");
-        String profundidadeStr = request.getParameter("profundidade");
-        String situacao = request.getParameter("situacao");
-        String latitude = request.getParameter("latitude");
-        String longitude = request.getParameter("longitude");
-
-        // Validação básica
-        if(nome == null || nome.trim().isEmpty() ||
-           localidade == null || localidade.trim().isEmpty() ||
-           descricao == null || descricao.trim().isEmpty() ||
-           anoStr == null || anoStr.trim().isEmpty() ||
-           profundidadeStr == null || profundidadeStr.trim().isEmpty() ||
-           situacao == null || situacao.trim().isEmpty() ||
-           latitude == null || latitude.trim().isEmpty() ||
-           longitude == null || longitude.trim().isEmpty()) {
-
-            request.setAttribute("erro", "Preencha todos os campos necessários.");
-            request.getRequestDispatcher("cadastrar-local.jsp").forward(request, response);
-            return;
-        }
+        } else {
 
         try {
-            
-            int anoAfundamento = Integer.parseInt(anoStr);
-            double profundidade = Double.parseDouble(profundidadeStr);
+            String nome = request.getParameter("nome");
+            String localidade = request.getParameter("localidade");
+            String descricao = request.getParameter("descricao");
+            String tipoEmbarcacao = request.getParameter("tipoEmbarcacao");
 
             
+            Integer anoAfundamento = null;
+            try {
+                String anoStr = request.getParameter("anoAfundamento");
+                if (anoStr != null && !anoStr.isEmpty()) {
+                    anoAfundamento = Integer.parseInt(anoStr);
+                }
+            } catch (NumberFormatException e) {
+                anoAfundamento = null;
+            }
+
+            
+            Double profundidade = null;
+            try {
+                String profStr = request.getParameter("profundidade");
+                if (profStr != null && !profStr.isEmpty()) {
+                    profundidade = Double.parseDouble(profStr);
+                }
+            } catch (NumberFormatException e) {
+                profundidade = null;
+            }
+
+            
+            Situacao situacao = null;
+            try {
+                String situacaoStr = request.getParameter("situacao");
+                if (situacaoStr != null && !situacaoStr.isEmpty()) {
+                    situacao = Situacao.valueOf(situacaoStr.toUpperCase());
+                }
+            } catch (IllegalArgumentException e) {
+                situacao = null;
+            }
+
+            String latitude = request.getParameter("latitude");
+            String longitude = request.getParameter("longitude");
+
+           
             Local local = new Local();
             local.setNome(nome);
             local.setLocalidade(localidade);
@@ -71,30 +81,26 @@ public class CadastrarLocalServlet extends HttpServlet {
             local.setTipoEmbarcacao(tipoEmbarcacao);
             local.setAnoAfundamento(anoAfundamento);
             local.setProfundidade(profundidade);
-            local.setSituacao(Situacao.valueOf(situacao.toUpperCase()));
+            local.setSituacao(situacao);
             local.setLatitude(latitude);
             local.setLongitude(longitude);
 
             
-            LocalDao localDao = new LocalDao();
-            int idLocal = localDao.inserirERetornarId(local);
+         
+            LocalDao.insert(local);
 
-          
-            localDao.vincularAgenciaLocal((long)idLocal, idAgencia);
+            
+            request.setAttribute("mensagemSucesso", "Local cadastrado com sucesso!"); 
+            request.getRequestDispatcher("painel-agencia.jsp").forward(request, response);
 
-          
-            response.sendRedirect("ListarLocaisServlet?msg=localCadastrado");
-
-        } catch (NumberFormatException e) {
-            request.setAttribute("erro", "Ano de afundamento ou profundidade inválidos.");
-            request.getRequestDispatcher("cadastrar-local.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("erro", "Erro ao cadastrar local: " + e.getMessage());
-            request.getRequestDispatcher("cadastrar-local.jsp").forward(request, response);
+            response.sendRedirect("painel-agencia.jsp");
         }
     }
+    }
 }
+
 
 
 
