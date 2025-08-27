@@ -8,9 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style type="text/css">
         body {
@@ -93,10 +92,8 @@
             line-height: 1.5;
             text-align: center;
             margin: 0 0 0.5rem 0;
-
             border-radius: 8px;
             padding: 0.7rem 1rem;
-
             transition: transform 0.25s cubic-bezier(.4, 1.4, .6, 1), box-shadow 0.25s;
         }
 
@@ -108,9 +105,8 @@
         .img-fundo {
             position: absolute;
             bottom: 0;
-            left: -10%;
-            transform: translateX(-20%);
-            transition-duration: 3s;
+            left: 15%;
+            transform: translateX(-50%);
             width: 50%;
             height: auto;
             opacity: 0.8;
@@ -120,18 +116,19 @@
         }
     </style>
 </head>
+
 <body>
-<script src="static/js/header.js"></script>
+    <script src="static/js/header.js"></script>
     <section class="hero" id="hero">
         <div class="hero-image-wrapper">
 
             <div class="particles" id="particles"></div>
             <div class="hero-overlay">
                 <div class="hero-content">
-                    <h1>Reviva os Naufrágios Históricos em Santa Catarina</h1>
-                    <p>Conectando pessoas ao litoral catarinense.</p>
+                    <h1>Conexão aos Naufrágios Históricos em Santa Catarina</h1>
+                    <p>Conectando pessoas a experiências únicas no litoral catarinense.</p>
                     <a href="#valores" class="cta-btn" id="descubra-btn">
-                        <i class="fas fa-compass"></i> Descubra mais
+                        <i class="fas fa-compass"></i> Descubra Experiências
                     </a>
                 </div>
             </div>
@@ -174,20 +171,21 @@
         <div class="cards">
             <div class="card fade-in">
                 <h3>Mapa Interativo</h3>
-                <p>Descubra naufrágios, atividades e pontos turísticos filtráveis.</p>
+                <p>Descubra naufrágios, atividades e pontos turísticos filtráveis com nossa tecnologia de ponta.</p>
             </div>
             <div class="card fade-in">
                 <h3>Recomendações Personalizadas</h3>
-                <p>Busque experiências para você com base em suas preferências.</p>
+                <p>Encontre experiências sob medida para você com base em suas preferências e histórico.</p>
             </div>
             <div class="card fade-in">
                 <h3>Conexão</h3>
-                <p>Conecte-se a pessoas com o mesmo espírito aventureiro e com disponibilidade para aproveitar as belezas
+                <p>Conecte a pessoas com o mesmo espírito aventureiro e com disponibilidade para aproveitar as belezas
                     de Santa Catarina</p>
             </div>
         </div>
     </section>
     
+    <!--  
     <section class="parceiros fade-in">
         <h2>Nossos Parceiros</h2>
         <div class="parceiros-logos">
@@ -196,8 +194,9 @@
             <img src="static/images/parceiro3.png" alt="Parceiro 3">
         </div>
     </section>
-    <img src="assets/backgroundlogo.png" alt="" class="img-fundo fade-in">
-<script src="static/js/footer.js"></script>
+    -->
+    <img src="assets/backgroundlogo.png" alt="" class="img-fundo">
+    <script src="static/js/footer.js"></script>
 
     <script>
 
@@ -329,7 +328,6 @@
         if (isMobile) {
             const nav = document.querySelector('nav');
             nav.style.display = 'none';
-
         }
     </script>
 </body>

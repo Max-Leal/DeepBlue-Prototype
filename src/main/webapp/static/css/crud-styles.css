@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-
 .crud-section {
     padding: 2rem;
     background-color: #f9f9f9;
@@ -63,7 +62,6 @@
     margin-bottom: 1rem;
     text-align: center;
 }
-
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
