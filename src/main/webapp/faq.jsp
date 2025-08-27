@@ -153,7 +153,7 @@
 </div>
 
         </main>
-        <div style="padding-bottom: 10px"></div>
+        <div style="padding-bottom: 5%"></div>
         <script src="static/js/footer.js"></script>
     </div>
     <script src="static/js/whatsapp-widget.js"></script>
