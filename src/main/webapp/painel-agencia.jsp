@@ -57,7 +57,7 @@ body {
 
 /* Container Principal */
 .page-wrapper {
-	max-width: 1200px;
+	
 	margin: 2rem auto;
 	padding: 2rem;
 	display: flex;
@@ -137,10 +137,14 @@ h2 {
 }
 
 .btn-primario {
+
 	background: linear-gradient(45deg, var(--azul-medio), var(--azul-escuro));
 	color: white;
 	box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25);
+	margin: 20px;
+	
 }
+
 
 .btn-primario:hover {
 	transform: translateY(-3px);
@@ -283,10 +287,34 @@ h2 {
 		padding-right: 1rem;
 	}
 }
+.mensagem-sucesso{
+        background: #16a34a;
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: bold;
+        }
 </style>
 </head>
 
 <body>
+<% String msg = (String) request.getAttribute("mensagemSucesso"); %>
+<% if (msg != null) { %>
+    <div>
+        <%= msg %>
+    </div>
+<% } %>
+
+<script>
+    const msgDiv = document.getElementById("mensagem-sucesso");
+    if (msgDiv) {
+        setTimeout(() => {
+            msgDiv.style.display = "none";
+        }, 3000);
+    }
+</script>
 
 	<%
 	Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
@@ -351,19 +379,22 @@ h2 {
 				<a href="vincular-local.jsp" class="btn btn-primario"> <i
 					class="fas fa-plus"></i> Vincular-se a um local
 				</a>
+				
+				
 			</div>
 
 			<%
-			@SuppressWarnings("unchecked")
-			List<Local> locais = (List<Local>) request.getAttribute("locais");
-			if (locais == null) {
-				LocalDao dao = new LocalDao();
-				locais = dao.listarPorAgencia(agenciaLogada.getId());
-				request.setAttribute("locais", locais);
-			}
+    @SuppressWarnings("unchecked")
+    List<Local> locais = (List<Local>) request.getAttribute("locais");
+    if (locais == null) {
+        LocalDao dao = new LocalDao();
+        locais = dao.getLista();
+        request.setAttribute("locais", locais);
+    }
 
-			if (locais != null && !locais.isEmpty()) {
-			%>
+    if (locais != null && !locais.isEmpty()) {
+%>
+
 			<table class="data-table">
 				<thead>
 					<tr>
@@ -392,6 +423,7 @@ h2 {
 					%>
 				</tbody>
 			</table>
+			
 			<%
 			} else {
 			%>
@@ -401,6 +433,13 @@ h2 {
 			<%
 			}
 			%>
+			<div>
+			<a href="cadastrar-local.jsp" class="btn btn-primario"> <i
+					class="fas fa-plus"></i> Cadastrar um novo local
+				</a>
+				</div>
+			
+			
 		</div>
 
 	</div>
