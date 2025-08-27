@@ -75,7 +75,7 @@ if (idParam != null) {
 
 		if (agencia != null) {
 	AgenciaLocalController alController = new AgenciaLocalController();
-	locaisRelacionados = alController.getLocaisPorAgencia(agencia.getId().intValue());
+	locaisRelacionados = alController.getLocaisPorAgencia(agencia.getId());
 
 	AvaliacaoAgenciaController avController = new AvaliacaoAgenciaController();
 	avaliacoes = avController.getAvaliacoesPorAgencia(agencia.getId());
