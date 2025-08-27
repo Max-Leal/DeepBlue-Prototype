@@ -1,6 +1,9 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ page
-	import="models.Agencia, java.util.List, models.Local, daos.LocalDao"%>
+	import="models.Agencia, java.util.List, models.Local, daos.LocalDao, controllers.LocalController"%>
+	<%
+	LocalController lc = new LocalController();
+	%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -384,13 +387,7 @@ h2 {
 			</div>
 
 			<%
-    @SuppressWarnings("unchecked")
-    List<Local> locais = (List<Local>) request.getAttribute("locais");
-    if (locais == null) {
-        LocalDao dao = new LocalDao();
-        locais = dao.getLista();
-        request.setAttribute("locais", locais);
-    }
+    List<Local> locais = lc.listaLocais();
 
     if (locais != null && !locais.isEmpty()) {
 %>
