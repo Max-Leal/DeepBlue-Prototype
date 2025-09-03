@@ -276,6 +276,46 @@ section {
 	color: gold;
 }
 
+.perfil-contato {
+	text-align: center;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	place-items: center;
+	margin: 3%;
+	gap: 20px; /* Espaço entre os itens */
+}
+
+.perfil-contato>div {
+	background-color: #f0f0f0;
+	padding: 15px 20px;
+	border-radius: 8px;
+	width: 100%;
+	max-width: 200px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+	transition: transform 0.2s ease;
+}
+
+.perfil-contato>div:hover {
+	transform: scale(1.05);
+}
+
+.perfil-contato a {
+	color: #007bff;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.perfil-contato a:hover {
+	text-decoration: underline;
+}
+
+/* Responsivo: 1 coluna em telas pequenas */
+@media ( max-width : 600px) {
+	.perfil-contato {
+		grid-template-columns: 1fr;
+	}
+}
+
 @media ( max-width : 600px) {
 	.local-card {
 		width: 100%;
@@ -330,24 +370,45 @@ section {
 				}
 				%>
 			</h3>
-			<p>
-				<strong>CNPJ:</strong>
-				<%=agencia.getCnpj()%></p>
-			<p>
-				<strong>Email:</strong>
-				<%=agencia.getEmail()%></p>
-			<p>
-				<strong>Situação:</strong>
-				<%
-				String disponibilidadeAgencia;
-				if (agencia.getSituacao().toString().toLowerCase().replace("_", " ").equals("disponivel")) {
-					disponibilidadeAgencia = "Disponível";
-				} else {
-					disponibilidadeAgencia = "Indisponível";
-				}
-				%>
-				<%=disponibilidadeAgencia%></p>
+			<div>
+				<p>
+					<strong>CNPJ:</strong>
+					<%=agencia.getCnpj()%></p>
+				<p>
+					<strong>Email:</strong>
+					<%=agencia.getEmail()%></p>
+				<p>
+					<strong>Situação:</strong>
+					<%
+					String disponibilidadeAgencia;
+					if (agencia.getSituacao().toString().toLowerCase().replace("_", " ").equals("disponivel")) {
+						disponibilidadeAgencia = "Disponível";
+					} else {
+						disponibilidadeAgencia = "Indisponível";
+					}
+					%>
+					<%=disponibilidadeAgencia%></p>
+			</div>
+			<div class="perfil-contato">
+				<div class="telefone"><%=agencia.getTelefone()%></div>
 
+				<%
+				String rawWhatsapp = agencia.getWhatsapp();
+				String cleanWhatsapp = rawWhatsapp.replaceAll("\\D", "");
+				%>
+
+				<div class="whatsapp">
+					<a href="https://wa.me/<%=cleanWhatsapp%>" target="_blank">Whatsapp</a>
+				</div>
+
+				<div class="instagram">
+					<a href="<%=agencia.getInstagram()%>" target="_blank">Instagram</a>
+				</div>
+			</div>
+
+			<div>
+				<p><%=agencia.getDescricao()%></p>
+			</div>
 			<section>
 				<h2>Locais onde esta agência opera</h2>
 				<%
