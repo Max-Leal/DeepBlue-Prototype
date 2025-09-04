@@ -16,7 +16,7 @@ services:
       - DB_USER=root
       - DB_PASSWORD=root
     networks:
-      - minha-rede
+      - app-network
     depends_on:
       - db-mysql # Garante que o container do banco de dados inicie antes da aplicação
 
@@ -37,11 +37,11 @@ services:
       # CORREÇÃO: Mapeia o seu arquivo .sql diretamente
       - ./deepblue.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - minha-rede
+      - app-network
 
 # Define os volumes e redes
 volumes:
   mysql-data:
 
 networks:
-  minha-rede:
+  app-network:
