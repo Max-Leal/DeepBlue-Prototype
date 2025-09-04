@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # Serviço para a Aplicação Java com Tomcat
+  app-java:
+    build: .  # Constrói a imagem a partir do Dockerfile na pasta atual
+    container_name: tomcat-app-java
+    restart: always
+    ports:
+      - "8080:8080"  # Mapeia a porta 8080 do host para a 8080 do container
+    environment:
+      # Passa as credenciais do banco como variáveis de ambiente para a sua aplicação
+      - DB_HOST=db-mysql
+      - DB_PORT=3306
+      - DB_NAME=root
+      - DB_USER=root
+      - DB_PASSWORD=root
+    networks:
+      - minha-rede
+    depends_on:
+      - db-mysql # Garante que o container do banco de dados inicie antes da aplicação
+
+  # Serviço para o Banco de Dados MySQL
+  db-mysql:
+    image: mysql:8.0
+    container_name: mysql-server
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_segura
+      MYSQL_DATABASE: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    volumes:
+      - mysql-data:/var/lib/mysql
+      # CORREÇÃO: Mapeia o seu arquivo .sql diretamente
+      - ./deepblue.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - minha-rede
+
+# Define os volumes e redes
+volumes:
+  mysql-data:
+
+networks:
+  minha-rede:
