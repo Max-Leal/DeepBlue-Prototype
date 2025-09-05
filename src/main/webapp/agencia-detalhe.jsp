@@ -394,7 +394,10 @@ section {
 
 				<%
 				String rawWhatsapp = agencia.getWhatsapp();
-				String cleanWhatsapp = rawWhatsapp.replaceAll("\\D", "");
+				String cleanWhatsapp = null;
+				if (rawWhatsapp != null) {
+					cleanWhatsapp = rawWhatsapp.replaceAll("\\D", "");
+				} 
 				%>
 
 				<div class="whatsapp">
