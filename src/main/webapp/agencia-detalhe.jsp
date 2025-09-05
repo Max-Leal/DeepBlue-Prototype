@@ -104,224 +104,9 @@ escalaAgencia = escalaAgencia / avaliacoes.size();
 <link rel="stylesheet" href="static/css/main-styles.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<style>
-.agency-contact-container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 1rem; /* Adiciona um espaço antes das estrelas */
-}
-
-.agency-name {
-	margin: 0;
-	font-size: 2.5rem; /* Mantém o tamanho original do seu H1 */
-	color: var(--azul-escuro);
-}
-
-.chat-button {
-	padding: 10px 18px;
-	font-size: 1em;
-	font-weight: bold;
-	color: white;
-	background-color: var(--azul-escuro); /* Usa a cor do seu tema */
-	border: none;
-	border-radius: 8px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-	white-space: nowrap; /* Impede que o texto quebre linha */
-}
-
-.chat-button:hover {
-	background-color: var(--azul-medio); /* Usa a cor do seu tema */
-}
-
-section {
-	margin-top: 2rem;
-	margin-bottom: 2rem;
-}
-
-.detalhes-container {
-	margin-top: 120px;
-	padding: 3rem 2rem;
-	max-width: 800px;
-	margin-left: auto;
-	margin-right: auto;
-	background: var(--cinza-claro);
-	border-radius: 20px;
-	box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-}
-
-.detalhes-container h1 {
-	font-size: 2.5rem;
-	color: var(--azul-escuro);
-	margin-bottom: 1rem;
-}
-
-.detalhes-container p {
-	font-size: 1.1rem;
-	margin-bottom: 0.8rem;
-	color: var(--cinza-medio);
-}
-
-/* Estilos para lista de locais */
-.locais-lista {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1.5rem;
-	margin-top: 2rem;
-}
-
-.local-card {
-	background: white;
-	border-radius: 12px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-	padding: 1.5rem;
-	width: calc(50% - 1.5rem);
-	box-sizing: border-box;
-	transition: box-shadow 0.3s ease;
-}
-
-.local-card:hover {
-	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.local-card h3 {
-	color: var(--azul-escuro);
-	margin-bottom: 0.5rem;
-}
-
-.local-card p {
-	color: var(--cinza-medio);
-	margin-bottom: 0.3rem;
-}
-
-.avaliacoes-form {
-	margin-top: 2rem;
-}
-
-.avaliacoes-form textarea {
-	width: 100%;
-	height: 100px;
-	padding: 12px;
-	border-radius: 8px;
-	border: 1px solid #ccc;
-	font-size: 1rem;
-	resize: vertical;
-}
-
-.avaliacoes-form button {
-	margin-top: 10px;
-	padding: 10px 20px;
-	background-color: var(--azul-escuro);
-	color: #fff;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-}
-
-.avaliacoes-form button:hover {
-	background-color: var(--azul-medio);
-}
-
-/* Lista de avaliações */
-.avaliacoes-lista {
-	margin-top: 2rem;
-}
-
-.avaliacao {
-	background-color: #f5f5f5;
-	border-radius: 10px;
-	padding: 1rem;
-	margin-bottom: 1rem;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-.avaliacao strong {
-	color: var(--azul-escuro);
-	font-size: 1rem;
-}
-
-.avaliacao span {
-	font-size: 0.9rem;
-	color: var(--cinza-medio);
-	margin-left: 10px;
-}
-
-.avaliacao p {
-	margin-top: 0.5rem;
-	font-size: 1rem;
-	color: #333;
-}
-
-.stars {
-	direction: rtl;
-	unicode-bidi: bidi-override;
-	font-size: 2em;
-	display: inline-flex;
-}
-
-.stars input {
-	display: none;
-}
-
-.stars label {
-	color: #ccc;
-	cursor: pointer;
-}
-
-.stars input:checked ~ label, .stars label:hover, .stars label:hover ~
-	label {
-	color: gold;
-}
-
-.perfil-contato {
-	text-align: center;
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	place-items: center;
-	margin: 3%;
-	gap: 20px; /* Espaço entre os itens */
-}
-
-.perfil-contato>div {
-	background-color: #f0f0f0;
-	padding: 15px 20px;
-	border-radius: 8px;
-	width: 100%;
-	max-width: 200px;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-	transition: transform 0.2s ease;
-}
-
-.perfil-contato>div:hover {
-	transform: scale(1.05);
-}
-
-.perfil-contato a {
-	color: #007bff;
-	text-decoration: none;
-	font-weight: bold;
-}
-
-.perfil-contato a:hover {
-	text-decoration: underline;
-}
-
-/* Responsivo: 1 coluna em telas pequenas */
-@media ( max-width : 600px) {
-	.perfil-contato {
-		grid-template-columns: 1fr;
-	}
-}
-
-@media ( max-width : 600px) {
-	.local-card {
-		width: 100%;
-	}
-}
-</style>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="static/css/agencia-detalhe.css">
 </head>
 <body>
 	<div class="page-wrapper">
@@ -389,28 +174,80 @@ section {
 					%>
 					<%=disponibilidadeAgencia%></p>
 			</div>
+
+
 			<div class="perfil-contato">
-				<div class="telefone"><%=agencia.getTelefone()%></div>
+				<div class="telefone">
+					<%
+					if (agencia.getTelefone() != null && !agencia.getTelefone().isEmpty()) {
+					%>
+					<i class="fa-solid fa-phone"></i>
+					<%=agencia.getTelefone()%>
+					<%
+					} else {
+					%>
+					<span class="sem-info">(Esta agência não possui telefone)</span>
+					<%
+					}
+					%>
+				</div>
 
 				<%
 				String rawWhatsapp = agencia.getWhatsapp();
-				String cleanWhatsapp = null;
-				if (rawWhatsapp != null) {
-					cleanWhatsapp = rawWhatsapp.replaceAll("\\D", "");
-				} 
 				%>
-
 				<div class="whatsapp">
-					<a href="https://wa.me/<%=cleanWhatsapp%>" target="_blank">Whatsapp</a>
+					<%
+					if (rawWhatsapp != null && !rawWhatsapp.isEmpty()) {
+						String cleanWhatsapp = rawWhatsapp.replaceAll("\\D", "");
+					%>
+					<a href="https://wa.me/<%=cleanWhatsapp%>" target="_blank"> <i
+						class="fab fa-whatsapp"></i> Whatsapp
+					</a>
+					<%
+					} else {
+					%>
+					<span class="sem-info">(Nenhum WhatsApp conectado)</span>
+					<%
+					}
+					%>
 				</div>
 
+
 				<div class="instagram">
-					<a href="<%=agencia.getInstagram()%>" target="_blank">Instagram</a>
+					<%
+					String instagramUrl = agencia.getInstagram();
+					if (instagramUrl != null && !instagramUrl.isEmpty()) {
+
+						// VERIFICAÇÃO: Se a URL não começar com http, adiciona https://
+						if (!instagramUrl.startsWith("http")) {
+							instagramUrl = "https://" + instagramUrl;
+						}
+					%>
+					<a href="<%=instagramUrl%>" target="_blank"> <i
+						class="fab fa-instagram"></i> Instagram
+					</a>
+					<%
+					} else {
+					%>
+					<span class="sem-info">(Nenhum Instagram conectado)</span>
+					<%
+					}
+					%>
 				</div>
 			</div>
 
 			<div>
+				<%
+				if (agencia.getDescricao() != null && !agencia.getDescricao().isEmpty()) {
+				%>
 				<p><%=agencia.getDescricao()%></p>
+				<%
+				} else {
+				%>
+				<p class="sem-info">(Esta agência não possui descrição)</p>
+				<%
+				}
+				%>
 			</div>
 			<section>
 				<h2>Locais onde esta agência opera</h2>
@@ -577,40 +414,7 @@ section {
 		<script src="static/js/footer.js"></script>
 	</div>
 
-	<script type="text/javascript"> document.addEventListener('DOMContentLoaded', () => {
-	  const el = document.getElementById("informacoes-login");
-	  const usuario = localStorage.getItem("usuario");
-	  const agencia = localStorage.getItem("agencia");
-
-	  const dados = usuario ? JSON.parse(usuario) : agencia ? JSON.parse(agencia) : null;
-	  const nome = dados?.nome || dados?.nomeEmpresarial;
-	  const email = dados?.email;
-
-	  if (el && nome && email) {
-	    const div = document.createElement("div");
-	    div.className = "usuario-logado";
-
-	    ["Bem-vindo, " + nome, email].forEach(text => {
-	      div.appendChild(document.createTextNode(text));
-	      div.appendChild(document.createElement("br"));
-	    });
-
-	    const btn = document.createElement("button");
-	    btn.textContent = "Sair";
-	    btn.id = "logout-btn";
-	    btn.style.marginTop = "0.5rem";
-	    btn.onclick = () => {
-	      localStorage.removeItem("usuario");
-	      localStorage.removeItem("agencia");
-	      location.reload();
-	    };
-
-	    div.appendChild(btn);
-	    el.replaceWith(div);
-	  }
-	});
-
-
+	<script type="text/javascript"> 
     // Header scroll effect
     window.addEventListener('scroll', () => {
         const header = document.getElementById('header');
