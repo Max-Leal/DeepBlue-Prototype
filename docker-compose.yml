@@ -9,16 +9,18 @@ services:
     ports:
       - "8080:8080"
     environment:
+      # Credenciais que a aplicação Java usará para conectar.
+      # Devem ser IGUAIS às definidas no serviço db-mysql abaixo.
       - DB_HOST=db-mysql
       - DB_PORT=3306
       - DB_NAME=deepblue
-      - DB_USER=meuusuario
-      - DB_PASSWORD=minhasenha_segura
+      - DB_USER=deepblue_user # <--- ALTERADO para um usuário dedicado
+      - DB_PASSWORD=deepblue_pass # <--- ALTERADO para uma senha segura
     networks:
-      - minha-rede
-    depends_on: # <--- SEÇÃO MODIFICADA
+      - app-network
+    depends_on: # <--- MODIFICADO para esperar o banco ficar saudável
       db-mysql:
-        condition: service_healthy # <-- Agora espera o banco ficar "saudável"
+        condition: service_healthy
 
   # Serviço para o Banco de Dados MySQL
   db-mysql:
@@ -28,16 +30,19 @@ services:
     ports:
       - "3306:3306"
     environment:
+      # Define a senha do superusuário 'root' do MySQL.
       MYSQL_ROOT_PASSWORD: root_password_segura
+      # Cria o banco de dados inicial.
       MYSQL_DATABASE: deepblue
-      MYSQL_USER: meuusuario
-      MYSQL_PASSWORD: minhasenha_segura
+      # Cria um usuário dedicado para a aplicação. NÃO PODE SER 'root'.
+      MYSQL_USER: deepblue_user # <--- ALTERADO para um novo usuário
+      MYSQL_PASSWORD: deepblue_pass # <--- ALTERADO para a senha do novo usuário
     volumes:
       - mysql-data:/var/lib/mysql
       - ./deepblue.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - minha-rede
-    healthcheck: # <--- SEÇÃO ADICIONADA
+      - app-network
+    healthcheck: # <--- ADICIONADO para garantir que o MySQL está pronto
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
       interval: 10s
       timeout: 5s
@@ -48,4 +53,4 @@ volumes:
   mysql-data:
 
 networks:
-  minha-rede:
+  app-network:

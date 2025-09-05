@@ -21,11 +21,12 @@ public class ConexaoDB {
             port = "3306";
             dbName = "deepblue"; // O nome do seu banco local
             usuario = "root";    // Seu usuário local
-            senha = "root";        // Sua senha local (se houver, coloque aqui)
+            senha = "";        // Sua senha local
         }
 
         // Monta a URL de conexão do JDBC
-        String url = "jdbc:mysql://" + host + ":" + port + "/" + dbName + "?useSSL=false&serverTimezone=UTC";
+        // A ÚNICA MUDANÇA É AQUI -> adicionamos "&allowPublicKeyRetrieval=true"
+        String url = "jdbc:mysql://" + host + ":" + port + "/" + dbName + "?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
