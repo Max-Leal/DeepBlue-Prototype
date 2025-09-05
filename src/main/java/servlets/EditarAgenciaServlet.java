@@ -36,7 +36,7 @@ public class EditarAgenciaServlet extends HttpServlet {
         agenciaAlterada.setNomeEmpresarial(nome);
         agenciaAlterada.setCnpj(cnpj);
         agenciaAlterada.setEmail(email);
-        agenciaAlterada.setSenha(senha);
+        agenciaAlterada.setSenhaHash(senha);
         agenciaAlterada.setSituacao(situacao);
         agenciaAlterada.setDescricao(descricao);
         agenciaAlterada.setCep(cep);
