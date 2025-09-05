@@ -16,12 +16,11 @@ public class ConexaoDB {
 
         // Se as variáveis de ambiente não existirem, usa a configuração para o ambiente local (Eclipse)
         if (host == null || host.isEmpty()) {
-            System.out.println("INFO: Variáveis de ambiente não encontradas. Usando configuração de banco de dados local.");
             host = "localhost";
             port = "3306";
             dbName = "deepblue"; // O nome do seu banco local
             usuario = "root";    // Seu usuário local
-            senha = "";        // Sua senha local
+            senha = "root";        // Sua senha local
         }
 
         // Monta a URL de conexão do JDBC
