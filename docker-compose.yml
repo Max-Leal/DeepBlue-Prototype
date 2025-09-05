@@ -3,22 +3,22 @@ version: '3.8'
 services:
   # Serviço para a Aplicação Java com Tomcat
   app-java:
-    build: .  # Constrói a imagem a partir do Dockerfile na pasta atual
+    build: .
     container_name: tomcat-app-java
     restart: always
     ports:
-      - "8080:8080"  # Mapeia a porta 8080 do host para a 8080 do container
+      - "8080:8080"
     environment:
-      # Passa as credenciais do banco como variáveis de ambiente para a sua aplicação
       - DB_HOST=db-mysql
       - DB_PORT=3306
       - DB_NAME=deepblue
-      - DB_USER=root
-      - DB_PASSWORD=root
+      - DB_USER=meuusuario
+      - DB_PASSWORD=minhasenha_segura
     networks:
-      - app-network
-    depends_on:
-      - db-mysql # Garante que o container do banco de dados inicie antes da aplicação
+      - minha-rede
+    depends_on: # <--- SEÇÃO MODIFICADA
+      db-mysql:
+        condition: service_healthy # <-- Agora espera o banco ficar "saudável"
 
   # Serviço para o Banco de Dados MySQL
   db-mysql:
@@ -30,18 +30,22 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root_password_segura
       MYSQL_DATABASE: deepblue
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_USER: meuusuario
+      MYSQL_PASSWORD: minhasenha_segura
     volumes:
       - mysql-data:/var/lib/mysql
-      # CORREÇÃO: Mapeia o seu arquivo .sql diretamente
       - ./deepblue.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - app-network
+      - minha-rede
+    healthcheck: # <--- SEÇÃO ADICIONADA
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 # Define os volumes e redes
 volumes:
   mysql-data:
 
 networks:
-  app-network:
+  minha-rede:
