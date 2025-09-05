@@ -12,8 +12,8 @@ services:
       - DB_HOST=db-mysql
       - DB_PORT=3306
       - DB_NAME=deepblue
-      - DB_USER=root
-      - DB_PASSWORD=root
+      - DB_USER=deepblue_user
+      - DB_PASSWORD=deepblue_pass
     networks:
       - app-network
     depends_on:
@@ -30,8 +30,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: deepblue
-      MYSQL_USER: root 
-      MYSQL_PASSWORD: root 
+      MYSQL_USER: deepblue_user
+      MYSQL_PASSWORD: deepblue_pass
     volumes:
       - mysql-data:/var/lib/mysql
       - ./deepblue.sql:/docker-entrypoint-initdb.d/init.sql
