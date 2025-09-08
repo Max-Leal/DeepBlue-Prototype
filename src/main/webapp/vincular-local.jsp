@@ -8,55 +8,21 @@
                  java.util.Set,
                  java.util.stream.Collectors" %>
 
-<%-- ==================================================================================== --%>
-<%-- PARTE 1: LÓGICA PARA PROCESSAR A AÇÃO DE VINCULAR --%>
-<%-- ==================================================================================== --%>
 <%
     // Pega a agência logada da sessão
     Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
 
-    // Pega o parâmetro da URL que indica qual local deve ser vinculado
-    String localParaVincularIdStr = request.getParameter("vincularLocalId");
+    // LÓGICA PARA EXIBIR MENSAGENS DE SUCESSO/ERRO VINDAS DO SERVLET
     String mensagemSucesso = null;
-
-    // Se o parâmetro existir e a agência estiver logada...
-    if (localParaVincularIdStr != null && !localParaVincularIdStr.isEmpty() && agenciaLogada != null) {
-        try {
-            // Converte os IDs
-            Long idLocal = Long.parseLong(localParaVincularIdStr);
-            Long idAgencia = agenciaLogada.getId();
-
-            // Cria o objeto de vínculo
-            AgenciaLocal novoVinculo = new AgenciaLocal();
-            novoVinculo.setIdAgencia(idAgencia);
-            novoVinculo.setIdLocal(idLocal);
-
-            // Usa o controller para salvar no banco
-            AgenciaLocalController alc = new AgenciaLocalController();
-            alc.adicionar(novoVinculo);
-
-            // Define uma mensagem de sucesso para ser exibida
-            // Usamos a sessão para que a mensagem persista após o redirect
-            session.setAttribute("mensagemSucesso", "Vínculo com o local realizado com sucesso!");
-            
-            // REDIRECIONA para a mesma página SEM o parâmetro na URL.
-            // Isso evita que o vínculo seja criado novamente se o usuário atualizar a página (Padrão Post-Redirect-Get)
-            response.sendRedirect("vincular-local.jsp");
-            return; // Impede o resto da página de ser processada nesta requisição
-
-        } catch (NumberFormatException e) {
-            // Tratar erro se o ID não for um número válido (opcional)
-            System.err.println("ID de local inválido: " + localParaVincularIdStr);
-        } catch (Exception e) {
-            // Tratar outros possíveis erros de banco de dados (opcional)
-            e.printStackTrace();
-        }
-    }
-
-    // Pega a mensagem de sucesso da sessão (se houver) e depois a remove
     if (session.getAttribute("mensagemSucesso") != null) {
         mensagemSucesso = (String) session.getAttribute("mensagemSucesso");
         session.removeAttribute("mensagemSucesso");
+    }
+    
+    String mensagemErro = null;
+    if (session.getAttribute("mensagemErro") != null) {
+        mensagemErro = (String) session.getAttribute("mensagemErro");
+        session.removeAttribute("mensagemErro");
     }
 %>
 <!DOCTYPE html>
@@ -69,24 +35,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="static/css/painel-agencia-styles.css">
-    
-    <style>
-        /* Estilos adicionais para feedback visual */
-        .alert {
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid transparent;
-            border-radius: 4px;
-        }
-        .alert-success {
-            color: #155724;
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-        }
-        .btn-vincular { background-color: #28a745; color: white; }
+    <link rel="stylesheet" href="static/css/painel-agencia-styles.css"> <style>
+        .alert { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
+        .alert-success { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
+        .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
+        .btn-vincular { background-color: #28a745; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
         .btn-vincular:hover { background-color: #218838; }
         .status-vinculado { color: #28a745; font-weight: bold; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: #01203a; }
+        .input-padrao { width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem; }
     </style>
 </head>
 <body>
@@ -102,27 +60,36 @@
                 <h2><i class="fas fa-map-marker-alt"></i> Vincular-se a um Local</h2>
             </div>
             
-            <%-- ==================================================================================== --%>
-            <%-- PARTE 2: EXIBIÇÃO DA MENSAGEM DE SUCESSO --%>
-            <%-- ==================================================================================== --%>
+            <%-- Exibição de mensagens --%>
             <% if (mensagemSucesso != null) { %>
-                <div class="alert alert-success">
-                    <%= mensagemSucesso %>
-                </div>
+                <div class="alert alert-success"><%= mensagemSucesso %></div>
             <% } %>
+            <% if (mensagemErro != null) { %>
+                <div class="alert alert-danger"><%= mensagemErro %></div>
+            <% } %>
+
+            <%-- ==================================================================================== --%>
+            <%-- PARTE 1: CAMPO PARA INSERIR O TIPO DE SERVIÇO --%>
+            <%-- ==================================================================================== --%>
+            <div class="form-group">
+                <label for="tipoAtividadeInput">1. Informe o tipo de serviço oferecido neste local:</label>
+                <input type="text" id="tipoAtividadeInput" name="tipoAtividade" class="input-padrao" 
+                       placeholder="Ex: Mergulho com cilindro, Passeio de escuna, Pesca esportiva..." required>
+            </div>
+
+            <p style="font-weight: 600; color: #01203a; margin-bottom: 1rem;">2. Escolha um local para se vincular:</p>
 
             <%
             LocalController lc = new LocalController();
             List<Local> todosLocais = lc.listaLocais();
 
-            // Pega a lista de locais JÁ VINCULADOS a esta agência para saber o que mostrar na tabela
             AgenciaLocalController alc = new AgenciaLocalController();
-            Set<Long> idsLocaisVinculados = null;
+            Set<Integer> idsLocaisVinculados = null; // MUDANÇA: Usando Integer para corresponder ao Model
             if (agenciaLogada != null) {
+                // Supondo que getLocaisPorAgencia receba um Long
                 List<AgenciaLocal> vinculosExistentes = alc.getLocaisPorAgencia(agenciaLogada.getId());
-                // Converte a lista para um Set de IDs para busca rápida (muito mais eficiente)
                 idsLocaisVinculados = vinculosExistentes.stream()
-                                                        .map(AgenciaLocal::getIdLocal) // Supondo que o método se chame getIdLocal()
+                                                        .map(AgenciaLocal::getIdLocal) // Agora retorna int
                                                         .collect(Collectors.toSet());
             }
 
@@ -148,18 +115,22 @@
                         <td data-label="Profundidade"><%= l.getProfundidade() %>m</td>
                         
                         <%-- ==================================================================================== --%>
-                        <%-- PARTE 3: LÓGICA CONDICIONAL PARA MOSTRAR BOTÃO OU STATUS --%>
+                        <%-- PARTE 2: LÓGICA COM FORMULÁRIO EM CADA LINHA --%>
                         <%-- ==================================================================================== --%>
-                        <% if (idsLocaisVinculados != null && idsLocaisVinculados.contains(l.getId())) { %>
+                        <% if (idsLocaisVinculados != null && idsLocaisVinculados.contains(l.getId().intValue())) { // MUDANÇA: convertendo Long para int na comparação %>
                             <td data-label="Status"><span class="status-vinculado"><i class="fas fa-check-circle"></i> Vinculado</span></td>
                             <td data-label="Ação">
                                 </td>
                         <% } else { %>
                             <td data-label="Status">Disponível</td>
                             <td data-label="Ação">
-                                <a href="vincular-local.jsp?vincularLocalId=<%= l.getId() %>" class="btn btn-vincular">
-                                    <i class="fas fa-link"></i> Vincular
-                                a>
+                                <form action="vincularAgenciaLocal" method="post" class="form-vincular">
+                                    <input type="hidden" name="idLocal" value="<%= l.getId() %>">
+                                    
+                                    <button type="submit" class="btn btn-vincular">
+                                        <i class="fas fa-link"></i> Vincular
+                                    </button>
+                                </form>
                             </td>
                         <% } %>
                     </tr>
@@ -167,9 +138,7 @@
                 </tbody>
             </table>
             <% } else { %>
-            <div class="no-data-message">
-                <p>Nenhum local disponível para vínculo no momento.</p>
-            </div>
+            <div class="no-data-message"><p>Nenhum local disponível para vínculo no momento.</p></div>
             <% } %>
 
              <div style="margin-top: 20px;">
@@ -180,5 +149,46 @@
         </div>
     </div>
     <jsp:include page="components/chat.jsp" />
+
+    <%-- ==================================================================================== --%>
+    <%-- PARTE 3: JAVASCRIPT PARA UNIR OS DADOS --%>
+    <%-- ==================================================================================== --%>
+    <script>
+        // Pega todos os formulários de vínculo da página
+        const vincularForms = document.querySelectorAll('.form-vincular');
+        
+        // Pega o campo de texto principal onde o serviço é digitado
+        const tipoAtividadeInput = document.getElementById('tipoAtividadeInput');
+
+        // Adiciona um 'escutador' para o evento de submit em CADA formulário
+        vincularForms.forEach(form => {
+            form.addEventListener('submit', function(event) {
+                // 1. Impede o envio imediato do formulário
+                event.preventDefault();
+
+                // 2. Pega o texto do campo de serviço e remove espaços em branco
+                const atividade = tipoAtividadeInput.value.trim();
+
+                // 3. Validação: Verifica se o campo de serviço foi preenchido
+                if (atividade === '') {
+                    alert('Por favor, preencha o tipo de serviço antes de se vincular a um local.');
+                    tipoAtividadeInput.focus(); // Coloca o cursor no campo para facilitar
+                    return; // Para a execução
+                }
+
+                // 4. Cria um novo campo <input> oculto dinamicamente
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'tipoAtividade'; // O 'name' deve ser o mesmo que o Servlet espera
+                hiddenInput.value = atividade;
+
+                // 5. Adiciona o novo campo oculto ao formulário que foi clicado
+                this.appendChild(hiddenInput);
+
+                // 6. Agora, envia o formulário com os dois dados (idLocal e tipoAtividade)
+                this.submit();
+            });
+        });
+    </script>
 </body>
 </html>
