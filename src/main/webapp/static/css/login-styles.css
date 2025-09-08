@@ -112,6 +112,17 @@ nav a:hover::after {
     margin-bottom: 1px;
 }
 
+.type-login {
+	text-align: center;
+	align-items: center;
+}
+
+.type-login p {
+	color: var(--azul-escuro);
+	font-weight: bold;
+	text-transform: capitalize;
+}
+
 /* Container de Login/Cadastro */
 .hero-login-container {
     background: rgba(255, 255, 255, 0.95);
@@ -333,7 +344,7 @@ nav a:hover::after {
     display: flex;
     justify-content: center;
     border-radius: 12px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
     overflow: hidden;
 }
 

@@ -44,11 +44,15 @@
         <section class="hero">
             <div class="hero-login-container">
                 <h2 class="hero-login-title">Entrar na sua conta</h2>
-
+  
                 <div class="btns">
                     <button id="usuario" class="active"
                         style="background: var(--azul-espuma); color: var(--azul-escuro); box-shadow: 0 2px 8px rgba(96,165,250,0.15); border: #3b82f6 1px solid;">Usuário</button>
                     <button id="agencia">Agência</button>
+                </div>
+                
+                <div class="type-login">
+                	<p>Usuário</p>
                 </div>
 
                 <% if (!mensagem.isEmpty()) { %>
