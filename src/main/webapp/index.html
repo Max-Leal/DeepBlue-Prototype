@@ -1,36 +1,132 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
-    <title>DeepBlue SC - Turismo Náutico em Santa Catarina</title>
+    <title>DeepBlue - Turismo Náutico em Santa Catarina</title>
     <link rel="stylesheet" href="static/css/main-styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header class="header" id="header">
-        <div class="logo">DeepBlue SC</div>
-        <nav>
-            <a href="index.html"><i class="fas fa-home"></i> Início</a>
-            <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
-            <a href="locais.jsp"><i class="fas fa-map-marker-alt"></i> Locais</a>
-            <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
-            <a href="faq.html"><i class="fas fa-comments"></i> FAQ</a>
-            <a href="login-usuario.html"><i class="fas fa-user"></i> Login/Cadastro</a>
-        </nav>
-    </header>
 
+    <style type="text/css">
+        body {
+            background-image: url("assets/backgroundmar.png");
+            background-position: center top;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        .info-projeto {
+            max-width: 900px;
+            margin: 48px auto 32px auto;
+            padding: 0;
+            background: none;
+            border-radius: 0;
+            box-shadow: none;
+            font-family: 'Poppins', Arial, sans-serif;
+            color: #1a3557;
+            text-align: center;
+        }
+
+        .info-projeto h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+            color: var(--dourado);
+            text-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+
+        .info-projeto h2::after {
+            content: '';
+            display: block;
+            width: 86px;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6 0%, #f59e0b 100%);
+            border-radius: 2px;
+            margin: 10px auto 0 auto;
+
+        }
+
+        .quem-somos-box {
+            padding: 2.2rem 1.7rem 1.7rem 1.7rem;
+            margin: 0 auto 2rem auto;
+            max-width: 700px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .quem-somos-titulo {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--dourado);
+            text-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+            margin-bottom: 0.3rem;
+            margin-top: 1.2rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+
+        .quem-somos-titulo::after {
+            content: '';
+            display: block;
+            width: 36px;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6 0%, #f59e0b 100%);
+            border-radius: 2px;
+            margin: 10px auto 0 auto;
+        }
+
+        .quem-somos-texto {
+            font-size: 1.08rem;
+            color: #ffffff;
+            line-height: 1.5;
+            text-align: center;
+            margin: 0 0 0.5rem 0;
+            border-radius: 8px;
+            padding: 0.7rem 1rem;
+            transition: transform 0.25s cubic-bezier(.4, 1.4, .6, 1), box-shadow 0.25s;
+        }
+
+        .quem-somos-texto:hover {
+            transform: scale(1.035);
+            box-shadow: 0 4px 18px rgba(59, 130, 246, 0.10);
+        }
+
+        .img-fundo {
+            position: absolute;
+            bottom: 0;
+            left: 15%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: auto;
+            opacity: 0.8;
+            pointer-events: none;
+            filter: blur(2px);
+            z-index: -1;        
+        }
+    </style>
+</head>
+
+<body>
+    <script src="static/js/header.js"></script>
     <section class="hero" id="hero">
         <div class="hero-image-wrapper">
-            <img src="assets/Naufragio.jpg" alt="Turismo Náutico SC" class="hero-image">
+
             <div class="particles" id="particles"></div>
             <div class="hero-overlay">
                 <div class="hero-content">
-                    <h1>Explore o melhor do turismo náutico histórico em Santa Catarina</h1>
-                    <p>Conectando pessoas com experiências únicas no litoral catarinense.</p>
+                    <h1>Conexão aos Naufrágios Históricos em Santa Catarina</h1>
+                    <p>Conectando pessoas a experiências únicas no litoral catarinense.</p>
                     <a href="#valores" class="cta-btn" id="descubra-btn">
                         <i class="fas fa-compass"></i> Descubra Experiências
                     </a>
@@ -41,7 +137,27 @@
             <i class="fas fa-chevron-down"></i>
         </div>
     </section>
+    <section class="info-projeto fade-in" id="info-projeto">
+        <h2>Sobre o Projeto DeepBlue</h2>
+        <div class="quem-somos-box">
+            <div class="quem-somos-texto">
+                <h3 class="quem-somos-titulo">Quem Somos</h3>
+                <p>
+    A <strong>DeepBlue</strong> é uma plataforma inovadora que conecta turistas apaixonados por aventura, história e natureza às melhores <strong>agências de mergulho</strong>. <br>
+    Nosso objetivo é proporcionar experiências <span style="color:#ffa600;font-weight:500;">inesquecíveis</span> de exploração subaquática, facilitando o acesso a <span style="color:#ffc400;font-weight:500;">naufrágios históricos</span> espalhados pela deslumbrante litoral brasileiro. <br>
+</p>
+            </div>
+            <br>
+            <div class="quem-somos-texto">
+                <h3 class="quem-somos-titulo">Nossa Missão</h3>
+               <p>
+    Nossa missão é valorizar o patrimônio subaquático de Santa Catarina, facilitando o acesso dos usuários a experiências imersivas, educativas e sustentáveis. 
+    Unimos aventura e preservação, promovendo o turismo responsável e incentivando a valorização da cultura marítima local.
+</p>
 
+            </div>
+        </div>
+    </section>
     <section class="valores fade-in" id="valores">
         <h2>Nossos Diferenciais</h2>
         <div class="cards">
@@ -54,26 +170,68 @@
                 <p>Encontre experiências sob medida para você com base em suas preferências e histórico.</p>
             </div>
             <div class="card fade-in">
-                <h3>Intermediação Segura</h3>
-                <p>Reserve e pague com segurança total, com suporte dedicado 24/7 para sua tranquilidade.</p>
+                <h3>Conexão</h3>
+                <p>Conecte a pessoas com o mesmo espírito aventureiro e com disponibilidade para aproveitar as belezas
+                    de Santa Catarina</p>
             </div>
         </div>
     </section>
-
+    
+    <!--  
     <section class="parceiros fade-in">
         <h2>Nossos Parceiros</h2>
         <div class="parceiros-logos">
-            <img src="static/images/parceiro1.png" alt="Parceiro 1">
+            <img src="static/images/parceiro1.png" alt="Parceiro 1">    
             <img src="static/images/parceiro2.png" alt="Parceiro 2">
             <img src="static/images/parceiro3.png" alt="Parceiro 3">
         </div>
     </section>
-
-    <footer class="footer">
-        <p>&copy; 2025 DeepBlue SC. Todos os direitos reservados.</p>
-    </footer>
+    -->
+    <img src="assets/backgroundlogo.png" alt="" class="img-fundo">
+    <script src="static/js/footer.js"></script>
 
     <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const el = document.getElementById("informacoes-login");
+            const usuario = localStorage.getItem("usuario");
+            const agencia = localStorage.getItem("agencia");
+
+            const dados = usuario ? JSON.parse(usuario) : agencia ? JSON.parse(agencia) : null;
+            const nome = dados?.nome || dados?.nomeEmpresarial;
+            const email = dados?.email;
+
+            if (el && nome && email) {
+                const div = document.createElement("div");
+                div.className = "usuario-logado";
+
+                ["Bem-vindo, " + nome, email].forEach(text => {
+                    div.appendChild(document.createTextNode(text));
+                    div.appendChild(document.createElement("br"));
+                });
+
+                const btn = document.createElement("button");
+                btn.textContent = "Sair";
+                btn.id = "logout-btn";
+                btn.style.marginTop = "0.5rem";
+                btn.onclick = () => {
+                    localStorage.removeItem("usuario");
+                    localStorage.removeItem("agencia");
+                    location.reload();
+                };
+
+                div.appendChild(btn);
+                el.replaceWith(div);
+            }
+        });
+
+
+
+        function logout() {
+            localStorage.removeItem("usuario");
+            localStorage.removeItem("agencia");
+            location.reload();
+        }
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
@@ -141,7 +299,7 @@
             card.addEventListener('mouseenter', () => {
                 card.style.transform = 'translateY(-10px) scale(1.02)';
             });
-            
+
             card.addEventListener('mouseleave', () => {
                 card.style.transform = 'translateY(0) scale(1)';
             });
@@ -152,7 +310,7 @@
         ctaBtn.addEventListener('mouseenter', () => {
             ctaBtn.style.transform = 'translateY(-3px) scale(1.05)';
         });
-        
+
         ctaBtn.addEventListener('mouseleave', () => {
             ctaBtn.style.transform = 'translateY(0) scale(1)';
         });
@@ -162,9 +320,8 @@
         if (isMobile) {
             const nav = document.querySelector('nav');
             nav.style.display = 'none';
-            
-            // Add mobile menu toggle logic here if needed
         }
     </script>
 </body>
+
 </html>

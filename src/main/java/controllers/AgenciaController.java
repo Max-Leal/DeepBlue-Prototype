@@ -7,39 +7,44 @@ import models.Agencia;
 import utils.HashUtil;
 
 public class AgenciaController {
-	
-	public List<Agencia> listaAgencias() {
-		return  AgenciaDao.getAllAgencias();
-	}
-	
-    // Cadastro de agência
+
+    // Listar todas as agências
+    public List<Agencia> listaAgencias() {
+        return AgenciaDao.getAllAgencias();
+    }
+
+    // Cadastro de nova agência
     public void registerAgencia(Agencia agencia) {
         AgenciaDao.insert(agencia);
     }
 
-    // Login de agência
+    // Autenticação de login de agência
     public boolean loginAgencia(String email, String senha) {
         Agencia agencia = AgenciaDao.getAgenciaByEmail(email);
-     
-        return HashUtil.verificarSenha(senha, agencia.getSenha());
+
+        if (agencia != null) {
+            return HashUtil.verificarSenha(senha, agencia.getSenha());
+        }
+
+        return false;
     }
 
-    // Buscar agência por ID
+    // Buscar uma agência por ID
     public Agencia getAgenciaById(int id) {
         return AgenciaDao.getAgenciaById(id);
     }
 
-    // Buscar agência por email
+    // Buscar uma agência por e-mail
     public Agencia getAgenciaByEmail(String email) {
         return AgenciaDao.getAgenciaByEmail(email);
     }
 
-    // Atualizar agência
-    public void updateAgencia(Long id,Agencia agencia) {
-        AgenciaDao.update(id,agencia);
+    // Atualizar dados da agência
+    public void updateAgencia(Long id, Agencia agencia) {
+        AgenciaDao.update(id, agencia);
     }
 
-    // Deletar agência por ID
+    // Excluir agência pelo ID
     public void deleteAgenciaById(int id) {
         AgenciaDao.deleteById(id);
     }

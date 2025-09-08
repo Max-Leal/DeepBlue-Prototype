@@ -1,0 +1,434 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java"%>
+<%@ page
+	import="models.Agencia, models.Usuario, models.AgenciaLocal, models.Local,  models.AvaliacaoAgencia"%>
+<%@ page import="Enums.Situacao"%>
+<%@ page
+	import="controllers.AgenciaLocalController,  controllers.AgenciaController, controllers.LocalController, controllers.AvaliacaoAgenciaController, controllers.UsuarioController"%>
+<%@ page import="java.util.List, java.util.ArrayList"%>
+<%@ page import="java.time.format.DateTimeFormatter"%>
+<%
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+// ----- LÓGICA DE MENSAGENS E PROCESSAMENTO DO FORMULÁRIO -----
+
+String postMensagem = ""; // Mensagem de erro específica do POST
+String flashMensagem = ""; // Mensagem de sucesso/status vinda do redirect
+
+// 1. Verifica por mensagens "flash" da sessão (após um redirect)
+if (session.getAttribute("flashMensagem") != null) {
+	flashMensagem = (String) session.getAttribute("flashMensagem");
+	session.removeAttribute("flashMensagem"); // Limpa para não mostrar de novo
+}
+
+// 2. Processa o formulário de avaliação (POST)
+if ("POST".equalsIgnoreCase(request.getMethod())) {
+	try {
+		int escala = Integer.parseInt(request.getParameter("estrela"));
+		String sugestao = request.getParameter("avaliacao");
+		String agenciaIdParam = request.getParameter("id"); // O 'id' virá de um input hidden
+
+		Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+
+		if (usuarioLogado == null) {
+	postMensagem = "Você precisa estar logado como usuário para avaliar.";
+		} else if (sugestao == null || sugestao.trim().isEmpty()) {
+	postMensagem = "Por favor, escreva uma sugestão.";
+		} else if (agenciaIdParam == null || agenciaIdParam.trim().isEmpty()) {
+	postMensagem = "ID da agência inválido.";
+		} else {
+	Long agenciaId = Long.parseLong(agenciaIdParam);
+
+	AvaliacaoAgencia avaliacao = new AvaliacaoAgencia();
+	avaliacao.setEscala(escala);
+	avaliacao.setSugestao(sugestao);
+	avaliacao.setUsuarioId(usuarioLogado.getId());
+	avaliacao.setAgenciaId(agenciaId);
+
+	AvaliacaoAgenciaController avController = new AvaliacaoAgenciaController();
+	avController.registrarAvaliacao(avaliacao);
+
+	// **A CORREÇÃO PRINCIPAL:** Salva a mensagem na sessão antes de redirecionar
+	session.setAttribute("flashMensagem", "Avaliação enviada com sucesso!");
+	response.sendRedirect("agencia-detalhe.jsp?id=" + agenciaId);
+	return; // Importante para parar a execução da página aqui
+		}
+	} catch (Exception e) {
+		// Em caso de erro, a página será recarregada mostrando a mensagem de erro
+		postMensagem = "Erro ao enviar avaliação: " + e.getMessage();
+	}
+}
+
+// ----- LÓGICA PARA CARREGAR DADOS DA PÁGINA (GET) -----
+
+String idParam = request.getParameter("id");
+Agencia agencia = null;
+List<AgenciaLocal> locaisRelacionados = new ArrayList<>();
+List<AvaliacaoAgencia> avaliacoes = new ArrayList<>();
+LocalController localController = new LocalController();
+UsuarioController userController = new UsuarioController();
+
+if (idParam != null) {
+	try {
+		int id = Integer.parseInt(idParam);
+		AgenciaController controller = new AgenciaController();
+		agencia = controller.getAgenciaById(id);
+
+		if (agencia != null) {
+	AgenciaLocalController alController = new AgenciaLocalController();
+	locaisRelacionados = alController.getLocaisPorAgencia(agencia.getId());
+
+	AvaliacaoAgenciaController avController = new AvaliacaoAgenciaController();
+	avaliacoes = avController.getAvaliacoesPorAgencia(agencia.getId());
+		}
+	} catch (NumberFormatException e) {
+	}
+}
+
+//Lógica para fazer a média de estrelas:
+double escalaAgencia = 0;
+for (AvaliacaoAgencia av : avaliacoes) {
+	escalaAgencia += av.getEscala();
+}
+
+escalaAgencia = escalaAgencia / avaliacoes.size();
+%>
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title><%=(agencia != null) ? agencia.getNomeEmpresarial() : "Agência não encontrada"%></title>
+
+<link rel="stylesheet" href="static/css/main-styles.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="static/css/agencia-detalhe.css">
+</head>
+<body>
+	<div class="page-wrapper">
+		<%
+		Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+		Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
+		%>
+		<script>
+    window.usuarioLogado = <%=usuarioLogado != null ? "\"" + usuarioLogado.getNome() + "\"" : "null"%>;
+    window.usuarioEmail = <%=usuarioLogado != null ? "\"" + usuarioLogado.getEmail() + "\"" : "null"%>;
+    window.agenciaLogada = <%=agenciaLogada != null ? "\"" + agenciaLogada.getNomeEmpresarial() + "\"" : "null"%>;
+    window.agenciaEmail = <%=agenciaLogada != null ? "\"" + agenciaLogada.getEmail() + "\"" : "null"%>;
+</script>
+
+		<script src="static/js/header.js"></script>
+
+		<main class="detalhes-container">
+			<%
+			if (agencia != null) {
+			%>
+			<div class="agency-contact-container">
+				<h1 class="agency-name"><%=agencia.getNomeEmpresarial()%></h1>
+				<button class="chat-button"
+					data-chave="agencia-<%=agencia.getId()%>"
+					data-nome="<%=agencia.getNomeEmpresarial()%>"
+					onclick="iniciarChatComAgencia(this)">Iniciar Conversa</button>
+			</div>
+
+			<h3 style="margin: 0px; margin-bottom: 10px">
+
+				<%
+				for (int i = 1; i <= 5; i++) {
+				%>
+				<%
+				if (i <= escalaAgencia) {
+				%>
+				<span style="color: gold;">&#9733;</span>
+				<%
+				} else {
+				%>
+				<span style="color: #ccc;">&#9733;</span>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+			</h3>
+			<div>
+				<p>
+					<strong>CNPJ:</strong>
+					<%=agencia.getCnpj()%></p>
+				<p>
+					<strong>Email:</strong>
+					<%=agencia.getEmail()%></p>
+				<p>
+					<strong>Situação:</strong>
+					<%
+					String disponibilidadeAgencia;
+					if (agencia.getSituacao().toString().toLowerCase().replace("_", " ").equals("disponivel")) {
+						disponibilidadeAgencia = "Disponível";
+					} else {
+						disponibilidadeAgencia = "Indisponível";
+					}
+					%>
+					<%=disponibilidadeAgencia%></p>
+			</div>
+
+
+			<div class="perfil-contato">
+				<div class="telefone">
+					<%
+					if (agencia.getTelefone() != null && !agencia.getTelefone().isEmpty()) {
+					%>
+					<i class="fa-solid fa-phone"></i>
+					<%=agencia.getTelefone()%>
+					<%
+					} else {
+					%>
+					<span class="sem-info">(Esta agência não possui telefone)</span>
+					<%
+					}
+					%>
+				</div>
+
+				<%
+				String rawWhatsapp = agencia.getWhatsapp();
+				%>
+				<div class="whatsapp">
+					<%
+					if (rawWhatsapp != null && !rawWhatsapp.isEmpty()) {
+						String cleanWhatsapp = rawWhatsapp.replaceAll("\\D", "");
+					%>
+					<a href="https://wa.me/<%=cleanWhatsapp%>" target="_blank"> <i
+						class="fab fa-whatsapp"></i> Whatsapp
+					</a>
+					<%
+					} else {
+					%>
+					<span class="sem-info">(Nenhum WhatsApp conectado)</span>
+					<%
+					}
+					%>
+				</div>
+
+
+				<div class="instagram">
+					<%
+					String instagramUrl = agencia.getInstagram();
+					if (instagramUrl != null && !instagramUrl.isEmpty()) {
+
+						// VERIFICAÇÃO: Se a URL não começar com http, adiciona https://
+						if (!instagramUrl.startsWith("http")) {
+							instagramUrl = "https://" + instagramUrl;
+						}
+					%>
+					<a href="<%=instagramUrl%>" target="_blank"> <i
+						class="fab fa-instagram"></i> Instagram
+					</a>
+					<%
+					} else {
+					%>
+					<span class="sem-info">(Nenhum Instagram conectado)</span>
+					<%
+					}
+					%>
+				</div>
+			</div>
+
+			<div>
+				<%
+				if (agencia.getDescricao() != null && !agencia.getDescricao().isEmpty()) {
+				%>
+				<p><%=agencia.getDescricao()%></p>
+				<%
+				} else {
+				%>
+				<p class="sem-info">(Esta agência não possui descrição)</p>
+				<%
+				}
+				%>
+			</div>
+			<section>
+				<h2>Locais onde esta agência opera</h2>
+				<%
+				if (locaisRelacionados != null && !locaisRelacionados.isEmpty()) {
+				%>
+				<div class="locais-lista">
+					<%
+					String disponibilidadeLocal;
+					for (AgenciaLocal al : locaisRelacionados) {
+						Local local = localController.getLocalById(al.getIdLocal());
+						if (local != null) {
+					%>
+					<div class="local-card">
+						<h3>
+							<a href="local-detalhe.jsp?id=<%=local.getId()%>"><%=local.getNome()%></a>
+						</h3>
+						<p>
+							<strong>Localidade:</strong>
+							<%=local.getLocalidade()%></p>
+						<p>
+							<strong>Situação:</strong>
+							<%
+							if (local.getSituacao().toString().toLowerCase().replace("_", " ").equals("disponivel")) {
+								disponibilidadeLocal = "Disponível";
+							} else {
+								disponibilidadeLocal = "Indisponível";
+							}
+							%>
+							<%=disponibilidadeLocal%></p>
+						<p>
+							<strong>Servico oferecido:</strong>
+							<%=al.getTipoAtividade()%></p>
+
+					</div>
+					<%
+					} else {
+					%>
+					<p>
+						Local com ID
+						<%=al.getIdLocal()%>
+						não encontrado.
+					</p>
+					<%
+					}
+					}
+					%>
+				</div>
+				<%
+				} else {
+				%>
+				<p>Esta agência não opera em nenhum local cadastrado.</p>
+				<%
+				}
+				%>
+			</section>
+
+			<%
+			} else {
+			%>
+			<h1>Agência não encontrada</h1>
+			<p>Verifique se o ID está correto na URL.</p>
+			<%
+			}
+			%>
+
+			<section>
+				<h2>Avaliações</h2>
+
+
+				<%
+				if (!flashMensagem.isEmpty()) {
+				%>
+				<div
+					style="padding: 1rem; margin-bottom: 1rem; border-radius: 8px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;">
+					<%=flashMensagem%>
+				</div>
+				<%
+				}
+				%>
+				<%
+				if (!postMensagem.isEmpty()) {
+				%>
+				<div
+					style="padding: 1rem; margin-bottom: 1rem; border-radius: 8px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;">
+					<%=postMensagem%>
+				</div>
+				<%
+				}
+				%>
+
+
+				<form class="avaliacoes-form" method="post"
+					action="agencia-detalhe.jsp?id=<%=agencia.getId()%>">
+					<input type="hidden" name="id" value="<%=agencia.getId()%>">
+
+					<div class="stars">
+						<input type="radio" id="estrela5" name="estrela" value="5"
+							required /><label for="estrela5">&#9733;</label> <input
+							type="radio" id="estrela4" name="estrela" value="4" /><label
+							for="estrela4">&#9733;</label> <input type="radio" id="estrela3"
+							name="estrela" value="3" /><label for="estrela3">&#9733;</label>
+						<input type="radio" id="estrela2" name="estrela" value="2" /><label
+							for="estrela2">&#9733;</label> <input type="radio" id="estrela1"
+							name="estrela" value="1" /><label for="estrela1">&#9733;</label>
+					</div>
+					<textarea name="avaliacao" placeholder="Digite sua avaliação..."
+						required></textarea>
+					<button type="submit">Enviar Avaliação</button>
+				</form>
+
+				<div class="avaliacoes-lista">
+
+					<%
+					if (avaliacoes != null && !avaliacoes.isEmpty()) {
+
+						for (AvaliacaoAgencia av : avaliacoes) {
+
+							Usuario user = userController.getUsuarioById(av.getUsuarioId());
+							if (user != null) {
+					%>
+
+
+					<div class="avaliacao">
+						<strong><%=user.getNome()%></strong> <span><%=av.getDataAvaliacao().format(formatter)%></span>
+						<%
+						int nota = av.getEscala();
+						%>
+						<%
+						for (int i = 1; i <= 5; i++) {
+						%>
+						<%
+						if (i <= nota) {
+						%>
+						<span style="color: gold;">&#9733;</span>
+						<%
+						} else {
+						%>
+						<span style="color: #ccc;">&#9733;</span>
+						<%
+						}
+						%>
+						<%
+						}
+						%>
+
+						<p><%=av.getSugestao()%></p>
+					</div>
+					<%
+					}
+					}
+					} else {
+					%>
+					<p>Nenhuma avaliação foi feita para essa agência no momento</p>
+					<%
+					}
+					%>
+				</div>
+
+			</section>
+
+		</main>
+
+		<script src="static/js/footer.js"></script>
+	</div>
+
+	<script type="text/javascript"> 
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+        const header = document.getElementById('header');
+        if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+    
+    
+    </script>
+
+	<jsp:include page="components/chat.jsp" />
+
+</body>
+</html>

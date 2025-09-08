@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # Serviço para a Aplicação Java com Tomcat
+  app-java:
+    build: .
+    container_name: tomcat-app-java
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=db-mysql
+      - DB_PORT=3306
+      - DB_NAME=deepblue
+      - DB_USER=deepblue_user
+      - DB_PASSWORD=deepblue_pass 
+    networks:
+      - app-network
+    depends_on:
+      db-mysql:
+        condition: service_healthy
+
+  # Serviço para o Banco de Dados MySQL
+  db-mysql:
+    image: mysql:8.0
+    container_name: mysql-server
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_segura
+      MYSQL_DATABASE: deepblue
+      MYSQL_USER: deepblue_user 
+      MYSQL_PASSWORD: deepblue_pass 
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./deepblue.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+    healthcheck: 
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+# Define os volumes e redes
+volumes:
+  mysql-data:
+
+networks:
+  app-network:

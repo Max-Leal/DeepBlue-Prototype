@@ -1,0 +1,185 @@
+        .center-container {
+            margin-top: 100px;
+            margin-bottom: 50px;
+            width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-box {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            max-width: 600px;
+            width: 100%;
+            padding: 24px 24px 18px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .post-top {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .post-input-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .post-input-row input[type="text"] {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 16px;
+            outline: none;
+            background: #f0f2f5;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 24px;
+            margin-top: 6px;
+        }
+
+        .post-action {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #65676b;
+            font-size: 15px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .post-action:hover {
+            color: #1877f2;
+        }
+
+        .post-action .fa-image {
+            color: #45bd62;
+        }
+
+        .example-post {
+            border-top: 1px solid #eee;
+            padding-top: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+        }
+
+        .comments-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #65676b;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 8px;
+            width: max-content;
+            user-select: none;
+        }
+
+        .comments-toggle .fa-comment {
+            color: #1877f2;
+        }
+
+        .comments-section {
+            margin-top: 16px;
+            font-size: 14px;
+            background: #fafbfc;
+            border-radius: 8px;
+            padding: 12px 10px 8px 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+        }
+
+        .comments-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .comments-list {
+            margin-bottom: 10px;
+        }
+
+        .comment-item {
+            border-bottom: 1px solid #f0f2f5;
+            padding: 8px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .comment-user {
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .comment-text {
+            margin-left: 2px;
+        }
+
+        .comment-form {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .comment-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 16px;
+            font-size: 14px;
+            outline: none;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .comment-btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 16px;
+            background: #1877f2;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .comment-btn:hover {
+            background: #145db2;
+        }
+
+        .example-post .user-name {
+            font-weight: bold;
+            font-size: 16px;
+            color: #050505;
+        }
+
+        .example-post .post-text {
+            font-size: 15px;
+            color: #050505;
+        }
+
+        .example-post img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 6px;
+            object-fit: cover;
+            max-height: 300px;
+        }
+
+        @media (max-width: 650px) {
+            .main-box {
+                max-width: 98vw;
+                padding: 12px 4vw;
+            }
+        }
