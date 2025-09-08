@@ -162,16 +162,18 @@ CREATE TABLE IF NOT EXISTS tb_avaliacao_foto_local (
 
 ```sql
 INSERT INTO tb_usuario (id, nome, email, senha, foto) VALUES
-(1, 'Ana Souza', 'ana@email.com', 'senha123', NULL),
-(2, 'Carlos Lima', 'carlos@email.com', 'abc12345', NULL);
+(1, 'Max Augusto Leal da Silva', 'max@gmail.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL),
+(2, 'Matheus Miguel Samp', 'matheusmiguelsamp@gmail.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL),
+(3, 'Lucas Antonio', 'lucasantonio@gmail.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL);
 ```
 
 ### tb_agencia
 
 ```sql
 INSERT INTO tb_agencia (id, nome_empresarial, cnpj, email, senha, situacao, descricao, cep, telefone, whatsapp, instagram) VALUES
-(1, 'Agência ViagensSol', '12.345.678/0001-99', 'contato@viagenssol.com', 'sol123', 'disponivel', NULL, NULL, NULL, NULL, NULL),
-(2, 'Mundo Aventuras', '98.765.432/0001-11', 'aventura@mundo.com', 'aventura@2024', 'disponivel', NULL, NULL, NULL, NULL, NULL);
+(1, 'SeaDive', '12.345.678/0001-99', 'seadive@gmail.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'disponivel', 'Especialistas em mergulho e aventuras marítimas. Oferecemos certificações PADI, batismos e expedições guiadas para os mais belos naufrágios e recifes da costa. Nossa missão é conectar você ao oceano com segurança e paixão.', '88385000', '47991234567', '47991234567', 'https://www.instagram.com/seadive.aventuras'),
+(2, 'Mundo Aventuras', '98.765.432/0001-11', 'mundoaventuras@gmail.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'disponivel', 'Sua porta de entrada para a adrenalina e a natureza. Explore trilhas, faça rapel em cachoeiras, navegue de caiaque e mergulhe em locais incríveis. A Mundo Aventuras transforma seu desejo de explorar em realidade.', '88000000', '48988123456', '48988123456', 'https://www.instagram.com/mundo.aventuras.eco');
+
 ```
 
 ### tb_local

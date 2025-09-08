@@ -1,13 +1,11 @@
-# Usar uma imagem base do Tomcat com JDK
-FROM tomcat:9.0-jdk11
+# Usando uma versão estável e recente do Tomcat 10 com JDK 17
+FROM tomcat:10.1-jdk17-temurin
 
-# Limpar apps padrão do Tomcat (opcional)
+# Remove o conteúdo padrão da pasta webapps para evitar conflitos
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copiar o WAR para o diretório webapps do Tomcat
-COPY seu-projeto.war /usr/local/tomcat/webapps/ROOT.war
+# CORREÇÃO: Copia o .war da raiz do projeto, pois ele não está na pasta /app
+COPY ./DeepBlue-Prototype.war /usr/local/tomcat/webapps/ROOT.war
 
-# Expor a porta 8080
+# Expõe a porta padrão do Tomcat
 EXPOSE 8080
-
-# Comando padrão já é start do Tomcat

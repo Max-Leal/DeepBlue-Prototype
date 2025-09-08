@@ -47,7 +47,7 @@
             <div class="logo">DeepBlue</div>
             <nav>
                 <a href="index.html"><i class="fas fa-home"></i> Início</a>
-                <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Mapa Interativo</a>
+                <a href="mapaInterativo.jsp"><i class="fas fa-map"></i> Locais</a>
                 <a href="agencias.jsp"><i class="fas fa-search"></i> Agências</a>
                 <a href="faq.jsp"><i class="fas fa-comments"></i> FAQ</a>
                 ${menuLoginHTML}
