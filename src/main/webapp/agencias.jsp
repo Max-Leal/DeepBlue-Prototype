@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java"%>
 <%@ page import="controllers.AgenciaController"%>
 <%@ page import="models.Agencia"%>
 <%@ page import="models.Usuario"%>
@@ -7,7 +8,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>DeepBlue - Turismo Náutico em Santa Catarina</title>
+<title>DeepBlue - Turismo NÃ¡utico em Santa Catarina</title>
 <link rel="stylesheet" href="static/css/crud-styles.css">
 <link rel="stylesheet" href="static/css/main-styles.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,9 +59,9 @@ body::before {
 	padding: 10px;
 	margin: 0;
 	border-radius: 0; /* Define as bordas quadradas */
-	flex-grow: 1; /* Permite que o input ocupe o espaço disponível */
+	flex-grow: 1; /* Permite que o input ocupe o espaÃ§o disponÃ­vel */
 	font-size: 1rem;
-	border-right: none; /* Remove a borda direita para unir ao botão */
+	border-right: none; /* Remove a borda direita para unir ao botÃ£o */
 }
 
 .search-container button {
@@ -94,7 +95,7 @@ body::before {
 
 	<script src="static/js/header.js"></script>
 	<section class="crud-section" id="agencias">
-		<h1 class="crud-titulo">Agências Cadastradas</h1>
+		<h1 class="crud-titulo">AgÃªncias Cadastradas</h1>
 		<div class="search-container">
 			<form method="get" action="agencias.jsp"
 				style="display: flex; width: 100%;">
@@ -129,7 +130,7 @@ body::before {
 				<div class="crud-info">
 					<b>CNPJ:</b>
 					<%=agencia.getCnpj()%><br> <b>Email:</b>
-					<%=agencia.getEmail()%><br> <b>Situação:</b>
+					<%=agencia.getEmail()%><br> <b>SituaÃ§Ã£o:</b>
 					<%=agencia.getSituacao()%>
 				</div>
 				<div style="margin-top: 1rem;">
@@ -141,7 +142,7 @@ body::before {
 			}
 			} else {
 			%>
-			<p>Nenhuma agência encontrada.</p>
+			<p>Nenhuma agÃªncia encontrada.</p>
 			<%
 			}
 			%>

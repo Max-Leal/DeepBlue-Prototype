@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java"%>
 <%@ page import="controllers.LocalController"%>
 <%@ page import="models.Local, models.Agencia, models.Usuario"%>
 <%@ page import="java.util.*"%>
@@ -59,9 +60,9 @@ body::before {
 	padding: 10px;
 	margin: 0;
 	border-radius: 0; /* Define as bordas quadradas */
-	flex-grow: 1; /* Permite que o input ocupe o espaÁo disponÌvel */
+	flex-grow: 1; /* Permite que o input ocupe o espa√ßo dispon√≠vel */
 	font-size: 1rem;
-	border-right: none; /* Remove a borda direita para unir ao bot„o */
+	border-right: none; /* Remove a borda direita para unir ao bot√£o */
 }
 
 .search-container button {
