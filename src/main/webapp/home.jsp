@@ -239,7 +239,7 @@ body {
 		<div class="dashboard-card profile-card">
 			<h1>Meu Perfil</h1>
 			<img
-				src="${sessionScope.usuarioLogado.foto != null && !sessionScope.usuarioLogado.foto.isEmpty() ? sessionScope.usuarioLogado.foto : 'static/images/default-avatar.png'}"
+				src="${sessionScope.usuarioLogado.foto != null && !sessionScope.usuarioLogado.foto.isEmpty() ? sessionScope.usuarioLogado.foto : 'assets/default-avatar.png'}"
 				alt="Foto de Perfil" class="profile-picture">
 			<div class="profile-details">
 				<p>

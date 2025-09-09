@@ -165,7 +165,7 @@ body::before {
         <% for (Local local : locais) { %>
             L.marker([<%= local.getLatitude() %>, <%= local.getLongitude() %>])
                 .addTo(map)
-                .bindPopup('<b><%= local.getNome() %></b><br><%= local.getDescricao() %><br><a href="local-detalhe.jsp?id=<%= local.getId() %>">Ver detalhes</a>');
+                .bindPopup('<b><%= local.getNome() %></b><br><%= local.getDescricao() %><br><a class="map-button" href="local-detalhe.jsp?id=<%= local.getId() %>">Ver detalhes</a> <br> <a class="map-button" href="https://www.google.com/maps?q=<%=local.getLatitude()%>,<%=local.getLongitude()%>"</a>Google Maps');
         <%}%>
     </script>
 

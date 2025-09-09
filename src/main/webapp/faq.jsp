@@ -199,7 +199,7 @@
             location.reload();
         }
 
-        // Header scroll effect (igual ao index.html)
+        // Header scroll effect (igual ao index.jsp)
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
             if (window.scrollY > 100) {
