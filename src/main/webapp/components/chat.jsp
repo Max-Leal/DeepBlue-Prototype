@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java"%>
 <%@ page
 	import="models.Agencia, models.Usuario, models.Mensagem, Enums.TipoUsuario"%>
 <%@ page
@@ -42,7 +43,7 @@ if (logado) {
 
 	for (Mensagem msg : todasAsMensagens) {
 		String chaveConversa;
-		// A lógica aqui para agrupar mensagens está correta, não precisa mudar.
+		// A lÃ³gica aqui para agrupar mensagens estÃ¡ correta, nÃ£o precisa mudar.
 		if (!msg.getRemetenteId().equals(idUsuarioLogado) || !msg.getRemetenteTipo().equals(tipoUsuarioLogado)) {
 	chaveConversa = msg.getRemetenteTipo().toString() + "-" + msg.getRemetenteId().toString();
 		} else {
@@ -62,23 +63,23 @@ if (logado) {
 		for (Mensagem m : ultimasMensagens) {
 
 			// ===========================================================================
-			// AQUI ESTÁ A CORREÇÃO PRINCIPAL
+			// AQUI ESTÃ A CORREÃ‡ÃƒO PRINCIPAL
 			// ===========================================================================
 			Long idContato = null;
 			TipoUsuario tipoContato = null;
 
-			// CONDIÇÃO CORRIGIDA: Verifica se o remetente da mensagem é EXATAMENTE o usuário logado (mesmo ID E mesmo TIPO)
+			// CONDIÃ‡ÃƒO CORRIGIDA: Verifica se o remetente da mensagem Ã© EXATAMENTE o usuÃ¡rio logado (mesmo ID E mesmo TIPO)
 			if (m.getRemetenteId().equals(idUsuarioLogado) && m.getRemetenteTipo().equals(tipoUsuarioLogado)) {
-				// Se fui eu que enviei a última mensagem, o contato é o destinatário
+				// Se fui eu que enviei a Ãºltima mensagem, o contato Ã© o destinatÃ¡rio
 				idContato = m.getDestinatarioId();
 				tipoContato = m.getDestinatarioTipo();
 			} else {
-				// Se a última mensagem foi recebida, o contato é o remetente
+				// Se a Ãºltima mensagem foi recebida, o contato Ã© o remetente
 				idContato = m.getRemetenteId();
 				tipoContato = m.getRemetenteTipo();
 			}
 			// ===========================================================================
-			// FIM DA CORREÇÃO
+			// FIM DA CORREÃ‡ÃƒO
 			// ===========================================================================
 
 			String chaveConversa = tipoContato.toString() + "-" + idContato.toString();
@@ -135,7 +136,7 @@ if (logado) {
 </div>
 
 <style>
-/* SEU CSS AQUI (sem alterações) */
+/* SEU CSS AQUI (sem alteraÃ§Ãµes) */
 #chat-widget {
 	position: fixed;
 	bottom: 10px;
@@ -264,7 +265,7 @@ if (logado) {
 </style>
 
 <script>
-	// SEU JAVASCRIPT AQUI (sem alterações, a correção anterior já está aqui)
+	// SEU JAVASCRIPT AQUI (sem alteraÃ§Ãµes, a correÃ§Ã£o anterior jÃ¡ estÃ¡ aqui)
 	let chaveConversaAtiva = null;
 	const idUsuarioLogadoJS = <%=idUsuarioLogado%>;
 	const tipoUsuarioLogadoJS = '<%=tipoUsuarioLogado.toString()%>';
