@@ -12,6 +12,14 @@
 	--cinza-medio: #64748b;
 	--dourado: #f59e0b;
 	--dourado-escuro: #d97706;
+
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background: linear-gradient(135deg, var(--azul-profundo) 0%,
+		var(--azul-agua) 100%);
+	min-height: 100vh;
+	position: relative;
+	display: flex;
+	flex-direction: column;
 }
 
 .agency-contact-container {

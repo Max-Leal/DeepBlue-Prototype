@@ -109,7 +109,7 @@ escalaAgencia = escalaAgencia / avaliacoes.size();
 <link rel="stylesheet" href="static/css/agencia-detalhe.css">
 </head>
 <body>
-	<div class="page-wrapper">
+	
 		<%
 		Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
 		Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
@@ -412,7 +412,7 @@ escalaAgencia = escalaAgencia / avaliacoes.size();
 		</main>
 
 		<script src="static/js/footer.js"></script>
-	</div>
+	
 
 	<script type="text/javascript"> 
     // Header scroll effect
