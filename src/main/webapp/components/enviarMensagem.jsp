@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java"%>
 <%@ page import="models.Usuario, models.Agencia, models.Mensagem, Enums.TipoUsuario" %>
 <%@ page import="controllers.MensagemController" %>
 <%@ page import="java.time.LocalDateTime" %>
