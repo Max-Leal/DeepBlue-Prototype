@@ -5,7 +5,7 @@ FROM tomcat:10.1-jdk17-temurin
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # CORREÇÃO: Copia o .war da raiz do projeto, pois ele não está na pasta /app
-COPY ./DeepBlue-Prototype.war /usr/local/tomcat/webapps/ROOT.war
+COPY ./build/DeepBlue-Prototype.war /usr/local/tomcat/webapps/ROOT.war
 
 # Expõe a porta padrão do Tomcat
 EXPOSE 8080
