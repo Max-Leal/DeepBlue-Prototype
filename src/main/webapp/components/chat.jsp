@@ -44,9 +44,9 @@ if (logado) {
 		String chaveConversa;
 		// A lógica aqui para agrupar mensagens está correta, não precisa mudar.
 		if (!msg.getRemetenteId().equals(idUsuarioLogado) || !msg.getRemetenteTipo().equals(tipoUsuarioLogado)) {
-			chaveConversa = msg.getRemetenteTipo().toString() + "-" + msg.getRemetenteId().toString();
+	chaveConversa = msg.getRemetenteTipo().toString() + "-" + msg.getRemetenteId().toString();
 		} else {
-			chaveConversa = msg.getDestinatarioTipo().toString() + "-" + msg.getDestinatarioId().toString();
+	chaveConversa = msg.getDestinatarioTipo().toString() + "-" + msg.getDestinatarioId().toString();
 		}
 		conversasMap.computeIfAbsent(chaveConversa, k -> new ArrayList<>()).add(msg);
 	}
@@ -60,7 +60,7 @@ if (logado) {
 	<div id="chat-contacts">
 		<%
 		for (Mensagem m : ultimasMensagens) {
-			
+
 			// ===========================================================================
 			// AQUI ESTÁ A CORREÇÃO PRINCIPAL
 			// ===========================================================================
@@ -69,13 +69,13 @@ if (logado) {
 
 			// CONDIÇÃO CORRIGIDA: Verifica se o remetente da mensagem é EXATAMENTE o usuário logado (mesmo ID E mesmo TIPO)
 			if (m.getRemetenteId().equals(idUsuarioLogado) && m.getRemetenteTipo().equals(tipoUsuarioLogado)) {
-			    // Se fui eu que enviei a última mensagem, o contato é o destinatário
-			    idContato = m.getDestinatarioId();
-			    tipoContato = m.getDestinatarioTipo();
+				// Se fui eu que enviei a última mensagem, o contato é o destinatário
+				idContato = m.getDestinatarioId();
+				tipoContato = m.getDestinatarioTipo();
 			} else {
-			    // Se a última mensagem foi recebida, o contato é o remetente
-			    idContato = m.getRemetenteId();
-			    tipoContato = m.getRemetenteTipo();
+				// Se a última mensagem foi recebida, o contato é o remetente
+				idContato = m.getRemetenteId();
+				tipoContato = m.getRemetenteTipo();
 			}
 			// ===========================================================================
 			// FIM DA CORREÇÃO
@@ -84,21 +84,33 @@ if (logado) {
 			String chaveConversa = tipoContato.toString() + "-" + idContato.toString();
 
 			if (!conversasProcessadas.contains(chaveConversa)) {
+
 				String nomeContato = "Contato desconhecido";
+				String foto = "assets/default-avatar.png";
 				if (tipoContato.equals(TipoUsuario.usuario)) {
-					Usuario usuario = uc.getUsuarioById(idContato);
-					if (usuario != null)
-						nomeContato = usuario.getNome();
+			Usuario usuario = uc.getUsuarioById(idContato);
+
+			if (usuario != null) {
+				nomeContato = usuario.getNome();
+
+				if (usuario.getFoto() != null) {
+					foto = usuario.getFoto();
+				}
+			}
+
 				} else if (tipoContato.equals(TipoUsuario.agencia)) {
-					Agencia agencia = ac.getAgenciaById(idContato.intValue());
-					if (agencia != null)
-						nomeContato = agencia.getNomeEmpresarial();
+			Agencia agencia = ac.getAgenciaById(idContato.intValue());
+			if (agencia != null) {
+				nomeContato = agencia.getNomeEmpresarial();
+				foto = "assets/agency-avatar.png";
+			}
 				}
 		%>
 		<div class="contact"
 			onclick="abrirChat('<%=chaveConversa%>', '<%=nomeContato%>')"
 			data-chave="<%=chaveConversa%>" data-nome="<%=nomeContato%>">
-			<span class="name-contact"><%=nomeContato%></span> <span
+			<img class="contact-photo" alt="" src="<%=foto%>"> <span
+				class="name-contact"><%=nomeContato%></span> <span
 				class="time-contact"><%=m.getDataEnvio().format(formatter)%></span>
 		</div>
 		<%
@@ -128,12 +140,13 @@ if (logado) {
 	position: fixed;
 	bottom: 10px;
 	right: 20px;
-	width: 320px;
+	width: 360px;
 	font-family: Arial, sans-serif;
 	border-radius: 8px;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 	overflow: hidden;
 }
+
 #chat-header {
 	background: #007bff;
 	color: white;
@@ -142,11 +155,19 @@ if (logado) {
 	text-align: center;
 	font-weight: bold;
 }
+
 #chat-contacts {
 	background-color: white;
 	max-height: 400px;
 	overflow-y: auto;
 }
+
+.contact-photo {
+	max-width: 35px;
+	max-height: 35px;
+	border-radius: 50%;
+}
+
 .contact {
 	padding: 12px;
 	border-bottom: 1px solid #f0f0f0;
@@ -155,23 +176,28 @@ if (logado) {
 	justify-content: space-between;
 	align-items: center;
 }
+
 .contact:hover {
 	background-color: #f9f9f9;
 }
+
 .name-contact {
 	font-weight: bold;
 	color: #333;
 }
+
 .time-contact {
 	font-size: 0.75em;
 	color: #999;
 }
+
 #chat-body {
 	display: none;
 	height: 400px;
 	background: white;
 	flex-direction: column;
 }
+
 #chat-body-header {
 	background: #f1f1f1;
 	padding: 10px;
@@ -181,12 +207,14 @@ if (logado) {
 	align-items: center;
 	border-bottom: 1px solid #ddd;
 }
+
 #close-chat {
 	cursor: pointer;
 	padding: 0 5px;
 	font-size: 1.2em;
 	color: #888;
 }
+
 #chat-messages {
 	flex: 1;
 	padding: 10px;
@@ -196,6 +224,7 @@ if (logado) {
 	display: flex;
 	flex-direction: column;
 }
+
 .message {
 	padding: 8px 12px;
 	border-radius: 18px;
@@ -203,27 +232,32 @@ if (logado) {
 	max-width: 75%;
 	line-height: 1.4;
 }
+
 .sent {
 	background-color: #007bff;
 	color: white;
 	align-self: flex-end;
 	border-bottom-right-radius: 4px;
 }
+
 .received {
 	background-color: #e9e9eb;
 	color: black;
 	align-self: flex-start;
 	border-bottom-left-radius: 4px;
 }
+
 #chat-input-container {
 	border-top: 1px solid #ccc;
 }
+
 #chat-input {
 	border: none;
 	padding: 12px;
 	width: 100%;
 	box-sizing: border-box;
 }
+
 #chat-input:focus {
 	outline: none;
 }
@@ -233,7 +267,7 @@ if (logado) {
 	// SEU JAVASCRIPT AQUI (sem alterações, a correção anterior já está aqui)
 	let chaveConversaAtiva = null;
 	const idUsuarioLogadoJS = <%=idUsuarioLogado%>;
-	const tipoUsuarioLogadoJS = '<%= tipoUsuarioLogado.toString() %>';
+	const tipoUsuarioLogadoJS = '<%=tipoUsuarioLogado.toString()%>';
 	const todasAsConversas = JSON.parse('<%=conversasJson.replace("'", "\\'")%>');
 	
 	const contactsList = document.getElementById("chat-contacts");

@@ -189,7 +189,7 @@ textarea.input-padrao {
 	<%
 	Agencia agenciaLogada = (Agencia) session.getAttribute("agenciaLogada");
 	if (agenciaLogada == null) {
-		response.sendRedirect("index.html");
+		response.sendRedirect("index.jsp");
 		return;
 	}
 	%>
