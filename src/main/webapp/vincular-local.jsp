@@ -124,7 +124,7 @@
                         <% } else { %>
                             <td data-label="Status">Disponível</td>
                             <td data-label="Ação">
-                                <form action="vincularAgenciaLocal" method="post" class="form-vincular">
+                                <form action="${pageContext.request.contextPath}/vincularAgenciaLocal" method="post" class="form-vincular">
                                     <input type="hidden" name="idLocal" value="<%= l.getId() %>">
                                     
                                     <button type="submit" class="btn btn-vincular">

@@ -42,7 +42,7 @@ public class VincularAgenciaLocalServlet extends HttpServlet {
             // Validação simples para garantir que os dados não são nulos
             if (idLocalStr == null || idLocalStr.trim().isEmpty() || tipoAtividade == null || tipoAtividade.trim().isEmpty()) {
                 session.setAttribute("mensagemErro", "Todos os campos são obrigatórios para criar o vínculo.");
-                response.sendRedirect("sua-pagina-de-formulario.jsp"); // Redireciona de volta para o form
+                response.sendRedirect("vincular-local.jsp"); // Redireciona de volta para o form
                 return;
             }
 
